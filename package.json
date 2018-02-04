@@ -1,0 +1,41 @@
+{
+  "name": "infoviz",
+  "version": "1.0.0",
+  "description": "Repo för projektet i informationsvisualisering",
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
+  },
+  "main": "./build/main.js",
+  "scripts": {
+    "start": "node ./build/main.js",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "dev-server": "backpack",
+    "dev-client": "cd client && npm start",
+    "build-server": "backpack build",
+    "build-client": "cd client && npm install && npm run build",
+    "postinstall": "npm run build-client && npm run build-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechpriestV/infoviz.git"
+  },
+  "keywords": [
+    "infoviz",
+    "node",
+    "react",
+    "apollo",
+    "graphql"
+  ],
+  "author": "cmetewhatever",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TechpriestV/infoviz/issues"
+  },
+  "homepage": "https://github.com/TechpriestV/infoviz#readme",
+  "dependencies": {
+    "backpack-core": "^0.5.0",
+    "concurrently": "^3.5.1",
+    "express": "^4.16.2"
+  }
+}
