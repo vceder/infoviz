@@ -37,7 +37,7 @@ exports.getTwitchData = functions.https.onRequest((req, res) => {
         method: 'get',
         url: '/streams',
         params: {
-          first: 10,
+          first: 100,
           type: 'live',
         },
         headers: {
