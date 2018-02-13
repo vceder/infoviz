@@ -10,25 +10,14 @@
   "dependencies": {
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
-    "prettier": "^1.10.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "prettier": "^1.10.2"
   },
   "scripts": {
-    "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "precommit": "lint-staged"
   },
-  "keywords": ["infoviz", "node", "react", "apollo", "graphql"],
+  "keywords": ["infoviz", "node", "vue", "apollo", "graphql"],
   "author": "cmetewhatever",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TechpriestV/infoviz/issues"
-  },
-  "homepage": "https://github.com/TechpriestV/infoviz#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TechpriestV/infoviz.git"
