@@ -26,4 +26,4 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // Make stuff happen here!
 
 // Export the api
-module.exports.api = app;
+module.exports = functions.https.onRequest(app);

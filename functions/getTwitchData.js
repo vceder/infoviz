@@ -33,7 +33,7 @@ const getTwitchToken = twitchAuth({
   },
 });
 
-module.exports.getTwitchData = function getTwitchData(req, res) {
+module.exports = functions.https.onRequest((req, res) => {
   const usersRef = db.collection('users');
   const gamesRef = db.collection('games');
   const timestamp = FieldValue.serverTimestamp();
@@ -163,4 +163,4 @@ module.exports.getTwitchData = function getTwitchData(req, res) {
       console.log(error);
       return res.status(500).send(error);
     });
-};
+});
