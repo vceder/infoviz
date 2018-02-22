@@ -1,7 +1,7 @@
 <template>
   <div class="mapView">
     <div class="toolTip"></div>
-<svg class="mapSvg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="-450 0 2500 1000" xml:space="preserve">
+<svg class="mapSvg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
 
   <g class="pathHolder">
 	<path id="svg_3" class="st0" d="M1481.8,549.5l-3.6-1c0,0-3.8,1.3-5.5,0.6c-2.4-1-5.5-1.8-5.5-1.6h-1.8h-1.8h-3.6h-3.6h-3.6
@@ -2301,13 +2301,26 @@ export default {
 
 </script>
 <style scoped>
-svg{
-  background-image: url("../assets/inspo.png");
-  background-position: center;
-  background-size: 1500px 750px;
+.mapView {
+	width: 100vw;
+	height: 100vh;
+	background-image: url("../assets/inspo.png");
+	background-position: center;
   background-repeat: no-repeat;
-  
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	align-content: center;
+	align-items: center;
 }
+
+.mapSvg {
+	margin-top: -20vh;
+	width: 80vw;
+	height: 100vh;
+}
+
 #svg_3{
   fill:grey;
   stroke:rgb(65, 65, 65);
