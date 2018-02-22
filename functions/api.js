@@ -24,26 +24,30 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
 // Make stuff happen here!
-router.get('/users', function(req, res, next){
-	const requestID = req.query.id;
-	console.log(requestID);
-	if(requestID){
-		// skicka specifik user
-		const usersRef = db.collection('users').doc(requestID);
-		usersRef.get().then(function(doc){
-			if (doc.exists) {
-	        	res.send(doc.data());
-		    } else {
-		        // doc.data() will be undefined in this case
-		        console.log("No such document!");
-		    }
-		})
-	}else{
-		console.log("Här kommer top 100!")
-		// SKicka alla top 100 users
-	}
-	
-	/*
+router.get('/users', (req, res) => {
+  const requestID = req.query.id;
+  console.log(requestID);
+  if (requestID) {
+    // skicka specifik user
+    const usersRef = db.collection('users').doc(requestID);
+    usersRef.get().then((doc) => {
+      if (doc.exists) {
+        return res.status(200).send(doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+        return res.status(500);
+      }
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+  } else {
+    console.log('Här kommer top 100!');
+    // SKicka alla top 100 users
+  }
+
+  /*
 	var docRef = db.collection("cities").doc("SF");
 
 	docRef.get().then(function(doc) {
@@ -56,24 +60,27 @@ router.get('/users', function(req, res, next){
 	}).catch(function(error) {
 	    console.log("Error getting document:", error);
 	});*/
-})
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// // catch 404 and forward to error handler
+// app.use((req, res, next) => {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+// // error handler
+// app.use((err, req, res, next) => {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
+
+app.use('/api', router);
+
 // Export the api
 module.exports = functions.https.onRequest(app);

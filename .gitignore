@@ -161,3 +161,5 @@ GitHub.sublime-settings
 # End of https://www.gitignore.io/api/node,sublimetext,jetbrains+all,visualstudiocode
 
 /build/*
+
+**/.runtimeconfig.json
