@@ -2223,166 +2223,294 @@
 </template>
 
 <script>
-import * as d3 from "d3"
+import * as d3 from 'd3';
+
 export default {
-  name: "mapView",
-  mounted (){
+  name: 'mapView',
+  mounted() {
     //KOLLAR SÅ ATT D3 FUNKAR
-    var group = d3.select(".background")
-    group.on("click", function(d){
-     console.log("BACKGROUND IS CLICKED ", group._groups[0])
-    })
 
-    var tooltip =  d3.select(".toolTip")
-                .style("position", "absolute")
-                .style("display", "inline-block")
-                .style("visibility", "hidden")
-                .style("color", "white") 
-                .style("background-color", "#242625")
-                .style("opacity", 0.8)
-                .style("border-radius", "8px")
-                .style("text-align", "center")
-                .style("font-family", "Helvetica")
-                .style("font-size", "12px")
-                .style("width", "200px")
-                .style("padding", "8px")
-                .text("");
-    var path = d3.select("#battlefield")
-    .on("mouseover", function(d){
-      //SHOW TOOLTIP
-      tooltip.html("<strong> Game </strong>" + "Battle Field </br>"
-      +"<strong> Viewers </strong>" + "1000000 </br>")
-      return tooltip.style("visibility", "visible");
-    })
-    .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
-      })
-    .on("mouseout", function(d){
-      tooltip.empty();
-      return tooltip.style("visibility", "hidden")
-    })
-  var path = d3.select("#CS")
-    .on("mouseover", function(d){
-      //SHOW TOOLTIP
-      tooltip.html("<strong> Game </strong>" + "Counter Srike </br>"
-      +"<strong> Viewers </strong>" + "1000000 </br>")
-      return tooltip.style("visibility", "visible");
-    })
-    .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
-      })
-    .on("mouseout", function(d){
-      tooltip.empty();
-      return tooltip.style("visibility", "hidden")
-    })
-    var path = d3.select("#COD")
-    .on("mouseover", function(d){
-      //SHOW TOOLTIP
-      tooltip.html("<strong> Game </strong>" + "Call of Duty </br>"
-      +"<strong> Viewers </strong>" + "1000000 </br>")
-      return tooltip.style("visibility", "visible");
-    })
-    .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
-      })
-    .on("mouseout", function(d){
-      tooltip.empty();
-      return tooltip.style("visibility", "hidden")
-    })
+    var group = d3.select('.background');
+    group.on('click', function(d) {
+      console.log('BACKGROUND IS CLICKED ', group._groups[0]);
+    });
 
-  //   var mapSvg = d3.select(".mapSvg")
-  //   console.log(mapSvg)
-  //   var group = mapSvg.selectAll("g")
-  //     .call(d3.zoom().on("zoom", function () {
-  //       group.attr("transform", d3.event.transform)
-  // }))
-}
+    var tooltip = d3
+      .select('.toolTip')
+      .style('position', 'absolute')
+      .style('display', 'inline-block')
+      .style('visibility', 'hidden')
+      .style('color', 'white')
+      .style('background-color', '#242625')
+      .style('opacity', 0.8)
+      .style('border-radius', '8px')
+      .style('text-align', 'center')
+      .style('font-family', 'Helvetica')
+      .style('font-size', '12px')
+      .style('width', '200px')
+      .style('padding', '8px')
+      .text('');
+    var path = d3
+      .select('#battlefield')
+      .on('mouseover', function(d) {
+        //SHOW TOOLTIP
+        tooltip.html(
+          '<strong> Game </strong>' +
+            'Battlefield 1</br>' +
+            '<strong> Viewers </strong>' +
+            '1000000 </br>'
+        );
+        return tooltip.style('visibility', 'visible');
+      })
+      .on('mousemove', function() {
+        return tooltip
+          .style('top', d3.event.pageY - 10 + 'px')
+          .style('left', d3.event.pageX + 10 + 'px');
+      })
+      .on('mouseout', function(d) {
+        tooltip.empty();
+        return tooltip.style('visibility', 'hidden');
+      });
+    var path = d3
+      .select('#CS')
+      .on('mouseover', function(d) {
+        //SHOW TOOLTIP
+        tooltip.html(
+          '<strong> Game </strong>' +
+            'Counter Strike </br>' +
+            '<strong> Viewers </strong>' +
+            '1000000 </br>'
+        );
+        return tooltip.style('visibility', 'visible');
+      })
+      .on('mousemove', function() {
+        return tooltip
+          .style('top', d3.event.pageY - 10 + 'px')
+          .style('left', d3.event.pageX + 10 + 'px');
+      })
+      .on('mouseout', function(d) {
+        tooltip.empty();
+        return tooltip.style('visibility', 'hidden');
+      });
+    var path = d3
+      .select('#COD')
+      .on('mouseover', function(d) {
+        //SHOW TOOLTIP
+        tooltip.html(
+          '<strong> Game </strong>' +
+            'Call of Duty </br>' +
+            '<strong> Viewers </strong>' +
+            '1000000 </br>'
+        );
+        return tooltip.style('visibility', 'visible');
+      })
+      .on('mousemove', function() {
+        return tooltip
+          .style('top', d3.event.pageY - 10 + 'px')
+          .style('left', d3.event.pageX + 10 + 'px');
+      })
+      .on('mouseout', function(d) {
+        tooltip.empty();
+        return tooltip.style('visibility', 'hidden');
+      });
+
+    //   var mapSvg = d3.select(".mapSvg")
+    //   console.log(mapSvg)
+    //   var group = mapSvg.selectAll("g")
+    //     .call(d3.zoom().on("zoom", function () {
+    //       group.attr("transform", d3.event.transform)
+    // }))
+  },
 };
-
 </script>
 <style scoped>
 .mapView {
-	width: 100vw;
-	height: 100vh;
-	background-image: url("../assets/inspo.png");
-	background-position: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/inspo.png');
+  background-position: center;
   background-repeat: no-repeat;
-	background-size: cover;
-	display: flex;
-	justify-content: center;
-	flex-direction: row;
-	align-content: center;
-	align-items: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
 
 .mapSvg {
-	margin-top: -20vh;
-	width: 80vw;
-	height: 100vh;
+  margin-top: -20vh;
+  width: 80vw;
+  height: 100vh;
 }
 
-#svg_3{
-  fill:grey;
-  stroke:rgb(65, 65, 65);
+#svg_3 {
+  fill: grey;
+  stroke: rgb(65, 65, 65);
 }
-#svg_6{
-  fill:#BF8BBE;
-  stroke:#BF8BBE;
+#svg_6 {
+  fill: #bf8bbe;
+  stroke: #bf8bbe;
 }
 
-.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:url(#SVGID_1_);}
-	.st2{fill:#A3A2A2;}
-	.st3{fill:#828282;}
-	.st4{fill:#D3D3D3;}
-	.st5{fill:#F8D213;}
-	.st6{fill:#FBAC18;}
-	.st7{fill:#EF5B2D;}
-	.st8{fill:url(#SVGID_2_);}
-	.st9{fill:#2D292A;}
-	.st10{fill:url(#SVGID_3_);}
-	.st11{fill:url(#SVGID_4_);}
-	.st12{fill:url(#SVGID_5_);}
-	.st13{fill:url(#SVGID_6_);}
-	.st14{fill:url(#SVGID_7_);}
-	.st15{fill:url(#SVGID_8_);}
-	.st16{fill:url(#SVGID_9_);}
-	.st17{fill:url(#SVGID_10_);}
-	.st18{fill:url(#SVGID_11_);}
-	.st19{fill:url(#SVGID_12_);}
-	.st20{fill:url(#SVGID_13_);}
-	.st21{fill:url(#SVGID_14_);}
-	.st22{fill:url(#SVGID_15_);}
-	.st23{fill:url(#SVGID_16_);}
-	.st24{fill:url(#SVGID_17_);}
-	.st25{fill:url(#SVGID_18_);}
-	.st26{fill:url(#SVGID_19_);}
-	.st27{fill:url(#SVGID_20_);}
-	.st28{fill:#DEB7D6;}
-	.st29{fill:url(#SVGID_21_);}
-	.st30{fill:#D4B3D5;}
-	.st31{fill:#C69DC5;}
-	.st32{fill:#937C82;}
-	.st33{fill:url(#SVGID_22_);}
-	.st34{fill:url(#SVGID_23_);}
-	.st35{fill:url(#SVGID_24_);}
-	.st36{fill:url(#SVGID_25_);}
-	.st37{fill:url(#SVGID_26_);}
-	.st38{fill:url(#SVGID_27_);}
-	.st39{fill:url(#SVGID_28_);}
-	.st40{fill:url(#SVGID_29_);}
-	.st41{fill:url(#SVGID_30_);}
-	.st42{fill:url(#SVGID_31_);}
-	.st43{fill:url(#SVGID_32_);}
-	.st44{fill:none;}
-	.st45{fill:#FFFFFF;}
-	.st46{font-family:'MuseoSlab-900';}
-	.st47{font-size:23px;}
-	.st48{fill:url(#SVGID_33_);}
-	.st49{fill:url(#SVGID_34_);}
-	.st50{font-family:'MuseoSlab-1000';}
-	.st51{font-size:30px;}
-
+.st0 {
+  fill: none;
+  stroke: #000000;
+  stroke-miterlimit: 10;
+}
+.st1 {
+  fill: url(#SVGID_1_);
+}
+.st2 {
+  fill: #a3a2a2;
+}
+.st3 {
+  fill: #828282;
+}
+.st4 {
+  fill: #d3d3d3;
+}
+.st5 {
+  fill: #f8d213;
+}
+.st6 {
+  fill: #fbac18;
+}
+.st7 {
+  fill: #ef5b2d;
+}
+.st8 {
+  fill: url(#SVGID_2_);
+}
+.st9 {
+  fill: #2d292a;
+}
+.st10 {
+  fill: url(#SVGID_3_);
+}
+.st11 {
+  fill: url(#SVGID_4_);
+}
+.st12 {
+  fill: url(#SVGID_5_);
+}
+.st13 {
+  fill: url(#SVGID_6_);
+}
+.st14 {
+  fill: url(#SVGID_7_);
+}
+.st15 {
+  fill: url(#SVGID_8_);
+}
+.st16 {
+  fill: url(#SVGID_9_);
+}
+.st17 {
+  fill: url(#SVGID_10_);
+}
+.st18 {
+  fill: url(#SVGID_11_);
+}
+.st19 {
+  fill: url(#SVGID_12_);
+}
+.st20 {
+  fill: url(#SVGID_13_);
+}
+.st21 {
+  fill: url(#SVGID_14_);
+}
+.st22 {
+  fill: url(#SVGID_15_);
+}
+.st23 {
+  fill: url(#SVGID_16_);
+}
+.st24 {
+  fill: url(#SVGID_17_);
+}
+.st25 {
+  fill: url(#SVGID_18_);
+}
+.st26 {
+  fill: url(#SVGID_19_);
+}
+.st27 {
+  fill: url(#SVGID_20_);
+}
+.st28 {
+  fill: #deb7d6;
+}
+.st29 {
+  fill: url(#SVGID_21_);
+}
+.st30 {
+  fill: #d4b3d5;
+}
+.st31 {
+  fill: #c69dc5;
+}
+.st32 {
+  fill: #937c82;
+}
+.st33 {
+  fill: url(#SVGID_22_);
+}
+.st34 {
+  fill: url(#SVGID_23_);
+}
+.st35 {
+  fill: url(#SVGID_24_);
+}
+.st36 {
+  fill: url(#SVGID_25_);
+}
+.st37 {
+  fill: url(#SVGID_26_);
+}
+.st38 {
+  fill: url(#SVGID_27_);
+}
+.st39 {
+  fill: url(#SVGID_28_);
+}
+.st40 {
+  fill: url(#SVGID_29_);
+}
+.st41 {
+  fill: url(#SVGID_30_);
+}
+.st42 {
+  fill: url(#SVGID_31_);
+}
+.st43 {
+  fill: url(#SVGID_32_);
+}
+.st44 {
+  fill: none;
+}
+.st45 {
+  fill: #ffffff;
+}
+.st46 {
+  font-family: 'MuseoSlab-900';
+}
+.st47 {
+  font-size: 23px;
+}
+.st48 {
+  fill: url(#SVGID_33_);
+}
+.st49 {
+  fill: url(#SVGID_34_);
+}
+.st50 {
+  font-family: 'MuseoSlab-1000';
+}
+.st51 {
+  font-size: 30px;
+}
 </style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

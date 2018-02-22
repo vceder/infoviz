@@ -26,11 +26,11 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // Make stuff happen here!
 router.get('/users', (req, res) => {
   const requestID = req.query.id;
-  console.log(requestID);
+  const usersRef = db.collection('users');
   if (requestID) {
     // skicka specifik user
-    const usersRef = db.collection('users').doc(requestID);
     usersRef
+      .doc(requestID)
       .get()
       .then((doc) => {
         if (doc.exists) {
@@ -45,7 +45,6 @@ router.get('/users', (req, res) => {
         res.status(500).send(error);
       });
   } else {
-    const usersRef = db.collection('users');
     let top_hundred = [];
     usersRef
       .orderBy('last_live_timestamp')
@@ -56,6 +55,45 @@ router.get('/users', (req, res) => {
           top_hundred.push(doc.data());
         });
         return res.status(200).send(top_hundred);
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  }
+});
+
+// Get games. returns ten games if no id is given.
+router.get('/games', (req, res) => {
+  const requestID = req.query.id;
+  const gamesRef = db.collection('games');
+  if (requestID) {
+    // skicka specifik user
+    gamesRef
+      .doc(requestID)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return res.status(200).send(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+          return res.status(500);
+        }
+      })
+      .catch((error) => {
+        res.status(500).send(error);
+      });
+  } else {
+    let top_ten = [];
+    gamesRef
+      .orderBy('last_live_timestamp')
+      .limit(10)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          top_ten.push(doc.data());
+        });
+        return res.status(200).send(top_ten);
       })
       .catch((error) => {
         res.status(500).send(error);
