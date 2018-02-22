@@ -42,10 +42,28 @@ router.get('/users', (req, res) => {
     .catch((error) => {
       res.status(500).send(error);
     });
-  } else {
-    console.log('Här kommer top 100!');
-    // SKicka alla top 100 users
   }
+
+  else {
+    const usersRef = db.collection('users')
+    var obj_counter = 0;
+    var top_hundred = [];
+    usersRef.get().then(function(querySnapshot){
+      querySnapshot.forEach(function(doc){
+        obj_counter++;
+        if (obj_counter >= 101){
+          return false;
+        }
+        top_hundred.push(doc.data());
+        console.log(obj_counter, " => ", doc.data());
+      });
+      return res.status(200).send(top_hundred);
+    }
+  )
+  .catch((error) => {
+    res.status(500).send(error);
+  });
+}
 });
 
 app.use('/api', router);
