@@ -8,15 +8,15 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-import mapView from "@/components/mapView.vue";
+import HelloWorld from '@/components/HelloWorld.vue';
+import mapView from '@/components/mapView.vue';
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     HelloWorld,
-    mapView
-  }
+    mapView,
+  },
 };
 </script>
 
