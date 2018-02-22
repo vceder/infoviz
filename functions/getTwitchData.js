@@ -1,10 +1,17 @@
 // Imports
+const functions = require('firebase-functions');
 const axios = require('axios');
 const URLSearchParams = require('url-search-params');
 const admin = require('firebase-admin');
 
-// Init the Firebase Admin SDK
-admin.initializeApp(functions.config().firebase);
+// Init Firebase Admin
+try {
+  admin.initializeApp(functions.config().firebase);
+} catch (e) {
+  console.log('App already initialized...');
+}
+
+// Init the Firebase DB
 const db = admin.firestore();
 const FieldValue = admin.firestore.FieldValue;
 

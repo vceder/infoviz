@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "description": "Repo för projektet i informationsvisualisering",
   "private": true,
-  "keywords": ["infoviz", "node", "vue", "apollo", "graphql"],
+  "keywords": [
+    "infoviz",
+    "node",
+    "vue",
+    "apollo",
+    "graphql"
+  ],
   "author": "cmetewhatever",
   "license": "MIT",
   "repository": {
