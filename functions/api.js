@@ -1,4 +1,5 @@
 // Imports
+const functions = require('firebase-functions');
 const express = require('express');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');

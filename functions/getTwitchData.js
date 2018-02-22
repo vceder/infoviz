@@ -1,4 +1,5 @@
 // Imports
+const functions = require('firebase-functions');
 const axios = require('axios');
 const URLSearchParams = require('url-search-params');
 const admin = require('firebase-admin');
