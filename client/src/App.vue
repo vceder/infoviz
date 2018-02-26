@@ -1,32 +1,97 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <map-view/>
+    <div id="menu">
+      <div :class="{'open': (menu === true)}" class="menu-router-view">
+        <router-view/>
+      </div>
+      <div class="menu-toggle">
+        <button @click="$store.commit('setMenu', (!menu))">Menu</button>
+      </div>
     </div>
-    <router-view/>
+    <div id="slider">
+      <p>Slider</p>
+    </div>
   </div>
 </template>
 
-<style>
+<script>
+import mapView from '@/components/mapView.vue';
+import { mapState } from 'vuex';
+
+export default {
+  name: 'app',
+  components: {
+    mapView,
+  },
+  computed: {
+    ...mapState(['menu']),
+  },
+};
+</script>
+
+
+<style lang="scss">
+body {
+  margin: 0;
+}
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100vh;
+  width: 100vw;
 }
 
-#nav {
-  padding: 30px;
+#slider {
+  z-index: 100;
+  position: fixed;
+  bottom: 2vh;
+  left: 2vw;
+  width: 96vw;
+  background-color: white;
+  height: 5vh;
+  border-radius: 10px;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+#menu {
+  z-index: 100;
+  position: fixed;
+  top: 2vh;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 89vh;
+  .menu-toggle {
+    margin-left: 1vw;
+    button {
+      height: 50px;
+      min-width: 50px;
+      border-radius: 10px;
+      background-color: white;
+      border-style: none;
+    }
+  }
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.menu-router-view {
+  display: flex;
+  margin-left: 0;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+  width: 0;
+  overflow: hidden;
+  transition: 500ms ease-in-out;
+}
+
+.open {
+  margin-left: 2vw;
+  width: 22vw;
 }
 </style>
