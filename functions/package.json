@@ -18,7 +18,6 @@
     "express": "^4.16.2",
     "firebase-admin": "~5.8.1",
     "firebase-functions": "^0.8.1",
-    "firebase-tools": "^3.17.4",
     "url-search-params": "^0.10.0"
   },
   "devDependencies": {

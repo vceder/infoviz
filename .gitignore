@@ -163,5 +163,3 @@ GitHub.sublime-settings
 /build/*
 
 **/.runtimeconfig.json
-
-functions/package-lock.json
