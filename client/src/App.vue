@@ -27,6 +27,9 @@ export default {
   computed: {
     ...mapState(['menu']),
   },
+  mounted() {
+    this.$store.dispatch('getLatestData');
+  },
 };
 </script>
 
