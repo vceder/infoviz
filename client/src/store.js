@@ -40,6 +40,7 @@ export default new Vuex.Store({
       let latest = {
         total_viewers: 0,
         total_games: 0,
+        timestamp: "",
         games: {}
       };
       const usersRef = db.collection("users");
@@ -53,6 +54,9 @@ export default new Vuex.Store({
           querySnapshot.forEach(doc => {
             const stream = doc.data();
             if (stream.last_game_id !== "") {
+              if (latest.timestamp === "") {
+                latest.timestamp = stream.last_live_timestamp;
+              }
               latest.total_viewers += stream.last_viewer_count;
               if (latest.games[stream.last_game_id]) {
                 latest.games[stream.last_game_id].streams.push(stream);
