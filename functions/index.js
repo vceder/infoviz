@@ -5,5 +5,6 @@
 exports.getTwitchData = require('./getTwitchData');
 exports.getUserMeta = require('./getUserMeta');
 exports.getGameMeta = require('./getGameMeta');
+exports.calcUserAvg = require('./calcUserAvg');
 // exports.calcAverage = require('./calcAverage');
 // exports.cleanUp = require('./cleanUp');
