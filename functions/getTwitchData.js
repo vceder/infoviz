@@ -1,8 +1,8 @@
 // Imports
 const functions = require('firebase-functions');
 const axios = require('axios');
-const URLSearchParams = require('url-search-params');
 const admin = require('firebase-admin');
+const moment = require('moment');
 
 // Init Firebase Admin
 try {
@@ -36,10 +36,15 @@ const getTwitchToken = twitchAuth({
 module.exports = functions.https.onRequest((req, res) => {
   const usersRef = db.collection('users');
   const gamesRef = db.collection('games');
-  const timestamp = FieldValue.serverTimestamp();
+  const streamsRef = db.collection('streams');
+  const timestamp = moment(FieldValue.serverTimestamp()).startOf('minute');
+  const minutes = timestamp.minutes();
+  if (minutes >= 30) {
+    timestamp.minutes(30).seconds(0);
+  } else {
+    timestamp.minutes(0);
+  }
   let batch = db.batch();
-  let usersData = {};
-  let gamesData = {};
   let access_token;
 
   getTwitchToken
@@ -58,17 +63,31 @@ module.exports = functions.https.onRequest((req, res) => {
       });
     })
     .then((response) => {
-      // Create params objects for users and games
-      let gamesParams = new URLSearchParams();
-      let usersParams = new URLSearchParams();
+      const totalViewers = response.data.data.reduce((acc, val) => {
+        return acc + val;
+      });
+      const averageViewers = totalViewers / response.data.data.length();
+      let gamesData = {};
 
-      // Loop through result and create records for each stream
+      batch.set(streamsRef.doc(), {
+        timestamp: timestamp,
+        top100: response.data.data,
+        average_viewers: averageViewers,
+        total_viewers: totalViewers,
+      });
+
       response.data.data.forEach((stream) => {
-        // Add user and game id to query params
-        usersParams.append('id', stream.user_id);
-        if (gamesParams.has(stream.game_id) === false) {
-          gamesParams.append('id', stream.game_id);
-        }
+        batch.set(
+          usersRef.doc(stream.user_id),
+          {
+            last_live_timestamp: timestamp,
+            last_viewer_count: stream.viewer_count,
+            last_game_id: stream.game_id,
+            last_thumbnail_url: stream.thumbnail_url,
+            last_stream_title: stream.title,
+          },
+          { merge: true }
+        );
 
         // Add viewers to game object
         if (gamesData[stream.game_id]) {
@@ -80,78 +99,11 @@ module.exports = functions.https.onRequest((req, res) => {
           };
         }
         gamesData[stream.game_id].last_timestamp = timestamp;
-
-        // Create user object
-        usersData[stream.user_id] = {
-          last_live_timestamp: timestamp,
-          last_viewer_count: stream.viewer_count,
-          last_game_id: stream.game_id,
-          last_thumbnail_url: stream.thumbnail_url,
-          last_stream_title: stream.title,
-        };
-
-        // Add record in users history
-        batch.set(
-          usersRef
-            .doc(stream.user_id)
-            .collection('history')
-            .doc(),
-          {
-            timestamp: timestamp,
-            game_id: stream.game_id,
-            title: stream.title,
-            viewer_count: stream.viewer_count,
-            thumbnail_url: stream.thumbnail_url,
-            community_ids: stream.community_ids,
-            language: stream.language,
-          }
-        );
+        gamesData[stream.game_id].id = stream.game_id;
       });
 
-      return Promise.all([
-        twitch({
-          method: 'get',
-          url: '/users?' + usersParams.toString(),
-          headers: {
-            Authorization: 'Bearer ' + access_token,
-          },
-        }),
-        twitch({
-          method: 'get',
-          url: '/games?' + gamesParams.toString(),
-          headers: {
-            Authorization: 'Bearer ' + access_token,
-          },
-        }),
-      ]);
-    })
-    .then(([users, games]) => {
-      // Loop over users
-      users.data.data.forEach((user) => {
-        const userObj = Object.assign(usersData[user.id], user);
-
-        // Update user status
-        batch.set(usersRef.doc(userObj.id), userObj, { merge: true });
-      });
-
-      // Loop over games
-      games.data.data.forEach((game) => {
-        const gameObj = Object.assign(gamesData[game.id], game);
-
-        // Update game data
-        batch.set(gamesRef.doc(gameObj.id), gameObj, { merge: true });
-
-        // Add game data to history
-        batch.set(
-          gamesRef
-            .doc(gameObj.id)
-            .collection('history')
-            .doc(),
-          {
-            viewers: gameObj.viewer_count,
-            timestamp: timestamp,
-          }
-        );
+      Object.keys(gamesData).forEach((key) => {
+        batch.set(gamesRef.doc(stream.game_id), gamesData[key], { merge: true });
       });
 
       return batch.commit();
