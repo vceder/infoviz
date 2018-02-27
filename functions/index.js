@@ -3,4 +3,5 @@
 
 
 exports.getTwitchData = require('./getTwitchData');
-exports.api = require('./api');
+exports.calcAverage = require('./calcAverage');
+exports.cleanUp = require('./cleanUp');
