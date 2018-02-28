@@ -22,6 +22,7 @@ module.exports = functions.firestore
     const prevData = event.data.previous.data();
 
     if (newData.last_live_timestamp !== prevData.last_live_timestamp) {
+      console.log('new timestamp');
       const avgCollection = db
         .collection('users')
         .doc(prevData.id)
@@ -31,7 +32,7 @@ module.exports = functions.firestore
         .where('timestamp', '==', timestamp.toDate())
         .get()
         .then((snapshot) => {
-          if (!snapshot[0].exists) {
+          if (snapshot.empty) {
             return avgCollection.doc().set({
               entries: 1,
               total_viewers: prevData.last_viewer_count,
@@ -39,8 +40,8 @@ module.exports = functions.firestore
               timestamp: timestamp.toDate(),
             });
           } else {
-            const docData = snapshot[0].data();
-            return avgCollection.doc(snapshot[0].id).set({
+            const docData = snapshot.docs[0].data();
+            return avgCollection.doc(snapshot.docs[0].id).set({
               entries: docData.entries + 1,
               total_viewers: docData.total_viewers + prevData.last_viewer_count,
               avg_viewers: Math.floor(
@@ -55,6 +56,8 @@ module.exports = functions.firestore
           return false;
         });
     } else {
-      return false;
+      console.log('same timestamp');
+      return true;
     }
+    return true;
   });

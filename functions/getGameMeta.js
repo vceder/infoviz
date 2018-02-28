@@ -2,7 +2,6 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 const admin = require('firebase-admin');
-const moment = require('moment');
 
 // Init Firebase Admin
 try {
@@ -37,7 +36,7 @@ module.exports = functions.firestore
   .document('games/{gameId}')
   .onCreate((event) => {
     const newData = event.data.data();
-    return getTwitchToken
+    getTwitchToken
       .then((response) => {
         access_token = response.data.access_token;
         return twitch({

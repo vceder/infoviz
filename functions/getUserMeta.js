@@ -36,7 +36,8 @@ module.exports = functions.firestore
   .document('users/{userId}')
   .onCreate((event) => {
     const newData = event.data.data();
-    return getTwitchToken
+    console.log(newData.id);
+    getTwitchToken
       .then((response) => {
         access_token = response.data.access_token;
         return twitch({
