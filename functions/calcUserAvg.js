@@ -1,6 +1,7 @@
 // Imports
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const moment = require('moment');
 
 // Init Firebase Admin
 try {
@@ -20,38 +21,40 @@ module.exports = functions.firestore
     const newData = event.data.data();
     const prevData = event.data.previous.data();
 
-    const avgCollection = db
-      .collection('users')
-      .doc(prevData.id)
-      .collection('daily_average');
+    if (newData.last_live_timestamp !== prevData.last_live_timestamp) {
+      const avgCollection = db
+        .collection('users')
+        .doc(prevData.id)
+        .collection('daily_average');
 
-    avgCollection
-      .where('timestamp', '==', timestamp)
-      .get()
-      .then((snapshot) => {
-        if (!snapshot[0].exists) {
-          return avgCollection.doc().set({
-            entries: 1,
-            total_viewers: prevData.last_viewer_count,
-            avg_viewers: prevData.last_viewer_count,
-            timestamp: timestamp,
-          });
-        } else {
-          console.log('Document data:', doc.data());
-          const docData = snapshot[0].data();
-          return avgCollection.doc(snapshot[0].id).set({
-            entries: docData.entries + 1,
-            total_viewers: docData.total_viewers + prevData.last_viewer_count,
-            avg_viewers:
-              (docData.total_viewers + prevData.last_viewer_count) /
-              (docData.entries + 1),
-            timestamp: timestamp,
-          });
-        }
-      })
-      .then((response) => {
-        console.log(response);
-        return response;
-      })
-      .catch((error) => {});
+      avgCollection
+        .where('timestamp', '==', timestamp.toDate())
+        .get()
+        .then((snapshot) => {
+          if (!snapshot[0].exists) {
+            return avgCollection.doc().set({
+              entries: 1,
+              total_viewers: prevData.last_viewer_count,
+              avg_viewers: prevData.last_viewer_count,
+              timestamp: timestamp.toDate(),
+            });
+          } else {
+            const docData = snapshot[0].data();
+            return avgCollection.doc(snapshot[0].id).set({
+              entries: docData.entries + 1,
+              total_viewers: docData.total_viewers + prevData.last_viewer_count,
+              avg_viewers: Math.floor(
+                (docData.total_viewers + prevData.last_viewer_count) /
+                  (docData.entries + 1)
+              ),
+              timestamp: timestamp.toDate(),
+            });
+          }
+        })
+        .catch((error) => {
+          return false;
+        });
+    } else {
+      return false;
+    }
   });

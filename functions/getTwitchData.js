@@ -40,7 +40,7 @@ module.exports = functions.https.onRequest((req, res) => {
   const timestamp = moment(FieldValue.serverTimestamp()).startOf('minute');
   const minutes = timestamp.minutes();
   if (minutes >= 30) {
-    timestamp.minutes(30).seconds(0);
+    timestamp.minutes(30);
   } else {
     timestamp.minutes(0);
   }
@@ -63,14 +63,14 @@ module.exports = functions.https.onRequest((req, res) => {
       });
     })
     .then((response) => {
-      const totalViewers = response.data.data.reduce((acc, val) => {
-        return acc + val;
-      });
-      const averageViewers = totalViewers / response.data.data.length();
+      const totalViewers = response.data.data.reduce((acc, stream) => {
+        return acc + stream.viewer_count;
+      }, 0);
+      const averageViewers = Math.floor(totalViewers / response.data.data.length);
       let gamesData = {};
 
       batch.set(streamsRef.doc(), {
-        timestamp: timestamp,
+        timestamp: timestamp.toDate(),
         top100: response.data.data,
         average_viewers: averageViewers,
         total_viewers: totalViewers,
@@ -80,7 +80,7 @@ module.exports = functions.https.onRequest((req, res) => {
         batch.set(
           usersRef.doc(stream.user_id),
           {
-            last_live_timestamp: timestamp,
+            last_live_timestamp: timestamp.toDate(),
             last_viewer_count: stream.viewer_count,
             last_game_id: stream.game_id,
             last_thumbnail_url: stream.thumbnail_url,
@@ -90,20 +90,22 @@ module.exports = functions.https.onRequest((req, res) => {
         );
 
         // Add viewers to game object
-        if (gamesData[stream.game_id]) {
-          gamesData[stream.game_id].viewer_count =
-            gamesData[stream.game_id].viewer_count + stream.viewer_count;
-        } else {
-          gamesData[stream.game_id] = {
-            viewer_count: stream.viewer_count,
-          };
+        if (stream.game_id !== '') {
+          if (gamesData[stream.game_id]) {
+            gamesData[stream.game_id].viewer_count =
+              gamesData[stream.game_id].viewer_count + stream.viewer_count;
+          } else {
+            gamesData[stream.game_id] = {
+              viewer_count: stream.viewer_count,
+            };
+          }
+          gamesData[stream.game_id].last_timestamp = timestamp.toDate();
+          gamesData[stream.game_id].id = stream.game_id;
         }
-        gamesData[stream.game_id].last_timestamp = timestamp;
-        gamesData[stream.game_id].id = stream.game_id;
       });
 
       Object.keys(gamesData).forEach((key) => {
-        batch.set(gamesRef.doc(stream.game_id), gamesData[key], { merge: true });
+        batch.set(gamesRef.doc(key), gamesData[key], { merge: true });
       });
 
       return batch.commit();

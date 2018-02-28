@@ -2,6 +2,7 @@
 const functions = require('firebase-functions');
 const axios = require('axios');
 const admin = require('firebase-admin');
+const moment = require('moment');
 
 // Init Firebase Admin
 try {
@@ -50,12 +51,8 @@ module.exports = functions.firestore
       .then((response) => {
         return event.data.ref.set(response.data.data[0], { merge: true });
       })
-      .then((response) => {
-        console.log(response);
-        return response;
-      })
       .catch((error) => {
         console.log(error);
-        return error;
+        return false;
       });
   });
