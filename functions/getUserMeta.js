@@ -55,4 +55,5 @@ module.exports = functions.firestore
         console.log(error);
         return false;
       });
+    return false;
   });
