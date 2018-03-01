@@ -85,6 +85,7 @@ module.exports = functions.https.onRequest((req, res) => {
             last_game_id: stream.game_id,
             last_thumbnail_url: stream.thumbnail_url,
             last_stream_title: stream.title,
+            id: stream.user_id,
           },
           { merge: true }
         );
