@@ -15,7 +15,7 @@ const db = admin.firestore();
 const FieldValue = admin.firestore.FieldValue;
 
 module.exports = functions.firestore
-  .document('users/{userId}')
+  .document('games/{gameId}')
   .onUpdate((event) => {
     const timestamp = moment(FieldValue.serverTimestamp()).startOf('day');
     const newData = event.data.data();
@@ -25,7 +25,7 @@ module.exports = functions.firestore
     if (newData.last_live_timestamp !== prevData.last_live_timestamp) {
       console.log('new timestamp');
       const avgCollection = db
-        .collection('users')
+        .collection('games')
         .doc(event.data.previous.get(admin.firestore.FieldPath.documentId()))
         .collection('daily_average');
 
@@ -36,8 +36,8 @@ module.exports = functions.firestore
           if (snapshot.empty) {
             return avgCollection.doc().set({
               entries: 1,
-              total_viewers: prevData.last_viewer_count,
-              avg_viewers: prevData.last_viewer_count,
+              total_viewers: prevData.viewer_count,
+              avg_viewers: prevData.viewer_count,
               timestamp: timestamp.toDate(),
             });
           } else {
@@ -47,9 +47,9 @@ module.exports = functions.firestore
               .set({
                 entries: docData.entries + 1,
                 total_viewers:
-                  docData.total_viewers + prevData.last_viewer_count,
+                  docData.total_viewers + prevData.viewer_count,
                 avg_viewers: Math.floor(
-                  (docData.total_viewers + prevData.last_viewer_count) /
+                  (docData.total_viewers + prevData.viewer_count) /
                     (docData.entries + 1)
                 ),
                 timestamp: timestamp.toDate(),
