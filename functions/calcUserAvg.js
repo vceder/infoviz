@@ -41,7 +41,7 @@ module.exports = functions.firestore
             });
           } else {
             const docData = snapshot.docs[0].data();
-            return avgCollection.doc(snapshot.docs[0].id).set({
+            return avgCollection.doc(snapshot.docs[0].get(admin.firestore.FieldPath.documentId())).set({
               entries: docData.entries + 1,
               total_viewers: docData.total_viewers + prevData.last_viewer_count,
               avg_viewers: Math.floor(
