@@ -20,7 +20,7 @@ module.exports = functions.firestore
     const timestamp = moment(FieldValue.serverTimestamp()).startOf('day');
     const newData = event.data.data();
     const prevData = event.data.previous.data();
-
+    console.log('prevData', prevData);
     if (newData.last_live_timestamp !== prevData.last_live_timestamp) {
       console.log('new timestamp');
       const avgCollection = db
