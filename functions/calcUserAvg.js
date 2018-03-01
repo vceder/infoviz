@@ -21,12 +21,12 @@ module.exports = functions.firestore
     const newData = event.data.data();
     const prevData = event.data.previous.data();
     console.log('prevData', prevData);
-    console.log('prevData', newData);
-    if (newData.last_live_timestamp !== prevData.last_live_timestamp) {
+    console.log('newData', newData);
+    if (moment(newData.last_live_timestamp).isAfter(prevData.last_live_timestamp)) {
       console.log('new timestamp');
       const avgCollection = db
         .collection('users')
-        .doc(event.data.previous.get(admin.firestore.FieldPath.documentId()))
+        .doc(newData.id)
         .collection('daily_average');
 
       avgCollection
