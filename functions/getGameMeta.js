@@ -32,27 +32,45 @@ const getTwitchToken = twitchAuth({
   },
 });
 
+let twitchToken;
+
 module.exports = functions.firestore
   .document('games/{gameId}')
   .onCreate((event) => {
     const newData = event.data.data();
-    getTwitchToken
-      .then((response) => {
-        access_token = response.data.access_token;
-        return twitch({
-          method: 'get',
-          url: '/games?id=' + newData.id,
-          headers: {
-            Authorization: 'Bearer ' + access_token,
-          },
+    if (twitchToken) {
+      return twitch({
+        method: 'get',
+        url: '/games?id=' + newData.id,
+        headers: {
+          Authorization: 'Bearer ' + access_token,
+        },
+      })
+        .then((response) => {
+          return event.data.ref.set(response.data.data[0], { merge: true });
+        })
+        .catch((error) => {
+          console.log(error);
+          return false;
         });
-      })
-      .then((response) => {
-        return event.data.ref.set(response.data.data[0], { merge: true });
-      })
-      .catch((error) => {
-        console.log(error);
-        return false;
-      });
-    return false;
+    } else {
+      return getTwitchToken
+        .then((response) => {
+          access_token = response.data.access_token;
+          return twitch({
+            method: 'get',
+            url: '/games?id=' + newData.id,
+            headers: {
+              Authorization: 'Bearer ' + access_token,
+            },
+          });
+        })
+        .then((response) => {
+          return event.data.ref.set(response.data.data[0], { merge: true });
+        })
+        .catch((error) => {
+          console.log(error);
+          return false;
+        });
+    }
   });

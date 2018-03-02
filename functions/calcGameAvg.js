@@ -29,31 +29,31 @@ module.exports = functions.firestore
         .doc(newData.id)
         .collection('daily_average');
 
-      avgCollection
-        .where('timestamp', '==', timestamp.toDate())
+      return avgCollection.doc(timestamp.format('YYYYMMDD'))
         .get()
-        .then((snapshot) => {
-          if (snapshot.empty) {
-            return avgCollection.doc().set({
+        .then((doc) => {
+          if (!doc.exists) {
+            return avgCollection.doc(timestamp.format('YYYYMMDD')).set({
               entries: 1,
-              total_viewers: prevData.viewer_count,
-              avg_viewers: prevData.viewer_count,
+              total_viewers: newData.viewer_count,
+              avg_viewers: newData.viewer_count,
               timestamp: timestamp.toDate(),
             });
           } else {
-            const docData = snapshot.docs[0].data();
-            return avgCollection
-              .doc(snapshot.docs[0].get(admin.firestore.FieldPath.documentId()))
-              .set({
+            const docData = doc.data();
+            console.log('Snapshot doc data', docData);
+            return avgCollection.doc(timestamp.format('YYYYMMDD')).set(
+              {
                 entries: docData.entries + 1,
-                total_viewers:
-                  docData.total_viewers + prevData.viewer_count,
+                total_viewers: docData.total_viewers + newData.viewer_count,
                 avg_viewers: Math.floor(
-                  (docData.total_viewers + prevData.viewer_count) /
+                  (docData.total_viewers + newData.viewer_count) /
                     (docData.entries + 1)
                 ),
                 timestamp: timestamp.toDate(),
-              });
+              },
+              { merge: true }
+            );
           }
         })
         .catch((error) => {
@@ -63,5 +63,4 @@ module.exports = functions.firestore
       console.log('same timestamp');
       return true;
     }
-    return true;
   });

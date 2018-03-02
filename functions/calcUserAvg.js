@@ -22,38 +22,37 @@ module.exports = functions.firestore
     const prevData = event.data.previous.data();
     console.log('prevData', prevData);
     console.log('newData', newData);
-    if (moment(newData.last_live_timestamp).isAfter(prevData.last_live_timestamp)) {
+    if (
+      moment(newData.last_live_timestamp).isAfter(prevData.last_live_timestamp)
+    ) {
       console.log('new timestamp');
       const avgCollection = db
         .collection('users')
         .doc(newData.id)
         .collection('daily_average');
 
-      avgCollection
-        .where('timestamp', '==', timestamp.toDate())
+      return avgCollection
+        .doc(timestamp.format('YYYYMMDD'))
         .get()
-        .then((snapshot) => {
-          if (snapshot.empty) {
-            return avgCollection.doc().set({
+        .then((doc) => {
+          if (!doc.exists) {
+            return avgCollection.doc(timestamp.format('YYYYMMDD')).set({
               entries: 1,
-              total_viewers: prevData.last_viewer_count,
-              avg_viewers: prevData.last_viewer_count,
+              total_viewers: newData.last_viewer_count,
+              avg_viewers: newData.last_viewer_count,
               timestamp: timestamp.toDate(),
             });
           } else {
-            const docData = snapshot.docs[0].data();
-            return avgCollection
-              .doc(snapshot.docs[0].get(admin.firestore.FieldPath.documentId()))
-              .set({
-                entries: docData.entries + 1,
-                total_viewers:
-                  docData.total_viewers + prevData.last_viewer_count,
-                avg_viewers: Math.floor(
-                  (docData.total_viewers + prevData.last_viewer_count) /
-                    (docData.entries + 1)
-                ),
-                timestamp: timestamp.toDate(),
-              });
+            const docData = doc.data();
+            return avgCollection.doc(timestamp.format('YYYYMMDD')).set({
+              entries: docData.entries + 1,
+              total_viewers: docData.total_viewers + newData.last_viewer_count,
+              avg_viewers: Math.floor(
+                (docData.total_viewers + newData.last_viewer_count) /
+                  (docData.entries + 1)
+              ),
+              timestamp: timestamp.toDate(),
+            });
           }
         })
         .catch((error) => {
@@ -63,5 +62,4 @@ module.exports = functions.firestore
       console.log('same timestamp');
       return true;
     }
-    return true;
   });
