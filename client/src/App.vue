@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <map-view/>
+    <particles/>
     <div id="menu">
       <div :class="{'open': (menu === true)}" class="menu-router-view">
         <router-view/>
@@ -9,34 +9,45 @@
         <button @click="$store.commit('setMenu', (!menu))">Menu</button>
       </div>
     </div>
-    <div id="slider">
-      <p>Slider</p>
+    <div class="slider-container">
+      <div id="slider">
+        <p>Slider</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import mapView from '@/components/mapView.vue';
-import { mapState } from 'vuex';
+import particles from '@/components/particles.vue';
 
 export default {
   name: 'app',
   components: {
-    mapView,
-  },
-  computed: {
-    ...mapState(['menu']),
+    particles
   },
   mounted() {
-    this.$store.dispatch('getLatestData');
+    //this.$store.dispatch('getLatestData');
   },
 };
 </script>
 
 
 <style lang="scss">
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 body {
-  margin: 0;
+  width:100%;
+  height:auto;
+  background: black;
+  position:absolute;
+  border:0px;
+  margin:0px;
+  padding:0px;
+  left:0px;
+  top:0px;
+  font-family: Lato;
+  z-index: -99999;
+  overflow: hidden;
 }
 
 #app {
@@ -49,52 +60,22 @@ body {
   width: 100vw;
 }
 
-#slider {
+.slider-container {
   z-index: 100;
   position: fixed;
   bottom: 2vh;
   left: 2vw;
   width: 96vw;
-  background-color: white;
-  height: 5vh;
+  background-color: grey;
+  height: 6vh;
   border-radius: 10px;
 }
 
-#menu {
-  z-index: 100;
-  position: fixed;
-  top: 2vh;
+.router-view {
+  width: 100vw;
+  height: 90vh;
+  top: 0;
   left: 0;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  height: 89vh;
-  .menu-toggle {
-    margin-left: 1vw;
-    button {
-      height: 50px;
-      min-width: 50px;
-      border-radius: 10px;
-      background-color: white;
-      border-style: none;
-    }
-  }
-}
-
-.menu-router-view {
-  display: flex;
-  margin-left: 0;
-  justify-content: center;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 10px;
-  width: 0;
-  overflow: hidden;
-  transition: 500ms ease-in-out;
-}
-
-.open {
-  margin-left: 2vw;
-  width: 22vw;
+  position: absolute;
 }
 </style>

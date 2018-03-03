@@ -13,23 +13,21 @@ firebase.initializeApp({
 });
 
 const db = firebase.firestore();
-// firebase
-//   .firestore()
-//   .enablePersistence()
-//   .then(() => {
-//     // Initialize Cloud Firestore through firebase
-//     const db = firebase.firestore();
-//   });
 
 export default new Vuex.Store({
   state: {
-    menu: false,
+    isLoading: true,
+    detailsActive: false,
+    starCount: 0,
     latestData: {},
     history: {}
   },
   mutations: {
-    setMenu(state, bool) {
-      state.menu = bool;
+    toggleDetails(state, bool) {
+      state.detailsActive = bool;
+    },
+    toggleLoading(state, bool) {
+      state.isLoading = bool;
     },
     setLatest(state, latest) {
       state.latestData = latest;
