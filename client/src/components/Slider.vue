@@ -16,7 +16,7 @@ export default {
     methods: {
         getData(){
             console.log("HEJ!")
-            console.log(mapState(['top100']))
+            console.log("Top100",this.top100)
             return[10,50,30]
         }
     },
