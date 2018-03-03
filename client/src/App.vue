@@ -1,12 +1,13 @@
 <template>
   <div id="app">
+    <particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
     <div class="slider-container">
       <div id="slider">
-        <p>Slider</p>
+        <Slider/>
       </div>
     </div>
   </div>
@@ -15,7 +16,10 @@
 <script>
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
+import particles from '@/components/particles.vue';
 import { mapState } from 'vuex';
+import Slider from '@/components/Slider.vue'
+
 
 export default {
   name: 'app',
@@ -24,6 +28,9 @@ export default {
   },
   components: {
     Loading,
+    Slider,
+    particles
+
   },
   mounted() {
     this.$store.dispatch('getTop100');
@@ -33,7 +40,32 @@ export default {
 
 
 <style lang="scss">
-@import './assets/style/global.scss';
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+body {
+  width:100%;
+  height:auto;
+  background: black;
+  position:absolute;
+  border:0px;
+  margin:0px;
+  padding:0px;
+  left:0px;
+  top:0px;
+  font-family: Lato;
+  z-index: -99999;
+  overflow: hidden;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100vh;
+  width: 100vw;
+}
 
 .slider-container {
   z-index: 100;

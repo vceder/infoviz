@@ -26,6 +26,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 // Make stuff happen here!
 router.get('/users', (req, res) => {
   const requestID = req.query.id;
+
   const usersRef = db.collection('users');
   if (requestID) {
     // skicka specifik user
@@ -98,6 +99,32 @@ router.get('/games', (req, res) => {
       .catch((error) => {
         res.status(500).send(error);
       });
+  }
+});
+
+router.get('/games', (req, res) => {
+  const requestID = req.query.id;
+  
+  console.log(requestID);
+  if (requestID) {
+    // Send data of the game with requestID
+    const gamesRef = db.collection('games').doc(requestID);
+    gamesRef.get().then((doc) => {
+      if (doc.exists) {
+      	console.log(doc.data())
+        return res.status(200).send(doc.data());
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+        return res.status(500);
+      }
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
+  } else {
+    console.log('Här kommer top 100!');
+    // SKicka alla top 100 games
   }
 });
 
