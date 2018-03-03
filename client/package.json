@@ -14,7 +14,7 @@
   "dependencies": {
     "d3": "^4.13.0",
     "firebase": "^4.10.1",
-    "particles.js": "^2.0.0",
+    "moment": "^2.21.0",
     "particlesjs": "^2.2.1",
     "moment": "^2.21.0",
     "vue": "^2.5.13",
