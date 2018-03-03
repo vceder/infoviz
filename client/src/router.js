@@ -28,6 +28,12 @@ export default new Router({
       path: "/streams",
       name: "streams",
       component: StreamPlot
+    },
+    {
+      //Testar thumbnail
+      path: "/thumb",
+      name: "thumb",
+      component: ThumbnailPlot
     }
   ]
 });

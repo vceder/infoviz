@@ -35,7 +35,8 @@ export default {
   components: {
     Loading,
     particles,
-    Slider
+    Slider,
+    ThumbnailPlot,
   },
   mounted() {
     this.$store.dispatch('getTop100');
