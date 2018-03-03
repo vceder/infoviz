@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Loading/>
-    <div class="router-view">
+    <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
     <div class="slider-container">
@@ -20,7 +20,7 @@ import { mapState } from 'vuex';
 export default {
   name: 'app',
   computed: {
-    ...mapState(['menu']),
+    ...mapState(['isLoading']),
   },
   components: {
     Loading,
