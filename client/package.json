@@ -14,6 +14,7 @@
   "dependencies": {
     "d3": "^4.13.0",
     "firebase": "^4.10.1",
+    "moment": "^2.21.0",
     "particlesjs": "^2.2.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
@@ -30,38 +31,26 @@
     "vue-template-compiler": "^2.5.13"
   },
   "babel": {
-    "presets": [
-      "@vue/app"
-    ]
+    "presets": ["@vue/app"]
   },
   "eslintConfig": {
     "root": true,
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/prettier"
-    ]
+    "extends": ["plugin:vue/essential", "@vue/prettier"],
+    "rules": {
+      "no-console": "off"
+    }
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
+  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "vue-cli-service lint",
-      "git add"
-    ],
-    "*.vue": [
-      "vue-cli-service lint",
-      "git add"
-    ]
+    "*.js": ["vue-cli-service lint", "git add"],
+    "*.vue": ["vue-cli-service lint", "git add"]
   }
 }
