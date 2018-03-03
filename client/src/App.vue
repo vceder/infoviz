@@ -30,7 +30,7 @@ export default {
     Loading,
   },
   mounted() {
-    //this.$store.dispatch('getLatestData');
+    this.$store.dispatch('getTop100');
   },
 };
 </script>

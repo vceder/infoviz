@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div id="loading">
-
+  <div v-if="isLoading" id="loading">
+    <h1>LOADING</h1>
   </div>
 </div>
 </template>
@@ -20,6 +20,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 #loading {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   z-index: 1000;

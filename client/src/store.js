@@ -2,7 +2,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
+import moment from "moment";
 import "firebase/firestore";
+
 Vue.use(Vuex);
 
 // Initialize firebase
@@ -19,10 +21,14 @@ export default new Vuex.Store({
     isLoading: true,
     detailsActive: false,
     starCount: 0,
-    latestData: {},
-    history: {}
+    top100: {},
+    games: {},
+    users: {}
   },
   mutations: {
+    setTop100(state, top100) {
+      state.top100 = top100;
+    },
     toggleDetails(state, bool) {
       state.detailsActive = bool;
     },
@@ -34,45 +40,65 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    getLatestData({ commit }) {
-      let latest = {
-        total_viewers: 0,
-        total_games: 0,
-        timestamp: "",
-        games: {}
-      };
-      const usersRef = db.collection("users");
-      // const gamesRef = db.collection("games");
+    getTop100({ state, commit }) {
+      if (state.top100.games) {
+        commit("toggleLoading", false);
+      } else {
+        let top100 = {};
+        const streamsRef = db.collection("streams");
 
-      usersRef
-        .orderBy("last_live_timestamp", "desc")
-        .limit(100)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            const stream = doc.data();
-            if (stream.last_game_id !== "") {
-              if (latest.timestamp === "") {
-                latest.timestamp = stream.last_live_timestamp;
-              }
-              latest.total_viewers += stream.last_viewer_count;
-              if (latest.games[stream.last_game_id]) {
-                latest.games[stream.last_game_id].streams.push(stream);
-              } else {
-                latest.total_games++;
-                latest.games[stream.last_game_id] = {
-                  streams: [stream]
+        streamsRef
+          .orderBy("timestamp", "desc")
+          .limit(48)
+          .get()
+          .then(querySnapshot => {
+            if (querySnapshot.empty) {
+              throw {
+                name: "api error",
+                message: querySnapshot
+              };
+            } else {
+              querySnapshot.forEach(doc => {
+                const docData = doc.data();
+                const timestamp = moment(docData.timestamp);
+                top100[timestamp.format("YYYYMMDDHHmm")] = {
+                  averageViewers: docData.average_viewers,
+                  totalViewers: docData.total_viewers,
+                  games: {},
+                  totalGames: 0,
+                  timestamp: timestamp.toDate()
                 };
-              }
+                docData.top100.forEach(stream => {
+                  if (stream.game_id !== "") {
+                    if (
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ]
+                    ) {
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ].streams.push(stream);
+                    } else {
+                      top100[timestamp.format("YYYYMMDDHHmm")].totalGames++;
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ] = {
+                        streams: [stream]
+                      };
+                    }
+                  }
+                });
+              });
             }
+          })
+          .then(() => {
+            commit("setTop100", top100);
+            commit("toggleLoading", false);
+          })
+          .catch(error => {
+            console.log(error);
           });
-        })
-        .then(() => {
-          commit("setLatest", latest);
-        })
-        .catch(() => {
-          //console.log('error');
-        });
+      }
     }
   }
 });
