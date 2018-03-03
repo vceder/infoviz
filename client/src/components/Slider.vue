@@ -7,16 +7,30 @@
 
 <script>
 import vueSlider from 'vue-slider-component';
+import { mapState } from 'vuex';
 
 export default {
     components: {
         vueSlider
     },
+    methods: {
+        getData(){
+            console.log("HEJ!")
+            console.log(mapState(['top100']))
+            return[10,50,30]
+        }
+    },
+    computed: {
+        ...mapState(['top100']),
+        test(){
+            console.log("HEJ")
+        }
+    },
     data () {
         return {
             value: 10,
             options: {
-                interval: 10,
+                interval: 10, //Should be changed when using real data for the distrubation
                 piecewise: true,
                 piecewiseLabel: true,
                 bgStyle: { // Base style of the slider
@@ -43,10 +57,12 @@ export default {
                 },
                 labelActiveStyle: {
                     "color": "red"
-                }
+                },
+                data: this.getData()
             }
         }
-    }
+    },
+    mounted() {}
 }
 </script>
 
