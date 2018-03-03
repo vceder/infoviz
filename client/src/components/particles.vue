@@ -2,16 +2,6 @@
 <div>
 <div id="particles-js"></div>
 
-<div class="holder">
-<div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
-<div class="changingValues">INSERT CHANGING VALUES HERE</div>
-<div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
-<div class="changingValues">INSERT CHANGING VALUES HERE</div>
-<div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
-<div class="changingValues">INSERT CHANGING VALUES HERE</div>
-<div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
-<div class="changingValues">INSERT CHANGING VALUES HERE</div>
-</div>
 </div>
 
 </template>
@@ -162,24 +152,6 @@ methods: {
   left:0px;
   top:0px;
   z-index: -1;
-}
-.holder{
-    float: right;
-    margin: 10% 5% 0 0;
-}
-
-.staticHeadline{
-    color: white;
-    font-family: Lato;
-    font-weight: 300;
-    font-size: 15px;
-}
-.changingValues{
-    color:#E81B5F;
-    font-family: Lato;
-    font-weight: 400;
-    margin-bottom: 5%;
-    font-size: 20px;
 
 }
 </style>

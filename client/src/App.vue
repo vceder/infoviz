@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <particles/>
+    <ScatterPlot/>
     <div id="menu">
       <div :class="{'open': (menu === true)}" class="menu-router-view">
         <router-view/>
@@ -17,12 +18,14 @@
 
 <script>
 import particles from '@/components/particles.vue';
+import ScatterPlot from '@/components/ScatterPlot.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'app',
   components: {
-    particles
+    particles,
+    ScatterPlot
   },
   computed: {
     ...mapState(['menu']),
