@@ -2,19 +2,11 @@
   <div id="app">
     <particles/>
     <ScatterPlot/>
-    <div id="menu">
-      <div :class="{'open': (menu === true)}" class="menu-router-view">
-        <router-view/>
-      </div>
-      <div class="menu-toggle">
-        <button @click="$store.commit('setMenu', (!menu))">Menu</button>
-      </div>
-    </div>
-    <div class="slider-container">
+    <!-- <div class="slider-container">
       <div id="slider">
         <p>Slider</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
