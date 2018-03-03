@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
     <particles/>
     <div id="menu">
       <div :class="{'open': (menu === true)}" class="menu-router-view">
@@ -8,6 +9,11 @@
       <div class="menu-toggle">
         <button @click="$store.commit('setMenu', (!menu))">Menu</button>
       </div>
+=======
+    <Loading/>
+    <div v-if="!isLoading" class="router-view">
+      <router-view/>
+>>>>>>> origin/Axel
     </div>
     <div class="slider-container">
       <div id="slider">
@@ -18,15 +24,29 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import particles from '@/components/particles.vue';
 
 export default {
   name: 'app',
   components: {
     particles
+=======
+// @ is an alias to /src
+import Loading from '@/components/Loading.vue';
+import { mapState } from 'vuex';
+
+export default {
+  name: 'app',
+  computed: {
+    ...mapState(['isLoading']),
+  },
+  components: {
+    Loading,
+>>>>>>> origin/Axel
   },
   mounted() {
-    //this.$store.dispatch('getLatestData');
+    this.$store.dispatch('getTop100');
   },
 };
 </script>
