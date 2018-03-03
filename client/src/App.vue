@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loading></Loading>
     <div class="router-view">
       <router-view/>
     </div>
@@ -12,12 +13,17 @@
 </template>
 
 <script>
+// @ is an alias to /src
+import Loading from '@/components/Loading.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'app',
   computed: {
     ...mapState(['menu']),
+  },
+  components: {
+    Loading,
   },
   mounted() {
     //this.$store.dispatch('getLatestData');
