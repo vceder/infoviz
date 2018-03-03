@@ -46,7 +46,6 @@ export default new Vuex.Store({
       } else {
         let top100 = {};
         const streamsRef = db.collection("streams");
-
         streamsRef
           .orderBy("timestamp", "desc")
           .limit(48)
