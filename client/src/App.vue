@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Loading/>
-    <div class="router-view">
+    <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
     <div class="slider-container">
@@ -23,8 +23,8 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'app',
-  components: {
-    particles
+  computed: {
+    ...mapState(['isLoading']),
   },
   components: {
     Loading,

@@ -21,6 +21,7 @@ export default new Vuex.Store({
     isLoading: true,
     detailsActive: false,
     starCount: 0,
+    current: {},
     top100: {},
     games: {},
     users: {}
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     setLatest(state, latest) {
       state.latestData = latest;
+    },
+    setCurrent(state, current) {
+      state.current = current;
     }
   },
   actions: {
@@ -91,7 +95,15 @@ export default new Vuex.Store({
             }
           })
           .then(() => {
+            const time = moment().startOf("minute");
+            const minutes = time.minutes();
+            if (minutes >= 30) {
+              time.minutes(30);
+            } else {
+              time.minutes(0);
+            }
             commit("setTop100", top100);
+            commit("setCurrent", top100[time.format("YYYYMMDDHHmm")]);
             commit("toggleLoading", false);
           })
           .catch(error => {
