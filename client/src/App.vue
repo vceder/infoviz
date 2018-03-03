@@ -1,12 +1,13 @@
 <template>
   <div id="app">
+    <particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
     <div class="slider-container">
       <div id="slider">
-        <p>Slider</p>
+        <Slider/>
       </div>
     </div>
   </div>
@@ -19,6 +20,7 @@ import particles from '@/components/particles.vue';
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
 import { mapState } from 'vuex';
+import Slider from '@/components/Slider.vue'
 
 
 export default {
@@ -28,6 +30,8 @@ export default {
   },
   components: {
     Loading,
+    Slider,
+    particles
   },
   mounted() {
     this.$store.dispatch('getTop100');
