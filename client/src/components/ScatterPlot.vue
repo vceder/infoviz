@@ -1659,7 +1659,7 @@ var tooltip = d3.select("#chart")
     .style("text-align", "center")
     .style("font-family", "Helvetica")
     .style("font-size", "12px")
-    .style("width", "420px")
+    .style("width", "200px")
     .style("padding", "8px")
     .text("");
 
@@ -1774,13 +1774,7 @@ svg.on('mousemove', function() {
 
 });
 
-d3.select("#chart").on("mousemove", function(){
-return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
-})
-.on("mouseout", function(){
-  return tooltip.style("visibility","hidden")
 
-})
 
 ////////////////////////////////////////////////////////////	
 /////////////////// Scatterplot Circles ////////////////////
@@ -1799,7 +1793,19 @@ circleGroup.selectAll("countries")
 		.attr("cy", function(d) {return yScale(d.lifeExpectancy);})
 		.attr("r", function(d) {return rScale(d.GDP);})
 		.style("opacity", opacityCircles)
-		.style("fill", function(d) {return color(d.Region);});
+    .style("fill", function(d) {return color(d.Region);})
+    .on("mouseover", function(d){
+     tooltip.html("<h3>" + d.Country + "</h3>");
+     return tooltip.style("visibility", "visible")
+    })
+    .on("mousemove", function(){
+    return tooltip.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px");
+    })
+    .on("mouseout", function(){
+    return tooltip.style("visibility","hidden")
+    })
+
+    
 			
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////// Create the Legend////////////////////////////////
@@ -1930,8 +1936,6 @@ function showTooltip (d, i) {
       el = element._groups[0];
 
   //Define and show the tooltip
-
-  tooltip.html("<h3>" + d.Country + "</h3>");
   
 
   
@@ -2006,7 +2010,6 @@ function showTooltip (d, i) {
 		.transition().duration(100)
 		.style("opacity", 0.5);	
 
-return tooltip.style("visibility", "visible");
 }//function showTooltip
 
 
