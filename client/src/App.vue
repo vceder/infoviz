@@ -14,11 +14,9 @@
 </template>
 
 <script>
-
-import particles from '@/components/particles.vue';
-
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
+import particles from '@/components/particles.vue';
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue'
 
@@ -32,6 +30,7 @@ export default {
     Loading,
     Slider,
     particles
+
   },
   mounted() {
     this.$store.dispatch('getTop100');
