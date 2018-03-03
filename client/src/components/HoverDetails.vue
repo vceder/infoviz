@@ -1,7 +1,7 @@
 <template>
   <div class="overview-details">
     <div class="staticHeadline">Game Name</div>
-    <div class="changingValues">{{games.name}}</div>
+    <div class="changingValues">HÄR ÄR NAMNET{{games.name}}</div>
     <div class="changingValues"><img v-bind:src="games.image" alt="<Image undefined>"></div>
     <div class="staticHeadline">Time of day</div>
     <!--Get timezone of user to display correct timestamp-->
