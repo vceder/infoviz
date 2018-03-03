@@ -1930,7 +1930,7 @@ function removeTooltip (d, i) {
 
 //Show the tooltip on the hovered over slice
 function showTooltip (d, i) {
-	console.log(d.Country)
+	//console.log(d.Country)
 	//Save the chosen circle (so not the voronoi)
 	var element = d3.select(".countries."+d.CountryCode),
       el = element._groups[0];
