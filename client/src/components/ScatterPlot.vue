@@ -1636,9 +1636,9 @@ var countries = [
   ];
 
 //Scatterplot
-var margin = {left: 60, top: 20, right: 20, bottom: 60},
-	width = document.documentElement.clientWidth - margin.left - margin.right,
-	height = document.documentElement.clientHeight-margin.bottom;
+var margin = {left: 200, top: 100, right: 20, bottom: 60},
+	width = document.documentElement.clientWidth/1.2- margin.left - margin.right,
+	height = document.documentElement.clientHeight/1.2-margin.bottom;
 
 var svg = d3.select("#chart").append("svg")
 			.attr("width", (width + margin.left + margin.right))
@@ -1730,7 +1730,7 @@ wrapper.append("g")
   .style("font-size", "12px")
   .style("stroke", "white")
 	.attr("transform", "translate(" + width + "," + (height - 10) + ")")
-	.text("GDP per capita [US $] - Note the logarithmic scale");
+	.text("Life time views");
 
 //Set up y axis label
 wrapper.append("g")
@@ -1740,7 +1740,7 @@ wrapper.append("g")
   .style("font-size", "12px")
   .style("stroke", "white")
 	.attr("transform", "translate(18, 0) rotate(-90)")
-	.text("Life expectancy");
+	.text("Current Views");
 
 ////////////////////////////////////////////////////////////	
 ///// Capture mouse events and voronoi.find() the site /////
@@ -1786,12 +1786,12 @@ var circleGroup = wrapper.append("g")
 	
 //Place the country circles
 circleGroup.selectAll("countries")
-	.data(countries.sort(function(a,b) { return b.GDP > a.GDP; })) //Sort so the biggest circles are below
+	.data(countries) //Sort so the biggest circles are below .sort(function(a,b) { return b.GDP > a.GDP; })
 	.enter().append("circle")
 		.attr("class", function(d,i) { return "countries " + d.CountryCode; })
 		.attr("cx", function(d) {return xScale(d.GDP_perCapita);})
 		.attr("cy", function(d) {return yScale(d.lifeExpectancy);})
-		.attr("r", function(d) {return rScale(d.GDP);})
+		.attr("r", "8") 
 		.style("opacity", opacityCircles)
     .style("fill", function(d) {return color(d.Region);})
     .on("mouseover", function(d){
@@ -2011,9 +2011,7 @@ function showTooltip (d, i) {
 		.style("opacity", 0.5);	
 
 }//function showTooltip
-
-
-  }
+}
 }
 
 </script>
