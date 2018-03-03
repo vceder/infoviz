@@ -1,8 +1,6 @@
 <template>
   <div class="hello">
-    <h2>{{gameData.name}}</h2>
-    <h3>Viewers: {{gameData.viewer_count}}</h3>
-    <img :src="gameData.box_art_url.replace('{width}x{height}', '200x300')" alt="">
+    HelloWorld
   </div>
 </template>
 
@@ -15,17 +13,6 @@ export default {
     };
   },
   mounted() {
-    fetch('/api/games?id=32399', { method: 'get' })
-      .then(res => {
-        return res.json();
-      })
-      .then(jsonData => {
-        this.gameData = jsonData;
-        console.log(jsonData);
-      })
-      .catch(e => {
-        console.log('error', e);
-      });
   },
 };
 </script>
