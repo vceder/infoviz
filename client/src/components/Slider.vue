@@ -13,22 +13,36 @@ export default {
     components: {
         vueSlider
     },
-    methods: {
-        getData(){
-            console.log("HEJ!")
-            console.log("Top100",this.top100)
-            return[10,50,30]
-        }
-    },
     computed: {
         ...mapState(['top100']),
-        test(){
-            console.log("HEJ")
+        ...mapState(['isLoading'])
+
+    },
+    methods: {
+        getData(){
+            // console.log("HEJ!")
+            console.log("Loading: ", this)
+            if (this.isLoading) {
+                console.log("Laddar")
+            }else{
+                console.log("Klar")
+            }
+            console.log("Top100",Object.keys(this.top100))
+            return Object.keys(this.top100)
         }
+    },
+    watch: {
+        value: function () {
+            console.log("Value has been changed!")
+            console.log("Value: ", this.value)
+        },
+        // options['data']: function () {
+        //     this.options.data = this.getData();
+        // }
     },
     data () {
         return {
-            value: 10,
+            value: 0,
             options: {
                 interval: 10, //Should be changed when using real data for the distrubation
                 piecewise: true,
@@ -57,12 +71,18 @@ export default {
                 },
                 labelActiveStyle: {
                     "color": "red"
-                },
-                data: this.getData()
+                }
             }
         }
     },
-    mounted() {}
+    created: function () {
+        this.options.data = this.getData()
+    },
+    mounted() {
+        // this.options.data = this.getData()
+
+        // console.log(this.top100)
+    }
 }
 </script>
 
