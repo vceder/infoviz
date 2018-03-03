@@ -14,20 +14,11 @@ export default {
         vueSlider
     },
     computed: {
-        ...mapState(['top100']),
-        ...mapState(['isLoading'])
-
+        ...mapState(['top100'])
     },
     methods: {
         getData(){
-            // console.log("HEJ!")
-            console.log("Loading: ", this)
-            if (this.isLoading) {
-                console.log("Laddar")
-            }else{
-                console.log("Klar")
-            }
-            console.log("Top100",Object.keys(this.top100))
+            // console.log("Top100",Object.keys(this.top100))
             return Object.keys(this.top100)
         }
     },
@@ -35,10 +26,7 @@ export default {
         value: function () {
             console.log("Value has been changed!")
             console.log("Value: ", this.value)
-        },
-        // options['data']: function () {
-        //     this.options.data = this.getData();
-        // }
+        }
     },
     data () {
         return {
@@ -79,9 +67,6 @@ export default {
         this.options.data = this.getData()
     },
     mounted() {
-        // this.options.data = this.getData()
-
-        // console.log(this.top100)
     }
 }
 </script>
