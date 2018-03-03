@@ -1,13 +1,8 @@
 <template>
   <div id="app">
-    <particles/>
-    <div id="menu">
-      <div :class="{'open': (menu === true)}" class="menu-router-view">
-        <router-view/>
-      </div>
-      <div class="menu-toggle">
-        <button @click="$store.commit('setMenu', (!menu))">Menu</button>
-      </div>
+    <Loading></Loading>
+    <div class="router-view">
+      <router-view/>
     </div>
     <div class="slider-container">
       <div id="slider">
@@ -18,12 +13,21 @@
 </template>
 
 <script>
+
 import particles from '@/components/particles.vue';
+
+// @ is an alias to /src
+import Loading from '@/components/Loading.vue';
+import { mapState } from 'vuex';
+
 
 export default {
   name: 'app',
   components: {
     particles
+  },
+  components: {
+    Loading,
   },
   mounted() {
     //this.$store.dispatch('getLatestData');
