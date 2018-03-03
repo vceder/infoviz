@@ -16,7 +16,7 @@
 <script>
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
-import particles from '@/components/particles.vue';
+import particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue'
 
