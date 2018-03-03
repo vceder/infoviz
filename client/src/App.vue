@@ -20,11 +20,7 @@
 
 <script>
 import particles from '@/components/particles.vue';
-<<<<<<< HEAD
 import ScatterPlot from '@/components/ScatterPlot.vue';
-import { mapState } from 'vuex';
-=======
->>>>>>> master
 
 export default {
   name: 'app',
