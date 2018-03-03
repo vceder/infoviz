@@ -1,30 +1,26 @@
 <template>
   <div id="app">
     <particles/>
-    <div id="menu">
-      <div :class="{'open': (menu === true)}" class="menu-router-view">
-        <router-view/>
-      </div>
-      <div class="menu-toggle">
-        <button @click="$store.commit('setMenu', (!menu))">Menu</button>
-      </div>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
     <div class="slider-container">
       <div id="slider">
-          <Slider/>
+        <Slider/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+import particles from '@/components/particles.vue';
+
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
-import particles from '@/components/particles.vue';
 import { mapState } from 'vuex';
+import Slider from '@/components/Slider.vue'
 
 
 export default {

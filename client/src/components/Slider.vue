@@ -14,7 +14,8 @@ export default {
         vueSlider
     },
     computed: {
-        ...mapState(['top100'])
+        ...mapState(['top100']),
+        ...mapState(['isLoading'])
     },
     methods: {
         getData(){
@@ -23,7 +24,19 @@ export default {
     },
     watch: {
         value: function () {
-            this.$store.dispatch('updateCurrent', this.value);
+            console.log("HEHEHE")
+            console.log("Value",this.value)
+            if (this.value != '') {
+                console.log(this.value)
+                this.$store.dispatch('updateCurrent', this.value);
+            }
+        },
+        isLoading: function () {
+            console.log("Loading Change")
+            console.log(this.getData())
+            this.options.data = this.getData()
+            console.log(this.getData()[0])
+            this.value = this.getData()[0]
         }
     },
     data () {
@@ -62,7 +75,16 @@ export default {
         }
     },
     created: function () {
+        console.log(this.getData())
         this.options.data = this.getData()
+        console.log(this.getData()[0])
+        this.value = this.getData()[0]
+    },
+    mounted: function () {
+        console.log(this.getData())
+        this.options.data = this.getData()
+        console.log(this.getData()[0])
+        this.value = this.getData()[0]
     }
 }
 </script>
