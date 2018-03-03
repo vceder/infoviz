@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <map-view/>
+    <particles/>
     <div id="menu">
       <div :class="{'open': (menu === true)}" class="menu-router-view">
         <router-view/>
@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import mapView from '@/components/mapView.vue';
+import particles from '@/components/particles.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'app',
   components: {
-    mapView,
+    particles
   },
   computed: {
     ...mapState(['menu']),
@@ -35,8 +35,20 @@ export default {
 
 
 <style lang="scss">
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 body {
-  margin: 0;
+  width:100%;
+  height:auto;
+  background: black;
+  position:absolute;
+  border:0px;
+  margin:0px;
+  padding:0px;
+  left:0px;
+  top:0px;
+  font-family: Lato;
+  z-index: -99999;
+  overflow: hidden;
 }
 
 #app {
