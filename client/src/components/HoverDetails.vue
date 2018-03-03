@@ -20,7 +20,7 @@
       ...mapState(['games']),
     },
     mounted() {
-      
+      console.log(this.games)
     },
   };
 </script>
