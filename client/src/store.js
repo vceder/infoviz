@@ -41,10 +41,17 @@ export default new Vuex.Store({
     },
     setCurrent(state, current) {
       state.current = current;
+    },
+    setStarCount(state, number) {
+      state.starCount = number;
     }
   },
   actions: {
-    getTop100({ state, commit }) {
+    updateCurrent({ commit, state }, timestamp) {
+      commit("setCurrent", state.top100[timestamp]);
+      commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    getTop100({ dispatch, state, commit }) {
       if (state.top100.games) {
         commit("toggleLoading", false);
       } else {
@@ -103,7 +110,7 @@ export default new Vuex.Store({
               time.minutes(0);
             }
             commit("setTop100", top100);
-            commit("setCurrent", top100[time.format("YYYYMMDDHHmm")]);
+            dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
             commit("toggleLoading", false);
           })
           .catch(error => {
