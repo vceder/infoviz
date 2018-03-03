@@ -18,14 +18,12 @@ export default {
     },
     methods: {
         getData(){
-            // console.log("Top100",Object.keys(this.top100))
             return Object.keys(this.top100)
         }
     },
     watch: {
         value: function () {
-            console.log("Value has been changed!")
-            console.log("Value: ", this.value)
+            this.$store.dispatch('updateCurrent', this.value);
         }
     },
     data () {
@@ -65,8 +63,6 @@ export default {
     },
     created: function () {
         this.options.data = this.getData()
-    },
-    mounted() {
     }
 }
 </script>
