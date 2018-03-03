@@ -20,7 +20,7 @@ export default {
     ...mapState(['menu']),
   },
   mounted() {
-    this.$store.dispatch('getLatestData');
+    //this.$store.dispatch('getLatestData');
   },
 };
 </script>
