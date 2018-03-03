@@ -1,7 +1,13 @@
 <template>
   <div id="app">
-    <div class="router-view">
-      <router-view/>
+    <particles/>
+    <div id="menu">
+      <div :class="{'open': (menu === true)}" class="menu-router-view">
+        <router-view/>
+      </div>
+      <div class="menu-toggle">
+        <button @click="$store.commit('setMenu', (!menu))">Menu</button>
+      </div>
     </div>
     <div class="slider-container">
       <div id="slider">
@@ -12,12 +18,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import particles from '@/components/particles.vue';
 
 export default {
   name: 'app',
-  computed: {
-    ...mapState(['menu']),
+  components: {
+    particles
   },
   mounted() {
     //this.$store.dispatch('getLatestData');
@@ -27,7 +33,32 @@ export default {
 
 
 <style lang="scss">
-@import './assets/style/global.scss';
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+body {
+  width:100%;
+  height:auto;
+  background: black;
+  position:absolute;
+  border:0px;
+  margin:0px;
+  padding:0px;
+  left:0px;
+  top:0px;
+  font-family: Lato;
+  z-index: -99999;
+  overflow: hidden;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  height: 100vh;
+  width: 100vw;
+}
 
 .slider-container {
   z-index: 100;
