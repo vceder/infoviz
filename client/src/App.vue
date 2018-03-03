@@ -6,7 +6,7 @@
     </div>
     <div class="slider-container">
       <div id="slider">
-        <p>Slider</p>
+          <Slider/>
       </div>
     </div>
   </div>
@@ -28,6 +28,8 @@ export default {
   },
   components: {
     Loading,
+    particles,
+    Slider
   },
   mounted() {
     this.$store.dispatch('getTop100');
