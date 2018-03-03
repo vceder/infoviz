@@ -30,8 +30,9 @@ export default {
   },
   components: {
     Loading,
-    particles,
-    Slider
+    Slider,
+    particles
+
   },
   mounted() {
     this.$store.dispatch('getTop100');
