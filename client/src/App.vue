@@ -16,11 +16,13 @@
 <script>
 
 import particles from '@/components/particles.vue';
-
-// @ is an alias to /src
+import Slider from '@/components/Slider.vue';
 import Loading from '@/components/Loading.vue';
+import ThumbnailPlot from '@/components/ThumbnailPlot.vue';
+// @ is an alias to /src
+
 import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue'
+
 
 
 export default {

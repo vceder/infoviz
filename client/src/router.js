@@ -3,6 +3,8 @@ import Router from "vue-router";
 import OverviewPlot from "./components/OverviewPlot.vue";
 import StreamPlot from "./components/StreamPlot.vue";
 import About from "./views/About.vue";
+import ThumbnailPlot from '@/components/ThumbnailPlot.vue';
+
 
 Vue.use(Router);
 
