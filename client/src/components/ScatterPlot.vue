@@ -5,37 +5,42 @@
 				<div id="chart"></div>
 			</div>
 			</div>
+      <Slider/>
 		</div>
 </template>
 
 
 <script>
-import * as d3 from 'd3';
 import { mapState } from 'vuex';
+import Slider from '@/components/Slider.vue'
+import * as d3 from 'd3';
+
 export default {
   name: 'ScatterPlot',
+
   mounted(){
     this.initScatter();
   },
   computed:{
     ...mapState(['current']),
   },
+   components: {
+    Slider
+  },
   watch:{
     current(){
-      
+      this.initScatter()
     }
   },
   methods:{
     initScatter(){
     console.log(this.current.games)
     var streams = this.current.games['21779'].streams
-    //console.log(streams)
-    
 
 //Scatterplot
 var margin = {left: 200, top: 100, right: 20, bottom: 60},
 	width = document.documentElement.clientWidth/1.1- margin.left - margin.right,
-	height = document.documentElement.clientHeight/1.4-margin.bottom;
+  height = document.documentElement.clientHeight/1.4-margin.bottom;
 
 var svg = d3.select("#chart").append("svg")
 			.attr("width", (width + margin.left + margin.right))
@@ -67,23 +72,21 @@ var tooltip = d3.select("#chart")
 var opacityCircles = 0.8,
 	maxDistanceFromPoint = 10;
 //Set the color for each region
-var color = d3.scaleOrdinal()
-					.range(["#3CDCA0", "#F7766F", "#9FFF70", "#9169F8", "#F9C872", "#83C9FD"])
+var color = d3.scaleOrdinal(["#3CDCA0", "#F7766F", "#9FFF70", "#9169F8", "#F9C872", "#83C9FD"])
 					// .domain(["Africa | North & East", "Africa | South & West", "America | North & Central", "America | South", 
 					// 		 "Asia | East & Central", "Asia | South & West", "Europe | North & West", "Europe | South & East", "Oceania"]);
-          .domain([0,504021])
+          // .domain([0,504021]) //Måste ändras
           
 //Set the new x axis range
 var xScale = d3.scaleLog()
 	.range([0, width])
-	//.domain([100,2e5]); //I prefer this exact scale over the true range and then using "nice"
 	.domain(d3.extent(streams, function(d) {return d.view_count; }))
 	.nice();
 //Set new x-axis
 var xAxis = d3.axisBottom()
-	.ticks(2)
+	.ticks(4)
 	.tickFormat(function (d) {
-		return xScale.tickFormat((8),function(d) { 
+		return xScale.tickFormat((4),function(d) { 
 			return d3.format('.2s')(d);
 		})(d);
 	})	
@@ -110,11 +113,6 @@ wrapper.append("g")
     .style("stroke", "white")
 		.call(yAxis);
 		
-//Scale for the bubble size
-
-// var rScale = d3.scaleSqrt()
-// 			.range([2,16])
-// 			.domain(d3.extent(countries, function(d) { return d.GDP; }));
 
 //////////////////////////////////////////////////////
 ///////////////// Initialize Labels //////////////////
@@ -171,7 +169,6 @@ svg.on('mousemove', function() {
     if (site) showTooltip(site.data);
     svg._tooltipped = site;
   }
-
 });
 
 ////////////////////////////////////////////////////////////	
@@ -180,12 +177,15 @@ svg.on('mousemove', function() {
 
 //Initiate a group element for the circles	
 var circleGroup = wrapper.append("g")
-	.attr("class", "circleWrapper"); 
-	
+  .attr("class", "circleWrapper")
+  .selectAll("streamer")
+  .data(streams) 
+  
+  circleGroup.exit().remove();
 //Place the country circles
-circleGroup.selectAll("streamer")
-	.data(streams) 
-	.enter().append("circle")
+circleGroup
+  .enter().append("circle")
+  .merge(circleGroup)
 		.attr("class", function(d,i) { return "streamer " + d.display_name; })
 		.attr("cx", function(d) {return xScale(d.view_count);})
 		.attr("cy", function(d) {return yScale(d.viewer_count);})
@@ -231,7 +231,6 @@ function removeTooltip (d, i) {
 
 //Show the tooltip on the hovered over slice
 function showTooltip (d, i) {
-	//console.log(d.Country)
 	//Save the chosen circle (so not the voronoi)
 	var element = d3.select(".streamer."+d.display_name),
       el = element._groups[0];
@@ -298,6 +297,9 @@ function showTooltip (d, i) {
 		.style("opacity", 0.5);	
 
 }//function showTooltip
+},
+updateScatter(){
+  
 }
 }
 }
