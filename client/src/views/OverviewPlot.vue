@@ -5,9 +5,9 @@
         <p>{{id}}</p>
       </div>
       <h1 style="color:white">This is overview</h1>
-      <router-link to="/about" tag="button">About</router-link>
-      <router-link to="/analytic" tag="button">Analytic Trail</router-link>
-      <a href="javascript:history.go(-1)" class="back_button"> Go Back</a>
+      <router-link to="/about" class="route_button">About</router-link>
+      <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+      <!-- <a href="javascript:history.go(-1)" class="route_button"> Go Back</a> -->
     </div>
   </div>
 </template>

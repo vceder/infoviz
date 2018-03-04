@@ -40,6 +40,11 @@ export default new Router({
       path: "/streams",
       name: "streams",
       component: StreamPlot
+    },
+    {
+      path: "*",
+      name: "else",
+      component: Intro
     }
   ]
 });

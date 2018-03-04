@@ -1,6 +1,6 @@
 <template>
   <div class="analytic">
     <h1 style="color:white">This is the Analytic Trail page</h1>
-    <a href="javascript:history.go(-1)" class="back_button"> Go Back</a>
+    <a href="javascript:history.go(-1)" class="route_button"> Go Back</a>
   </div>
 </template>
