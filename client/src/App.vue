@@ -15,6 +15,8 @@
 </template>
 
 <script>
+
+
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
