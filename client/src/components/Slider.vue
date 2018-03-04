@@ -1,6 +1,10 @@
+<!-- Vue-Slider from  https://github.com/NightCatSama/vue-slider-component -->
 <template lang="html">
     <div>
         <vue-slider ref="slider" v-model="value" v-bind="options">
+            <div class="tooltipSlider" slot="tooltip" slot-scope="{value}">
+                {{value}}
+            </div>
         </vue-slider>
     </div>
 </template>
@@ -14,25 +18,40 @@ export default {
         vueSlider
     },
     computed: {
-        ...mapState(['top100'])
+        ...mapState(['top100']),
+        ...mapState(['isLoading']),
+        ...mapState(['current'])
     },
     methods: {
         getData(){
-            return Object.keys(this.top100)
+            return Object.keys(this.top100).reverse();
         }
     },
     watch: {
         value: function () {
-            this.$store.dispatch('updateCurrent', this.value);
+            // console.log("HEHEHE")
+            // console.log("Value",this.value)
+            if (this.value != '') {
+                // console.log(this.value)
+                this.$store.dispatch('updateCurrent', this.value);
+            }
+        },
+        isLoading: function () {
+            // console.log("Loading Change")
+            // console.log(this.getData())
+            this.options.data = this.getData()
+            // console.log(this.getData()[0])
+            this.value = this.getData()[0]
         }
     },
     data () {
         return {
             value: 0,
             options: {
-                interval: 10, //Should be changed when using real data for the distrubation
+                // data: ['']*24,
+                // interval: , //Should be changed when using real data for the distrubation
                 piecewise: true,
-                piecewiseLabel: true,
+                piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
                     "backgroundColor": "red"
                 },
@@ -62,10 +81,32 @@ export default {
         }
     },
     created: function () {
+        // console.log(this.getData())
+        // this.options.data = this.getData()
+        // console.log(this.getData()[0])
+        // this.value = this.getData()[0]
+    },
+    mounted: function () {
+        // console.log(this.getData())
         this.options.data = this.getData()
+        // console.log(this.getData()[0])
+        // console.log("testing update of data: ", this.current.timestamp)
+        // this.value = this.current
     }
 }
 </script>
 
 <style lang="css">
+    .tooltipSlider{
+        display: block;
+        font-size: 14px;
+        white-space: nowrap;
+        padding: 2px 5px;
+        min-width: 20px;
+        text-align: center;
+        color: #fff;
+        border-radius: 5px;
+        border: 1px solid #3498db;
+        background-color: #3498db;
+    }
 </style>
