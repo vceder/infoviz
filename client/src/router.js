@@ -5,6 +5,7 @@ import StreamPlot from "./components/StreamPlot.vue";
 import Intro from "./views/Intro.vue";
 import Analytic from "./views/Analytic.vue";
 import About from "./views/About.vue";
+import Game from "./views/Game.vue";
 
 Vue.use(Router);
 
@@ -35,6 +36,11 @@ export default new Router({
       path: "/overview",
       name: "overview",
       component: OverviewPlot
+    },
+    {
+      path: "/game/:id",
+      name: "game",
+      component: Game
     },
     {
       path: "/streams",

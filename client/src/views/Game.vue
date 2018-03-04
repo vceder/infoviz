@@ -1,20 +1,13 @@
 <template>
-  <div class="overview-plot">
-    <div v-bind:style="chartSize" id="overview-chart">
+  <div class="game-plot">
+    <div v-bind:style="chartSize" id="game-chart">
       <div v-for="(game, id) in current.games" :key="id" class="stream" :style="getPosition(id)">
         {{current.games[id].totalViewers}}
       </div>
-      <h1>Overview</h1>
+      <!-- <h1>{$route.params.id}</h1> -->
 
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
-
-      <!-- Make the following an onclick on the subplot rather than a button.
-           Give it the parameter id instead of the string "id" -->
-
-      <router-link to="/game/id" class="route_button">Click dis plot pls</router-link>
-
-
     <Slider/>
     </div>
   </div>
