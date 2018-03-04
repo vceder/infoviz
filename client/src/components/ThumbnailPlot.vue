@@ -49,6 +49,9 @@ export default {
     //Scatterplot
     const opacityCircles = 0.7;
 
+    // var color = d3.scaleOrdinal()
+    //   .range(["blue", "green", "yellow"])
+
     //Place the country circles
     const tmbPlot = d3
       .select('#chart-' + this.gameId)
@@ -73,7 +76,9 @@ export default {
       .attr('r', this.radius)
       .style('opacity', opacityCircles)
       .style('fill', d => {
-        return 'red';
+        // console.log(this.gameId)
+        // return color(this.gameId);
+        return "red";
       });
   },
 };
