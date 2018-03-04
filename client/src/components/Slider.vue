@@ -116,15 +116,14 @@ export default {
     }
     .tooltipSlider{
         display: block;
-        font-size: 14px;
-        white-space: nowrap;
-        padding: 2px 5px;
-        min-width: 20px;
+        font-size: 25px;
+        padding: 8px 17px 8px 8px;
+        min-width: 50px;
+
         text-align: center;
         color: #fff;
-        border-radius: 5px;
-        border: 1px solid #9FFF70;
-        background-color: #9FFF70;
+        border-radius: 13px;
+        /*border: 1px solid #9FFF70;*/
     }
     .start{
         text-align: left;

@@ -1,11 +1,10 @@
 <template>
   <div class="overview-plot">
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="stream" :style="getPosition(id)">
-        {{current.games[id].totalViewers}}
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
+        <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
       <h1>Overview</h1>
-
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
 
@@ -23,7 +22,8 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue'
+import Slider from '@/components/Slider.vue';
+import Thumbnailplot from '@/components/ThumbnailPlot.vue';
 import * as d3 from 'd3';
 
 export default {
@@ -35,6 +35,9 @@ export default {
     };
   },
   computed: {
+    tmbWidth() {
+      return Math.round(this.chartWidth / 30);
+    },
     chartSize() {
       return {
         width: String(this.chartWidth) + 'px',
@@ -44,7 +47,8 @@ export default {
     ...mapState(['current']),
   },
   components: {
-    Slider
+    Slider,
+    Thumbnailplot,
   },
   mounted() {
     console.log('Mounted');
@@ -55,7 +59,7 @@ export default {
         .scalePoint()
         .domain(Object.keys(this.current.games))
         .padding(0)
-        .range([0, this.chartWidth - 100]);
+        .range([0, this.chartWidth - this.tmbWidth]);
 
       const yScale = d3
         .scaleLinear()
@@ -64,7 +68,7 @@ export default {
             return this.current.games[d].totalViewers;
           })
         )
-        .range([this.chartHeight - 50, 0]);
+        .range([this.chartHeight - this.tmbWidth, 0]);
 
       return {
         top: String(yScale(this.current.games[id].totalViewers)) + 'px',
@@ -86,11 +90,8 @@ export default {
   margin: 3% auto;
 }
 
-.stream {
+.game {
   position: absolute;
   display: inline-block;
-  width: 100px;
 }
-
-
 </style>
