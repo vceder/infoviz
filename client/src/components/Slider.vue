@@ -87,22 +87,26 @@ export default {
                     "backgroundColor": "#fff",
                     "height": "1px",
                     "padding-top": "1px",
-                    "backgroundColor": "#F7766F"
+                    "backgroundColor": "#F7766F",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "backgroundColor": "#F7766F"
+                    "background": "#241a3e",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 sliderStyle: { //The style of the dragable dot
                     "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "#F7766F",
+                    "backgroundColor": "#fff",
                     "visability": "visable",
                     "width": "5px",
                     "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "backgroundColor": "#F7766F"
+                    "background": "#9169F8"
                 }
             }
         }
@@ -128,7 +132,6 @@ export default {
         font-size: 25px;
         padding: 8px 17px 8px 8px;
         min-width: 50px;
-
         text-align: center;
         color: #fff;
         border-radius: 13px;
@@ -139,7 +142,6 @@ export default {
         margin-left: 5px;
         color: #9FFF70;
         width: 15%;
-
     }
     .now{
         float: right;
