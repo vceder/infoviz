@@ -10,11 +10,8 @@
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
 
       <div class="slider-container">
-        <div id="slider">
-          <Slider/>
-        </div>
+        <Slider/>
       </div>
-      <!-- <a href="javascript:history.go(-1)" class="route_button"> Go Back</a> -->
     </div>
   </div>
 </template>
@@ -89,5 +86,16 @@ export default {
   position: absolute;
   display: inline-block;
   width: 100px;
+}
+
+.slider-container {
+  z-index: 100;
+  position: fixed;
+  bottom: 2vh;
+  left: 2vw;
+  width: 96vw;
+  background-color: grey;
+  height: 6vh;
+  border-radius: 10px;
 }
 </style>
