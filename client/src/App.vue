@@ -7,16 +7,12 @@
       <router-view/>
     </div>
     <div class="slider-container">
-      <div id="slider">
-        <Slider/>
-      </div>
+      <Slider/>
     </div>
   </div>
 </template>
 
 <script>
-
-
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
@@ -71,14 +67,15 @@ body {
 }
 
 .slider-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   z-index: 100;
   position: fixed;
   bottom: 2vh;
   left: 2vw;
   width: 96vw;
-  background-color: grey;
   height: 6vh;
-  border-radius: 10px;
 }
 
 .router-view {
