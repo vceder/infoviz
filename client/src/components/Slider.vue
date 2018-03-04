@@ -1,7 +1,7 @@
 <!-- Vue-Slider from  https://github.com/NightCatSama/vue-slider-component -->
 <template lang="html">
     <div class="slider-container">
-        <vue-slider ref="slider" v-model="value" v-bind="options">
+        <vue-slider ref="slider" v-model="value" v-bind="options" v-on:drag-start="dragStart" v-on:drag-end="dragStop">
             <div class="tooltipSlider" style="tooltipStyles" slot="tooltip" slot-scope="{value}">
                 <!-- {{value}} -->
                 {{formateToolTip(value)}}
@@ -26,6 +26,8 @@
 import vueSlider from 'vue-slider-component';
 import { mapState } from 'vuex';
 
+var isDragged = false;
+
 export default {
     components: {
         vueSlider
@@ -49,7 +51,18 @@ export default {
             if(!this.value) return "";
             var index = this.options.data.indexOf(label)
             return index
+        },
+        dragStart(value){
+            console.log("HEJ", value)
+            isDragged = true;
+            console.log(isDragged)
+        },
+        dragStop(){
+            console.log("DÅ")
+            isDragged = false;
+            this.$store.dispatch('updateStarCount', this.value)
         }
+
     },
     watch: {
         value: function () {
@@ -57,7 +70,13 @@ export default {
             // console.log("Value",this.value)
             if (this.value != 0) {
                 // console.log(this.value)
-                this.$store.dispatch('updateCurrent', this.value);
+                if (isDragged) {
+                    this.$store.dispatch('updateCurrent', this.value);
+
+                }else{
+                    this.$store.dispatch('updateCurrent', this.value);
+                    this.$store.dispatch('updateStarCount', this.value)
+                }
             }
         },
         isLoading: function () {
