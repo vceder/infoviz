@@ -3,14 +3,8 @@
     <particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
-      <!-- <router-view/> -->
       <router-view/>
     </div>
-    <!-- <div class="slider-container">
-      <div id="slider">
-        <Slider/>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -19,8 +13,6 @@
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
-// import Slider from '@/components/Slider.vue'
-
 
 export default {
   name: 'app',
@@ -29,8 +21,7 @@ export default {
   },
   components: {
     Loading,
-    particles
-
+    particles,
   },
   mounted() {
     this.$store.dispatch('getTop100');
@@ -40,42 +31,15 @@ export default {
 
 
 <style lang="scss">
-
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-body {
-  width:100%;
-  height:auto;
-  background: black;
-  position:absolute;
-  border:0px;
-  margin:0px;
-  padding:0px;
-  left:0px;
-  top:0px;
-  font-family: Lato;
-  z-index: -99999;
-  overflow: hidden;
-}
-
+@import './assets/style/global.scss';
 #app {
+  height: 100vh;
+  width: 100vw;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
-  width: 100vw;
-}
-
-.slider-container {
-  z-index: 100;
-  position: fixed;
-  bottom: 2vh;
-  left: 2vw;
-  width: 96vw;
-  background-color: grey;
-  height: 6vh;
-  border-radius: 10px;
 }
 
 .router-view {
@@ -84,46 +48,5 @@ body {
   top: 0;
   left: 0;
   position: absolute;
-}
-
-.route_button{
-  color: #83C9FD;
-  position:relative;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  margin: 10px;
-  top: -8%;
-  left: -40%;
-}
-
-.intro_page{
-  height: 100%;
-}
-
-h1{
-  color: #3CDCA0;
-}
-
-#intro{
-  color: #3CDCA0;
-  font-size: 80px;
-  position: relative;
-  top: 10%;
-}
-
-#launch_button{
-  color: #9169F8;
-  background-color: #3CDCA0;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 40px;
-  margin: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  position:relative;
-  top: 20%;
-  box-shadow: 2px 5px;
 }
 </style>

@@ -8,13 +8,7 @@
 
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
-
-      <div class="slider-container">
-        <div id="slider">
-          <Slider/>
-        </div>
-      </div>
-      <!-- <a href="javascript:history.go(-1)" class="route_button"> Go Back</a> -->
+    <Slider/>
     </div>
   </div>
 </template>
@@ -90,4 +84,6 @@ export default {
   display: inline-block;
   width: 100px;
 }
+
+
 </style>
