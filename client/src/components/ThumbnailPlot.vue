@@ -1,7 +1,7 @@
 <template>
-				<div>
-          <svg :id="'chart-' + gameId" :width="width" :height="width"></svg>
-        </div>
+  <div>
+    <svg :id="'chart-' + gameId" :width="width" :height="width"></svg>
+  </div>
 </template>
 
 
@@ -12,26 +12,20 @@ export default {
   name: 'ThumbnailPlot',
   props: ['streams', 'width'],
   computed: {
-
     gameId() {
       return this.streams[0].game_id;
-    }
+    },
   },
   mounted() {
     //Scatterplot
     const radius = 5;
 
-    const svg = d3
-      .select('#chart-' + this.gameId)
+    const svg = d3.select('#chart-' + this.gameId);
 
     const opacityCircles = 0.7;
 
-    //////////////////////////////////////////////////////
-    /////////////////// TODO colors //////////////////////
-    //////////////////////////////////////////////////////
-
     //Set the new x axis range
-    var xScale = d3
+    const xScale = d3
       .scaleLog()
       .range([radius, this.width - radius])
       //.domain([100,2e5]); //I prefer this exact scale over the true range and then using "nice"
@@ -43,7 +37,7 @@ export default {
       .nice();
 
     //Set the new y axis range
-    var yScale = d3
+    const yScale = d3
       .scaleLinear()
       .range([this.width - radius, radius])
       .domain(
@@ -81,4 +75,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+
 </style>
