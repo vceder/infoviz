@@ -1,5 +1,6 @@
 <template>
   <div class="overview-plot">
+    <HoverDetails/>
     <div v-bind:style="chartSize" class="chart">
       <div v-for="(game, id) in current.games" :key="id" class="stream">
         <p>{{id}}</p>
@@ -10,6 +11,7 @@
 
 <script>
 // @ is an alias to /src
+import HoverDetails from "@/components/HoverDetails.vue";
 import { mapState } from 'vuex';
 import * as d3 from 'd3';
 
@@ -21,6 +23,9 @@ export default {
       chartHeight: document.documentElement.clientHeight * 0.8,
       margin: document.documentElement.clientWidth * 0.04,
     };
+  },
+  components:{
+    HoverDetails,
   },
   computed: {
     chartSize() {

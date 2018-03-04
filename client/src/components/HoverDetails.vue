@@ -1,7 +1,7 @@
 <template>
   <div class="overview-details">
     <div class="staticHeadline">Game Name</div>
-    <div class="changingValues">HÄR ÄR NAMNET{{games.name}}</div>
+    <div class="changingValues">Name: {{getGame().name}}</div>
     <div class="changingValues"><img class="game-img" v-bind:src="games.image" alt="<Image undefined>"></div>
     <div class="staticHeadline">Current viewers</div>
     <div class="changingValues">{{games.viewer_count}}</div>
@@ -16,8 +16,13 @@
     computed: {
       ...mapState(['current']),
     },
+    methods: {
+      getGame: function(){
+        return this.current.games['110758']
+      },
+    },
     mounted() {
-      console.log(this.games)
+      console.log(this.current.games['110758'])
     },
   };
 </script>
