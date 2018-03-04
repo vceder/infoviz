@@ -19,9 +19,9 @@ export default {
   },
   watch: {
     starCount() {
-      // if (this.starCount !== 0) {
-      //   this.initParticles();
-      // }
+      if (this.starCount !== 0) {
+        this.initParticles();
+      }
     },
   },
   methods: {
