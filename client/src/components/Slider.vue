@@ -6,10 +6,10 @@
                 {{formateToolTip(value)}}
             </div>
         </vue-slider>
-        <div class="now">
+        <div class="now" v-on:click="now">
             Now
         </div>
-        <div class="start">
+        <div class="start" v-on:click="start">
             24 hours ago
         </div>
     </div>
@@ -50,6 +50,12 @@ export default {
         dragStop(){
             isDragged = false;
             this.$store.dispatch('updateStarCount', this.value)
+        },
+        now(){
+            this.value = this.options.data[this.options.data.length -1]
+        },
+        start(){
+            this.value = this.options.data[0]
         }
 
     },
@@ -78,22 +84,26 @@ export default {
                 piecewise: true,
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
-                    "backgroundColor": "#F7766F"
+                    "backgroundColor": "#fff",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "backgroundColor": "#F7766F"
+                    "background": "#241a3e",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 sliderStyle: { //The style of the dragable dot
                     "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "#F7766F",
+                    "backgroundColor": "#fff",
                     "visability": "visable",
                     "width": "12px",
                     "height": "12px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "backgroundColor": "#F7766F"
+                    "background": "#9169F8"
                 }
             }
         }
@@ -116,20 +126,20 @@ export default {
     }
     .tooltipSlider{
         display: block;
-        font-size: 14px;
-        white-space: nowrap;
-        padding: 2px 5px;
-        min-width: 20px;
+        font-size: 25px;
+        padding: 8px 17px 8px 8px;
+        min-width: 50px;
+
         text-align: center;
         color: #fff;
-        border-radius: 5px;
-        border: 1px solid #9FFF70;
-        background-color: #9FFF70;
+        border-radius: 13px;
+        /*border: 1px solid #9FFF70;*/
     }
     .start{
         text-align: left;
         margin-left: 5px;
         color: #9FFF70;
+        width: 15%;
 
     }
     .now{
