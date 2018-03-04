@@ -8,10 +8,7 @@
 
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
-
-      <div class="slider-container">
-        <Slider/>
-      </div>
+    <Slider/>
     </div>
   </div>
 </template>
@@ -88,12 +85,5 @@ export default {
   width: 100px;
 }
 
-.slider-container {
-  z-index: 100;
-  position: fixed;
-  bottom: 2vh;
-  left: 2vw;
-  width: 96vw;
-  height: 6vh;
-}
+
 </style>
