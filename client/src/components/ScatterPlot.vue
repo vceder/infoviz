@@ -34,13 +34,14 @@ export default {
   },
   methods:{
     initScatter(){
-    console.log(this.current.games)
     var streams = this.current.games['21779'].streams
 
 //Scatterplot
 var margin = {left: 200, top: 100, right: 20, bottom: 60},
 	width = document.documentElement.clientWidth/1.1- margin.left - margin.right,
-  height = document.documentElement.clientHeight/1.4-margin.bottom;
+	height = document.documentElement.clientHeight/1.4-margin.bottom;
+	
+d3.select("svg").remove();
 
 var svg = d3.select("#chart").append("svg")
 			.attr("width", (width + margin.left + margin.right))
@@ -297,9 +298,6 @@ function showTooltip (d, i) {
 		.style("opacity", 0.5);	
 
 }//function showTooltip
-},
-updateScatter(){
-  
 }
 }
 }
