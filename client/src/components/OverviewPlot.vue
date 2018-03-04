@@ -1,11 +1,10 @@
 <template>
   <div class="overview-plot">
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="stream" :style="getPosition(id)">
-        {{current.games[id].totalViewers}}
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
+        <Thumbnailplot :streams="current.games[id].streams" :width="100"/>
       </div>
       <h1>Overview</h1>
-
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
     <Slider/>
@@ -16,7 +15,8 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue'
+import Slider from '@/components/Slider.vue';
+import Thumbnailplot from '@/components/ThumbnailPlot.vue';
 import * as d3 from 'd3';
 
 export default {
@@ -28,6 +28,9 @@ export default {
     };
   },
   computed: {
+    width() {
+      return
+    },
     chartSize() {
       return {
         width: String(this.chartWidth) + 'px',
@@ -37,7 +40,8 @@ export default {
     ...mapState(['current']),
   },
   components: {
-    Slider
+    Slider,
+    Thumbnailplot,
   },
   mounted() {
     console.log('Mounted');
@@ -79,11 +83,10 @@ export default {
   margin: 3% auto;
 }
 
-.stream {
+.game {
   position: absolute;
   display: inline-block;
   width: 100px;
+  height: 100px;
 }
-
-
 </style>
