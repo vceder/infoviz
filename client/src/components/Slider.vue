@@ -2,7 +2,7 @@
 <template lang="html">
     <div>
         <vue-slider ref="slider" v-model="value" v-bind="options">
-            <div class="tooltipSlider" slot="tooltip" slot-scope="{value}">
+            <div class="tooltipSlider" style="tooltipStyles" slot="tooltip" slot-scope="{value}">
                 <!-- {{value}} -->
                 {{formateToolTip(value)}}
             </div>
@@ -13,6 +13,12 @@
              <div class="">
              </div>
         </vue-slider>
+        <div class="now">
+            Now
+        </div>
+        <div class="start">
+            24 hours ago
+        </div>
     </div>
 </template>
 
@@ -76,29 +82,29 @@ export default {
                 piecewise: true,
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
-                    "backgroundColor": "red"
+                    "backgroundColor": "#F7766F"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "backgroundColor": "red"
+                    "backgroundColor": "#F7766F"
                 },
                 tooltipStyle: {
-                    "backgroundColor": "red",
-                    "borderColor": "red"
+                    "backgroundColor": "#F7766F",
+                    "borderColor": "#F7766F"
                 },
                 sliderStyle: {
-                    "backgroundColor": "red"
+                    "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "red",
+                    "backgroundColor": "#F7766F",
                     "visability": "visable",
                     "width": "12px",
                     "height": "12px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "backgroundColor": "red"
+                    "backgroundColor": "#F7766F"
                 },
                 labelActiveStyle: {
-                    "color": "red"
+                    "color": "#F7766F"
                 }
             }
         }
@@ -129,7 +135,18 @@ export default {
         text-align: center;
         color: #fff;
         border-radius: 5px;
-        border: 1px solid #3498db;
-        background-color: #3498db;
+        border: 1px solid #9FFF70;
+        background-color: #9FFF70;
+    }
+    .start{
+        text-align: left;
+        margin-left: 5px;
+        color: #9FFF70;
+
+    }
+    .now{
+        float: right;
+        margin-right: 5px;
+        color: #9FFF70;
     }
 </style>
