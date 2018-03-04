@@ -1,6 +1,8 @@
 <template>
   <div class="analytic">
-    <h1>Analytic Trail</h1>
-    <a href="javascript:history.go(-1)" class="route_button"> Go Back</a>
+    <h3>Analytic Trail</h3>
+    <div class="menuItems">
+      <a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+    </div>
   </div>
 </template>
