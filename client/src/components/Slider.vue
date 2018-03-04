@@ -53,12 +53,9 @@ export default {
             return index
         },
         dragStart(value){
-            console.log("HEJ", value)
             isDragged = true;
-            console.log(isDragged)
         },
         dragStop(){
-            console.log("DÅ")
             isDragged = false;
             this.$store.dispatch('updateStarCount', this.value)
         }
@@ -66,10 +63,7 @@ export default {
     },
     watch: {
         value: function () {
-            // console.log("HEHEHE")
-            // console.log("Value",this.value)
             if (this.value != 0) {
-                // console.log(this.value)
                 if (isDragged) {
                     this.$store.dispatch('updateCurrent', this.value);
 
@@ -80,11 +74,8 @@ export default {
             }
         },
         isLoading: function () {
-            // console.log("Loading Change")
-            // console.log(this.getData())
+            // This should not be neeeded anymore staged for deletion
             this.options.data = this.getData()
-            // console.log(this.getData()[0])
-            console.log(this.isLoading)
             this.value = this.options.data[this.options.data.length -1]
         },
         top100: function () {
@@ -128,19 +119,9 @@ export default {
             }
         }
     },
-    created: function () {
-        // console.log(this.getData())
-        // this.options.data = this.getData()
-        // console.log(this.getData()[0])
-        // this.value = this.getData()[0]
-    },
     mounted: function () {
-        // console.log(this.getData())
         this.options.data = this.getData()
         this.value = this.options.data[this.options.data.length -1]
-        // console.log(this.getData()[0])
-        // console.log("testing update of data: ", this.current.timestamp)
-        // this.value = this.current
     }
 }
 </script>
