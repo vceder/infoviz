@@ -11,15 +11,31 @@
 
 <script>
 import * as d3 from 'd3';
+import { mapState } from 'vuex';
 export default {
   name: 'ScatterPlot',
-  props: ['streams'],
   mounted(){
+    this.initScatter();
+  },
+  computed:{
+    ...mapState(['current']),
+  },
+  watch:{
+    current(){
+      
+    }
+  },
+  methods:{
+    initScatter(){
+    console.log(this.current.games)
+    var streams = this.current.games['21779'].streams
+    //console.log(streams)
+    
 
 //Scatterplot
 var margin = {left: 200, top: 100, right: 20, bottom: 60},
-	width = document.documentElement.clientWidth/1.2- margin.left - margin.right,
-	height = document.documentElement.clientHeight/1.2-margin.bottom;
+	width = document.documentElement.clientWidth/1.1- margin.left - margin.right,
+	height = document.documentElement.clientHeight/1.4-margin.bottom;
 
 var svg = d3.select("#chart").append("svg")
 			.attr("width", (width + margin.left + margin.right))
@@ -55,13 +71,13 @@ var color = d3.scaleOrdinal()
 					.range(["#3CDCA0", "#F7766F", "#9FFF70", "#9169F8", "#F9C872", "#83C9FD"])
 					// .domain(["Africa | North & East", "Africa | South & West", "America | North & Central", "America | South", 
 					// 		 "Asia | East & Central", "Asia | South & West", "Europe | North & West", "Europe | South & East", "Oceania"]);
-          .domain([0,1000000])
+          .domain([0,504021])
           
 //Set the new x axis range
 var xScale = d3.scaleLog()
 	.range([0, width])
 	//.domain([100,2e5]); //I prefer this exact scale over the true range and then using "nice"
-	.domain(d3.extent(this.streams, function(d) { return d.view_count; }))
+	.domain(d3.extent(streams, function(d) {return d.view_count; }))
 	.nice();
 //Set new x-axis
 var xAxis = d3.axisBottom()
@@ -82,7 +98,7 @@ wrapper.append("g")
 //Set the new y axis range
 var yScale = d3.scaleLinear()
 	.range([height,0])
-	.domain(d3.extent(this.streams, function(d) { return d.viewer_count; }))
+	.domain(d3.extent(streams, function(d) { return d.viewer_count; }))
 	.nice();	
 var yAxis = d3.axisLeft()
 	.ticks(6)  //Set rough # of ticks
@@ -139,7 +155,7 @@ svg.on('mousemove', function() {
     svg._voronoi = d3.voronoi()
 	  .x(function(d) { return xScale(d.view_count); })
 	  .y(function(d) { return yScale(d.viewer_count); })
-    (this.streams);
+    (streams);
   }
   var p = d3.mouse(this), site;
   p[0] -= margin.left;
@@ -167,17 +183,17 @@ var circleGroup = wrapper.append("g")
 	.attr("class", "circleWrapper"); 
 	
 //Place the country circles
-circleGroup.selectAll("countries")
-	.data(this.streams) 
+circleGroup.selectAll("streamer")
+	.data(streams) 
 	.enter().append("circle")
-		.attr("class", function(d,i) { return "countries " + d.user_id; })
+		.attr("class", function(d,i) { return "streamer " + d.display_name; })
 		.attr("cx", function(d) {return xScale(d.view_count);})
 		.attr("cy", function(d) {return yScale(d.viewer_count);})
 		.attr("r", "8") 
 		.style("opacity", opacityCircles)
     .style("fill", function(d) {return color(d.game_id);})
     .on("mouseover", function(d){
-     tooltip.html("<h3>" + d.Country + "</h3>");
+     tooltip.html("<h3>" + d.display_name + "</h3>");
      return tooltip.style("visibility", "visible")
     })
     .on("mousemove", function(){
@@ -194,9 +210,8 @@ circleGroup.selectAll("countries")
 
 //Hide the tooltip when the mouse moves away
 function removeTooltip (d, i) {
-
 	//Save the chosen circle (so not the voronoi)
-	var element = d3.selectAll(".countries."+d.user_id);
+  var element = d3.selectAll(".streamer."+d.display_name);
 		
 	//Fade out the bubble again
 	element.style("opacity", opacityCircles);
@@ -218,7 +233,7 @@ function removeTooltip (d, i) {
 function showTooltip (d, i) {
 	//console.log(d.Country)
 	//Save the chosen circle (so not the voronoi)
-	var element = d3.select(".countries."+d.user_id),
+	var element = d3.select(".streamer."+d.display_name),
       el = element._groups[0];
 
 	//Make chosen circle more visible
@@ -278,14 +293,14 @@ function showTooltip (d, i) {
 		.style("fill", color)
 		.style("opacity",  0)
 		.style("text-anchor", "end")
-		.text( d3.format(".1f")(d.viewer_count) )
+		.text((d.viewer_count) )
 		.transition().duration(100)
 		.style("opacity", 0.5);	
 
 }//function showTooltip
 }
 }
-
+}
 </script>
 <style scoped lang="scss">
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
