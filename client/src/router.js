@@ -1,9 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import OverviewPlot from "./components/OverviewPlot.vue";
+import OverviewPlot from "./views/OverviewPlot.vue";
 import StreamPlot from "./components/StreamPlot.vue";
-import Intro from "./components/Intro.vue";
-import Analytic from "./components/Analytic.vue";
+import Intro from "./views/Intro.vue";
+import Analytic from "./views/Analytic.vue";
 import About from "./views/About.vue";
 
 Vue.use(Router);
