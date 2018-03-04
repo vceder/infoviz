@@ -2,7 +2,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import firebase from "firebase";
+import moment from "moment";
 import "firebase/firestore";
+
 Vue.use(Vuex);
 
 // Initialize firebase
@@ -19,10 +21,15 @@ export default new Vuex.Store({
     isLoading: true,
     detailsActive: false,
     starCount: 0,
-    latestData: {},
-    history: {}
+    current: {},
+    top100: {},
+    games: {},
+    users: {}
   },
   mutations: {
+    setTop100(state, top100) {
+      state.top100 = top100;
+    },
     toggleDetails(state, bool) {
       state.detailsActive = bool;
     },
@@ -31,48 +38,99 @@ export default new Vuex.Store({
     },
     setLatest(state, latest) {
       state.latestData = latest;
+    },
+    setCurrent(state, current) {
+      state.current = current;
+    },
+    setStarCount(state, number) {
+      state.starCount = number;
+    },
+    setUsers(state, users) {
+      state.users = users;
     }
   },
   actions: {
-    getLatestData({ commit }) {
-      let latest = {
-        total_viewers: 0,
-        total_games: 0,
-        timestamp: "",
-        games: {}
-      };
-      const usersRef = db.collection("users");
-      // const gamesRef = db.collection("games");
-
-      usersRef
-        .orderBy("last_live_timestamp", "desc")
-        .limit(100)
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            const stream = doc.data();
-            if (stream.last_game_id !== "") {
-              if (latest.timestamp === "") {
-                latest.timestamp = stream.last_live_timestamp;
-              }
-              latest.total_viewers += stream.last_viewer_count;
-              if (latest.games[stream.last_game_id]) {
-                latest.games[stream.last_game_id].streams.push(stream);
-              } else {
-                latest.total_games++;
-                latest.games[stream.last_game_id] = {
-                  streams: [stream]
+    updateCurrent({ commit, state }, timestamp) {
+      commit("setCurrent", state.top100[timestamp]);
+      // commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    updateStarCount({ commit, state }, timestamp){
+        commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    getTop100({ dispatch, state, commit }) {
+      if (state.top100.games) {
+        commit("toggleLoading", false);
+      } else {
+        let top100 = {};
+        let users = {};
+        const streamsRef = db.collection("streams");
+        streamsRef
+          .orderBy("timestamp", "desc")
+          .limit(48)
+          .get()
+          .then(querySnapshot => {
+            if (querySnapshot.empty) {
+              throw {
+                name: "api error",
+                message: querySnapshot
+              };
+            } else {
+              querySnapshot.forEach(doc => {
+                const docData = doc.data();
+                const timestamp = moment(docData.timestamp);
+                top100[timestamp.format("YYYYMMDDHHmm")] = {
+                  averageViewers: docData.average_viewers,
+                  totalViewers: docData.total_viewers,
+                  games: {},
+                  totalGames: 0,
+                  timestamp: timestamp.toDate()
                 };
-              }
+                docData.top100.forEach(stream => {
+                  users[stream.user_id] = stream;
+                  if (stream.game_id !== "") {
+                    if (
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ]
+                    ) {
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ].streams.push(stream);
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ].totalViewers +=
+                        stream.viewer_count;
+                    } else {
+                      top100[timestamp.format("YYYYMMDDHHmm")].totalGames++;
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ] = {
+                        totalViewers: stream.viewer_count,
+                        streams: [stream]
+                      };
+                    }
+                  }
+                });
+              });
             }
+          })
+          .then(() => {
+            const time = moment().startOf("minute");
+            const minutes = time.minutes();
+            if (minutes >= 30) {
+              time.minutes(30);
+            } else {
+              time.minutes(0);
+            }
+            commit("setUsers", users);
+            commit("setTop100", top100);
+            dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
+            commit("toggleLoading", false);
+          })
+          .catch(error => {
+            console.log(error);
           });
-        })
-        .then(() => {
-          commit("setLatest", latest);
-        })
-        .catch(() => {
-          //console.log('error');
-        });
+      }
     }
   }
 });

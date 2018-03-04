@@ -1,69 +1,64 @@
 <template>
   <div id="app">
     <particles/>
+<<<<<<< HEAD
     <ScatterPlot/>
     <!-- <div class="slider-container">
       <div id="slider">
         <p>Slider</p>
       </div>
     </div> -->
+=======
+    <Loading/>
+    <div v-if="!isLoading" class="router-view">
+      <router-view/>
+    </div>
+>>>>>>> master
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 import particles from '@/components/particles.vue';
 import ScatterPlot from '@/components/ScatterPlot.vue';
+=======
+// @ is an alias to /src
+import Loading from '@/components/Loading.vue';
+import particles from '@/components/Particles.vue';
+import { mapState } from 'vuex';
+>>>>>>> master
 
 export default {
   name: 'app',
+  computed: {
+    ...mapState(['isLoading']),
+  },
   components: {
+<<<<<<< HEAD
     particles,
     ScatterPlot
+=======
+    Loading,
+    particles,
+>>>>>>> master
   },
   mounted() {
-    //this.$store.dispatch('getLatestData');
+    this.$store.dispatch('getTop100');
   },
 };
 </script>
 
 
 <style lang="scss">
-
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-body {
-  width:100%;
-  height:auto;
-  background: black;
-  position:absolute;
-  border:0px;
-  margin:0px;
-  padding:0px;
-  left:0px;
-  top:0px;
-  font-family: Lato;
-  z-index: -99999;
-  overflow: hidden;
-}
-
+@import './assets/style/global.scss';
 #app {
+  height: 100vh;
+  width: 100vw;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100vh;
-  width: 100vw;
-}
-
-.slider-container {
-  z-index: 100;
-  position: fixed;
-  bottom: 2vh;
-  left: 2vw;
-  width: 96vw;
-  background-color: grey;
-  height: 6vh;
-  border-radius: 10px;
 }
 
 .router-view {

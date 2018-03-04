@@ -14,10 +14,11 @@
   "dependencies": {
     "d3": "^4.13.0",
     "firebase": "^4.10.1",
+    "moment": "^2.21.0",
     "particles.js": "^2.0.0",
-    "particlesjs": "^2.2.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",
+    "vue-slider-component": "^2.5.8",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -40,7 +41,10 @@
     "extends": [
       "plugin:vue/essential",
       "@vue/prettier"
-    ]
+    ],
+    "rules": {
+      "no-console": "off"
+    }
   },
   "postcss": {
     "plugins": {
