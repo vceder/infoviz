@@ -86,24 +86,23 @@ export default {
                 bgStyle: { // Base style of the slider
                     "backgroundColor": "#fff",
                     "height": "1px",
-                    "padding-top": "1px"
+                    "padding-top": "1px",
+                    "backgroundColor": "#F7766F"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "background": "#241a3e",
-                    "height": "3px",
-                    "padding-top": "1px"
+                    "backgroundColor": "#F7766F"
                 },
                 sliderStyle: { //The style of the dragable dot
                     "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "#fff",
+                    "backgroundColor": "#F7766F",
                     "visability": "visable",
                     "width": "5px",
                     "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "background": "#9169F8"
+                    "backgroundColor": "#F7766F"
                 }
             }
         }

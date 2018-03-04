@@ -7,6 +7,13 @@
       <h1>Overview</h1>
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+
+      <!-- Make the following an onclick on the subplot rather than a button.
+           Give it the parameter id instead of the string "id" -->
+
+      <router-link to="/game/id" class="route_button">Click dis plot pls</router-link>
+
+
     <Slider/>
     </div>
   </div>
