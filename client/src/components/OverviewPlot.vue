@@ -29,8 +29,7 @@ export default {
   },
   computed: {
     tmbWidth() {
-      console.log(Math.round((this.chartWidth / this.current.totalGames) * 1.25));
-      return Math.round((this.chartWidth / this.current.totalGames) * 1.25);
+      return Math.round(this.chartWidth / 30);
     },
     chartSize() {
       return {
