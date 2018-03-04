@@ -43,24 +43,26 @@ body {
   background-size: contain;
   height:130px;
   width: 50%;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 50px auto;
 }
 
 #intro {
   color: #3CDCA0;
-  font-size: 200px;
+  font-size: 10vw;
+  line-height: 10vw;
   text-transform: uppercase;
   font-weight: 700;
   text-align: center;
-
+  font-stretch: expanded;
+  margin-bottom: 30px;
 }
 
 #introText {
   color: #3CDCA0;
-  font-size: 40px;
+  font-size: 1.8vw;
   font-weight: 300;
-  margin-bottom: 8%;
-  text-align: center;
+  text-align: right;
+  padding-right: 3%;
 }
 
 #launch_button{
@@ -70,8 +72,7 @@ body {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 30px;
-  top: 300px;
+  font-size: 1.7vw;
   padding: 20px 40px 20px 40px;
   top: 20%;
 }
