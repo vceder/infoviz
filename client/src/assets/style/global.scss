@@ -78,7 +78,7 @@ h3 {
   margin: 0 auto 50px auto;
 }
 
-#intro {
+#title {
   color: #3CDCA0;
   font-size: 10vw;
   line-height: 10vw;
@@ -97,6 +97,16 @@ h3 {
   padding-right: 3%;
 }
 
+#SubintroText {
+  color: #3CDCA0;
+  font-size: 1.6vw;
+  font-weight: 300;
+  text-align: left;
+  padding-left: 3%;
+  margin-top: -3%;
+  margin-bottom: 5%;
+}
+
 #launch_button{
   color: #9169F8;
   border-radius: 28px;
@@ -104,6 +114,8 @@ h3 {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: 1.5vw;
+  padding: 1vw 1.5vw 1vw 1.5vw;
   font-size: 1.7vw;
   padding: 20px 40px 20px 40px;
   top: 20%;
@@ -120,6 +132,7 @@ h3 {
   margin: 10vh auto;
   align-items: center;
 }
+
 
 .image {
   width: 300px;
@@ -139,6 +152,17 @@ h4 {
   color: #fff;
   font-weight: 200;
   margin: 0;
+}
+
+#teamBio {
+  font-size: 1.3vw;
+  color: #fff;
+  font-weight: 200;
+  width: 50%;
+  border: solid 2px #fff;
+  position: relative;
+  margin: 10vh auto -2% auto;
+  padding: 3%;
 }
 
 .teamImageLeft {
