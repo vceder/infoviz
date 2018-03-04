@@ -65,7 +65,7 @@ h3 {
 #titleHolder {
   position: relative;
   top: 30%;
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
   padding-top: 10%;
 }
@@ -78,16 +78,15 @@ h3 {
   margin: 0 auto 50px auto;
 }
 
-#title {
+#intro {
   color: #3CDCA0;
   font-size: 10vw;
   line-height: 10vw;
   text-transform: uppercase;
-  font-weight: 900;
-  letter-spacing: 7px;
+  font-weight: 700;
   text-align: center;
   font-stretch: expanded;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 #introText {
@@ -105,8 +104,9 @@ h3 {
   text-decoration: none;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1.5vw;
-  padding: 1vw 1.5vw 1vw 1.5vw;
+  font-size: 1.7vw;
+  padding: 20px 40px 20px 40px;
+  top: 20%;
 }
 
 .about {
