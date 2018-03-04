@@ -4,6 +4,10 @@
       <div v-for="(game, id) in current.games" :key="id" class="stream" :style="getPosition(id)">
         {{current.games[id].totalViewers}}
       </div>
+      <h1 style="color:white">This is overview</h1>
+      <router-link to="/about" class="route_button">About</router-link>
+      <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+      <!-- <a href="javascript:history.go(-1)" class="route_button"> Go Back</a> -->
     </div>
   </div>
 </template>
@@ -76,4 +80,3 @@ export default {
   width: 100px;
 }
 </style>
-
