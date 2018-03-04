@@ -1,6 +1,6 @@
 <template>
   <div class="intro_page">
-    <h1 style="color:white">This is the intro-page</h1>
-    <router-link to="/overview" class="route_button">Launch</router-link>
+    <h1 id="intro">Plot Twitch</h1>
+    <router-link to="/overview" id="launch_button">Let's get started!</router-link>
   </div>
 </template>

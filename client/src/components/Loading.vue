@@ -42,7 +42,9 @@ export default {
   margin: 20px auto;
   width: 40px;
   height: 40px;
-  position: relative;
+  position: absolute;
+  top: 40%;
+  left: 50%;
   -webkit-transform: rotateZ(45deg);
   transform: rotateZ(45deg);
 }
