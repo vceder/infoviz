@@ -34,11 +34,17 @@ h1{
   color: #3CDCA0;
 }
 
-#intro{
+#titleHolder {
+  position: relative;
+  top: 40%;
+}
+
+#intro {
   color: #3CDCA0;
   font-size: 80px;
-  position: relative;
-  top: 10%;
+  text-transform: uppercase;
+  font-weight: 300;
+
 }
 
 #launch_button{
@@ -49,6 +55,7 @@ h1{
   font-weight: bold;
   font-size: 40px;
   margin: 20px;
+  top: 300px;
   padding-left: 10px;
   padding-right: 10px;
   position:relative;
