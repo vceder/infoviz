@@ -60,6 +60,11 @@ export default {
             this.options.data = this.getData()
             // console.log(this.getData()[0])
             this.value = this.options.data[this.options.data.length -1]
+        },
+        top100: function () {
+            this.options.data = this.getData()
+            // console.log(this.getData()[0])
+            this.value = this.options.data[this.options.data.length -1]
         }
     },
     data () {
