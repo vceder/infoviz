@@ -44,11 +44,17 @@ export default new Vuex.Store({
     },
     setStarCount(state, number) {
       state.starCount = number;
+    },
+    setUsers(state, users) {
+      state.users = users;
     }
   },
   actions: {
     updateCurrent({ commit, state }, timestamp) {
       commit("setCurrent", state.top100[timestamp]);
+      // commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
     },
     getTop100({ dispatch, state, commit }) {
@@ -56,6 +62,7 @@ export default new Vuex.Store({
         commit("toggleLoading", false);
       } else {
         let top100 = {};
+        let users = {};
         const streamsRef = db.collection("streams");
         streamsRef
           .orderBy("timestamp", "desc")
@@ -79,6 +86,7 @@ export default new Vuex.Store({
                   timestamp: timestamp.toDate()
                 };
                 docData.top100.forEach(stream => {
+                  users[stream.user_id] = stream;
                   if (stream.game_id !== "") {
                     if (
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
@@ -88,11 +96,16 @@ export default new Vuex.Store({
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
                         stream.game_id
                       ].streams.push(stream);
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ].totalViewers +=
+                        stream.viewer_count;
                     } else {
                       top100[timestamp.format("YYYYMMDDHHmm")].totalGames++;
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
                         stream.game_id
                       ] = {
+                        totalViewers: stream.viewer_count,
                         streams: [stream]
                       };
                     }
@@ -109,6 +122,7 @@ export default new Vuex.Store({
             } else {
               time.minutes(0);
             }
+            commit("setUsers", users);
             commit("setTop100", top100);
             dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
             commit("toggleLoading", false);
