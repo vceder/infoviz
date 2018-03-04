@@ -6,17 +6,12 @@
       <router-view/>
     </div>
     <div class="slider-container">
-      <div id="slider">
-        <Slider/>
-      </div>
+      <Slider/>
     </div>
   </div>
 </template>
 
 <script>
-
-import particles from '@/components/particles.vue';
-
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
@@ -71,6 +66,9 @@ body {
 }
 
 .slider-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   z-index: 100;
   position: fixed;
   bottom: 2vh;
