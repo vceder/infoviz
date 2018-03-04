@@ -85,7 +85,7 @@ export default {
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
                     "backgroundColor": "#fff",
-                    "height": "3px",
+                    "height": "1px",
                     "padding-top": "1px"
                 },
                 processStyle:{ // Style of what's to the left of our selector
