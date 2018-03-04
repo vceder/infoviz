@@ -84,11 +84,11 @@ export default {
             // console.log(this.getData())
             this.options.data = this.getData()
             // console.log(this.getData()[0])
+            console.log(this.isLoading)
             this.value = this.options.data[this.options.data.length -1]
         },
         top100: function () {
             this.options.data = this.getData()
-            // console.log(this.getData()[0])
             this.value = this.options.data[this.options.data.length -1]
         }
     },
@@ -137,6 +137,7 @@ export default {
     mounted: function () {
         // console.log(this.getData())
         this.options.data = this.getData()
+        this.value = this.options.data[this.options.data.length -1]
         // console.log(this.getData()[0])
         // console.log("testing update of data: ", this.current.timestamp)
         // this.value = this.current
