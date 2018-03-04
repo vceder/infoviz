@@ -3,14 +3,15 @@
 <div id="particles-js"></div>
 
 <div class="holder">
-<div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
+<!-- <div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
 <div class="changingValues">INSERT CHANGING VALUES HERE</div>
 <div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
 <div class="changingValues">INSERT CHANGING VALUES HERE</div>
 <div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
 <div class="changingValues">INSERT CHANGING VALUES HERE</div>
 <div class="staticHeadline">INSERT STARTCOUNT VARIABLE HERE</div>
-<div class="changingValues">INSERT CHANGING VALUES HERE</div>
+<div class="changingValues">INSERT CHANGING VALUES HERE</div> -->
+<h1>This is particles (always running in App.vue)</h1>
 </div>
 </div>
 
@@ -57,7 +58,7 @@ const particlesSettings = {
           "sync": false
         }
       },
-      //SIZE GÖR SÅ ATT STJÄRNORNA BLINKAR! 
+      //SIZE GÖR SÅ ATT STJÄRNORNA BLINKAR!
       "size": {
         "value": 0.5,
         "random": true,
@@ -148,7 +149,7 @@ methods: {
   }
 }
 </script>
-    
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);

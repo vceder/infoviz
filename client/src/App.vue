@@ -2,14 +2,15 @@
   <div id="app">
     <particles/>
     <div id="menu">
-      <div :class="{'open': (menu === true)}" class="menu-router-view">
+      <!-- <div :class="{'open': (menu === true)}" class="menu-router-view">
         <router-view/>
-      </div>
-      <div class="menu-toggle">
+      </div> -->
+      <!-- <div class="menu-toggle">
         <button @click="$store.commit('setMenu', (!menu))">Menu</button>
-      </div>
+      </div> -->
     <Loading/>
     <div v-if="!isLoading" class="router-view">
+      <!-- <router-view/> -->
       <router-view/>
     </div>
     <div class="slider-container">
@@ -17,6 +18,7 @@
           <Slider/>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -34,8 +36,7 @@ export default {
   },
   components: {
     Loading,
-    particles,
-    Slider
+    particles
   },
   mounted() {
     this.$store.dispatch('getTop100');

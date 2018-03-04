@@ -4,6 +4,10 @@
       <div v-for="(game, id) in current.games" :key="id" class="stream">
         <p>{{id}}</p>
       </div>
+      <h1 style="color:white">This is overview</h1>
+      <router-link to="/about" tag="button">About</router-link>
+      <router-link to="/analytic" tag="button">Analytic Trail</router-link>
+      <a href="javascript:history.go(-1)" class="back_button"> Go Back</a>
     </div>
   </div>
 </template>
@@ -136,4 +140,3 @@ export default {
   display: flex;
 }
 </style>
-
