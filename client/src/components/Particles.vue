@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     initParticles() {
-      console.log('Star count: ', Math.round(this.starCount / 100));
-      this.settings.particles.number.value = Math.round(this.starCount / 100);
+      console.log('Star count: ', Math.round(this.starCount / 1000));
+      this.settings.particles.number.value = Math.round(this.starCount / 1000);
       particlesJS('particles-js', this.settings);
     },
   },

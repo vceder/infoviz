@@ -31,6 +31,7 @@ export default {
 
 
 <style lang="scss">
+@import './assets/style/global.scss';
 #app {
   height: 100vh;
   width: 100vw;
