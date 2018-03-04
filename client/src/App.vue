@@ -1,32 +1,18 @@
 <template>
   <div id="app">
     <particles/>
-<<<<<<< HEAD
-    <ScatterPlot/>
-    <!-- <div class="slider-container">
-      <div id="slider">
-        <p>Slider</p>
-      </div>
-    </div> -->
-=======
     <Loading/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>
->>>>>>> master
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-import particles from '@/components/particles.vue';
-import ScatterPlot from '@/components/ScatterPlot.vue';
-=======
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
->>>>>>> master
 
 export default {
   name: 'app',
@@ -34,13 +20,8 @@ export default {
     ...mapState(['isLoading']),
   },
   components: {
-<<<<<<< HEAD
-    particles,
-    ScatterPlot
-=======
     Loading,
     particles,
->>>>>>> master
   },
   mounted() {
     this.$store.dispatch('getTop100');
