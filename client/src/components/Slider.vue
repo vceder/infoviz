@@ -3,15 +3,8 @@
     <div class="slider-container">
         <vue-slider ref="slider" v-model="value" v-bind="options" v-on:drag-start="dragStart" v-on:drag-end="dragStop">
             <div class="tooltipSlider" style="tooltipStyles" slot="tooltip" slot-scope="{value}">
-                <!-- {{value}} -->
                 {{formateToolTip(value)}}
             </div>
-            <!-- <div class="labelSlider" slot="label" slot-scope="{label}">
-
-
-            </div> -->
-             <div class="">
-             </div>
         </vue-slider>
         <div class="now">
             Now
@@ -34,7 +27,6 @@ export default {
     },
     computed: {
         ...mapState(['top100']),
-        ...mapState(['isLoading']),
         ...mapState(['current'])
     },
     methods: {
@@ -52,7 +44,7 @@ export default {
             var index = this.options.data.indexOf(label)
             return index
         },
-        dragStart(value){
+        dragStart(){
             isDragged = true;
         },
         dragStop(){
@@ -73,11 +65,6 @@ export default {
                 }
             }
         },
-        isLoading: function () {
-            // This should not be neeeded anymore staged for deletion
-            this.options.data = this.getData()
-            this.value = this.options.data[this.options.data.length -1]
-        },
         top100: function () {
             this.options.data = this.getData()
             this.value = this.options.data[this.options.data.length -1]
@@ -88,7 +75,6 @@ export default {
             value: 0,
             options: {
                 data: [],
-                // interval: , //Should be changed when using real data for the distrubation
                 piecewise: true,
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
@@ -97,11 +83,7 @@ export default {
                 processStyle:{ // Style of what's to the left of our selector
                     "backgroundColor": "#F7766F"
                 },
-                tooltipStyle: {
-                    "backgroundColor": "#F7766F",
-                    "borderColor": "#F7766F"
-                },
-                sliderStyle: {
+                sliderStyle: { //The style of the dragable dot
                     "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
@@ -112,9 +94,6 @@ export default {
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
                     "backgroundColor": "#F7766F"
-                },
-                labelActiveStyle: {
-                    "color": "#F7766F"
                 }
             }
         }
