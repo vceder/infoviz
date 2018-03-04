@@ -7,6 +7,9 @@
         A quick real time overview for the top 100 Twitch streams
 </div>
       <div id="title">Plot Twitch</div>
+      <div id="SubintroText">
+        Subtitle something nice to put here
+</div>
 
 <div id="launch">
   <router-link to="/overview" id="launch_button">Show me</router-link>
