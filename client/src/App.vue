@@ -6,11 +6,11 @@
       <!-- <router-view/> -->
       <router-view/>
     </div>
-    <div class="slider-container">
+    <!-- <div class="slider-container">
       <div id="slider">
         <Slider/>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -19,7 +19,7 @@
 import Loading from '@/components/Loading.vue';
 import particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue'
+// import Slider from '@/components/Slider.vue'
 
 
 export default {
@@ -29,7 +29,6 @@ export default {
   },
   components: {
     Loading,
-    Slider,
     particles
 
   },
@@ -88,10 +87,43 @@ body {
 }
 
 .route_button{
+  color: #83C9FD;
+  position:relative;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 10px;
+  top: -8%;
+  left: -40%;
+}
+
+.intro_page{
+  height: 100%;
+}
+
+h1{
   color: #3CDCA0;
+}
+
+#intro{
+  color: #3CDCA0;
+  font-size: 80px;
+  position: relative;
+  top: 10%;
+}
+
+#launch_button{
+  color: #9169F8;
+  background-color: #3CDCA0;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: bold;
   font-size: 40px;
   margin: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  position:relative;
+  top: 20%;
+  box-shadow: 2px 5px;
 }
 </style>

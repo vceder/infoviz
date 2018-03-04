@@ -4,9 +4,16 @@
       <div v-for="(game, id) in current.games" :key="id" class="stream" :style="getPosition(id)">
         {{current.games[id].totalViewers}}
       </div>
-      <h1 style="color:white">This is overview</h1>
+      <h1>Overview</h1>
+
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+
+      <div class="slider-container">
+        <div id="slider">
+          <Slider/>
+        </div>
+      </div>
       <!-- <a href="javascript:history.go(-1)" class="route_button"> Go Back</a> -->
     </div>
   </div>
@@ -15,6 +22,7 @@
 <script>
 // @ is an alias to /src
 import { mapState } from 'vuex';
+import Slider from '@/components/Slider.vue'
 import * as d3 from 'd3';
 
 export default {
@@ -33,6 +41,9 @@ export default {
       };
     },
     ...mapState(['current']),
+  },
+  components: {
+    Slider
   },
   mounted() {
     console.log('Mounted');
