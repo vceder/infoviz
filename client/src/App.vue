@@ -75,9 +75,7 @@ body {
   bottom: 2vh;
   left: 2vw;
   width: 96vw;
-  background-color: grey;
   height: 6vh;
-  border-radius: 10px;
 }
 
 .router-view {
