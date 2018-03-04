@@ -3,8 +3,15 @@
     <div>
         <vue-slider ref="slider" v-model="value" v-bind="options">
             <div class="tooltipSlider" slot="tooltip" slot-scope="{value}">
-                {{value}}
+                <!-- {{value}} -->
+                {{formateToolTip(value)}}
             </div>
+            <!-- <div class="labelSlider" slot="label" slot-scope="{label}">
+
+
+            </div> -->
+             <div class="">
+             </div>
         </vue-slider>
     </div>
 </template>
@@ -25,13 +32,24 @@ export default {
     methods: {
         getData(){
             return Object.keys(this.top100).reverse();
+        },
+        formateToolTip(value){
+            if (!value) return "LOADING...";
+            var tmp = value.slice(8);
+            tmp = tmp.slice(0,2) + ":" + tmp.slice(2)
+            return tmp
+        },
+        getIndex(value){
+            if(!this.value) return "";
+            var index = this.options.data.indexOf(label)
+            return index
         }
     },
     watch: {
         value: function () {
             // console.log("HEHEHE")
             // console.log("Value",this.value)
-            if (this.value != '') {
+            if (this.value != 0) {
                 // console.log(this.value)
                 this.$store.dispatch('updateCurrent', this.value);
             }
@@ -41,14 +59,14 @@ export default {
             // console.log(this.getData())
             this.options.data = this.getData()
             // console.log(this.getData()[0])
-            this.value = this.getData()[0]
+            this.value = this.options.data[this.options.data.length -1]
         }
     },
     data () {
         return {
             value: 0,
             options: {
-                // data: ['']*24,
+                data: [],
                 // interval: , //Should be changed when using real data for the distrubation
                 piecewise: true,
                 piecewiseLabel: false,
