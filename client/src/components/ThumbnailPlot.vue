@@ -11,6 +11,35 @@ import * as d3 from 'd3';
 export default {
   name: 'ThumbnailPlot',
   props: ['streams', 'width'],
+  data() {
+    return {
+      radius: 5,
+    };
+  },
+  methods: {
+    xScale(num) {
+      const xScale = d3
+        .scaleLog()
+        .range([this.radius, this.width - this.radius])
+        .domain(
+          d3.extent(this.streams, d => {
+            return d.view_count;
+          })
+        );
+      return Math.round(xScale(num));
+    },
+    yScale(num) {
+      const yScale = d3
+        .scaleLinear()
+        .range([this.width - this.radius, this.radius])
+        .domain(
+          d3.extent(this.streams, d => {
+            return d.viewer_count;
+          })
+        );
+      return Math.round(yScale(num));
+    },
+  },
   computed: {
     gameId() {
       return this.streams[0].game_id;
@@ -18,50 +47,32 @@ export default {
   },
   mounted() {
     //Scatterplot
-    const radius = 5;
-    const svg = d3.select('#chart-' + this.gameId);
     const opacityCircles = 0.7;
 
-    //Set the new y axis range
-    const yScale = d3
-      .scaleLinear()
-      .range([this.width - radius, radius])
-      .domain(
-        d3.extent(this.streams, function(d) {
-          return d.viewer_count;
-        })
-      );
-
-    const xScale = d3
-      .scaleLog()
-      .range([radius, this.width - radius])
-      .domain(
-        d3.extent(this.streams, function(d) {
-          return d.view_count;
-        })
-      );
-    ////////////////////////////////////////////////////////////
-    /////////////////// Scatterplot Circles ////////////////////
-    ////////////////////////////////////////////////////////////
-
     //Place the country circles
-    svg
+    const tmbPlot = d3
+      .select('#chart-' + this.gameId)
       .selectAll('tmb-plot')
-      .data(this.streams)
+      .data(this.streams, d => {
+        return d.user_id;
+      });
+
+    tmbPlot.exit().remove();
+
+    tmbPlot
       .enter()
       .append('circle')
-      .attr('class', function(d) {
-        return 'tmb-plot ' + d.user_id;
+      .attr('class', 'tmb-plot')
+      .merge(tmbPlot)
+      .attr('cx', d => {
+        return this.xScale(d.view_count);
       })
-      .attr('cx', function(d) {
-        return Math.round(xScale(d.view_count));
+      .attr('cy', d => {
+        return this.yScale(d.viewer_count);
       })
-      .attr('cy', function(d) {
-        return Math.round(yScale(d.viewer_count));
-      })
-      .attr('r', radius)
+      .attr('r', this.radius)
       .style('opacity', opacityCircles)
-      .style('fill', function(d) {
+      .style('fill', d => {
         return 'red';
       });
   },
