@@ -2,10 +2,7 @@
   <div class="overview-details">
     <div class="staticHeadline">Game Name</div>
     <div class="changingValues">HÄR ÄR NAMNET{{games.name}}</div>
-    <div class="changingValues"><img v-bind:src="games.image" alt="<Image undefined>"></div>
-    <div class="staticHeadline">Time of day</div>
-    <!--Get timezone of user to display correct timestamp-->
-    <div class="changingValues">{{games.timestamp}}</div>
+    <div class="changingValues"><img class="game-img" v-bind:src="games.image" alt="<Image undefined>"></div>
     <div class="staticHeadline">Current viewers</div>
     <div class="changingValues">{{games.viewer_count}}</div>
   </div>
@@ -17,7 +14,7 @@
   export default {
     name: 'HoverDetails',
     computed: {
-      ...mapState(['games']),
+      ...mapState(['current']),
     },
     mounted() {
       console.log(this.games)
@@ -28,7 +25,10 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import '../assets/style/global.scss';
-
+  
+  .game-img{
+    max-width: 30px;
+  }
   .overview-details{
       float: right;
       margin: 10% 5% 0 0;
