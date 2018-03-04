@@ -54,8 +54,8 @@ export default new Vuex.Store({
       commit("setCurrent", state.top100[timestamp]);
       // commit("setStarCount", state.top100[timestamp].totalViewers);
     },
-    updateStarCount({ commit, state }, timestamp){
-        commit("setStarCount", state.top100[timestamp].totalViewers);
+    updateStarCount({ commit, state }, timestamp) {
+      commit("setStarCount", state.top100[timestamp].totalViewers);
     },
     getTop100({ dispatch, state, commit }) {
       if (state.top100.games) {
