@@ -5,6 +5,7 @@
     <a href="javascript:history.go(-1)" class="route_button2"> < Go Back</a>
   </div>
   </div>
+    <div id="teamBio">The Plot Twitch team, consists of 8 interaction design master’s students from the Royal Institute of Technology in Stockholm, Sweden. The Plot Twitch product is the final project in the course DH2321 Information Visualization, supervised by Dr Mario Romero Vega, and brought to action during the spring of 2018.</div>
 <div class="teamContainer">
   <div class="teamImageLeft"><img class="image" src="../../public/alexandra.png"></div>
   <div class="teamBioLeft"><h2>Alexandra</h2><h4>mailadress<br/><br/>Alexandra is one of our front-end developers and UX designers. Her positive and driven attitude combined with a non-existent fear for trying new things until they work makes her an ideal part of any development team. Her curiosity and master skills in searching the web for the right solutions has brought the team home. In the Plot Twitch project, her main responsibility has been to set up scatter plots, master the voronoi functionality and caring for the stars/viewers counter.</h4></div>
@@ -27,7 +28,7 @@
 </div>
 <div class="teamContainer">
   <div class="teamImageRight"><img class="image" src="../../public/matilda.png"></div>
-  <div class="teamBioRight"><h2>Matilda</h2><h4>mailadress<br/><br/>Matilda’s catch phrase is “make it pretty” and for obvious reasons she was part of the design team to begin with. She later transitioned between both the design team and the front end team, made our presentations pretty, accumulated the feedback we received, made sure that we incorporated it and took lead on our C-award submission.</h4></div>
+  <div class="teamBioRight"><h2>Matilda</h2><h4>mailadress<br/><br/>Matilda’s catch phrase is “make it pretty” and for obvious reasons she was part of the design team to begin with. She later transitioned between both the design team and the front end team, made our presentations pretty, accumulated the feedback we received, reminded us to incorporate it and took lead on our C-award submission to make sure that it accurately reflects the effort we put into this project.</h4></div>
 </div>
 <div class="teamContainer">
   <div class="teamImageLeft"><img class="image" src="../../public/viktor.png"></div>
@@ -36,7 +37,7 @@
 </div>
 <div class="teamContainer">
   <div class="teamImageRight"><img class="image" src="../../public/petter.png"></div>
-  <div class="teamBioRight"><h2>Petter</h2><h4>mailadress<br/><br/>A developer with a soft spot for details and affinity for structure, it was thanks to him that our team got a second wind as we neared the final stretch of the course. Transitioning from the back-end team to the front-end team he at times pushed his machine to the limit to make sure Plot Twitch navigation and routing makes as much sense to you as it made to us.</h4></div>
+  <div class="teamBioRight"><h2>Petter</h2><h4>mailadress<br/><br/>A developer with a soft spot for details and affinity for structure, it was thanks to him that our team got a second wind as we neared the final stretch of this project. He basically forced us to allocate as much time as possible to this project. Moving from the back-end team to the front-end team he, on countless occasions, pushed his machine to the limit to make sure Plot Twitch navigation and routing makes as much sense to you as it made to us.</h4></div>
 </div>
 </html>
 </template>
