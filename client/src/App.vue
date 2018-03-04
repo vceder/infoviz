@@ -3,6 +3,7 @@
     <particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
+      <!-- <router-view/> -->
       <router-view/>
     </div>
     <div class="slider-container">
@@ -15,10 +16,10 @@
 
 <script>
 
-import particles from '@/components/particles.vue';
 
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
+import particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue'
 
@@ -86,5 +87,13 @@ body {
   top: 0;
   left: 0;
   position: absolute;
+}
+
+.route_button{
+  color: #3CDCA0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 40px;
+  margin: 20px;
 }
 </style>
