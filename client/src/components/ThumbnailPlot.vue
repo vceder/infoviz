@@ -19,22 +19,8 @@ export default {
   mounted() {
     //Scatterplot
     const radius = 5;
-
     const svg = d3.select('#chart-' + this.gameId);
-
     const opacityCircles = 0.7;
-
-    //Set the new x axis range
-    const xScale = d3
-      .scaleLog()
-      .range([radius, this.width - radius])
-      //.domain([100,2e5]); //I prefer this exact scale over the true range and then using "nice"
-      .domain(
-        d3.extent(this.streams, function(d) {
-          return d.view_count;
-        })
-      )
-      .nice();
 
     //Set the new y axis range
     const yScale = d3
@@ -44,9 +30,16 @@ export default {
         d3.extent(this.streams, function(d) {
           return d.viewer_count;
         })
-      )
-      .nice();
+      );
 
+    const xScale = d3
+      .scaleLog()
+      .range([radius, this.width - radius])
+      .domain(
+        d3.extent(this.streams, function(d) {
+          return d.view_count;
+        })
+      );
     ////////////////////////////////////////////////////////////
     /////////////////// Scatterplot Circles ////////////////////
     ////////////////////////////////////////////////////////////

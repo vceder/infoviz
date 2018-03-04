@@ -2,7 +2,7 @@
   <div class="overview-plot">
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
-        <Thumbnailplot :streams="current.games[id].streams" :width="100"/>
+        <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
       <h1>Overview</h1>
       <router-link to="/about" class="route_button">About</router-link>
@@ -28,8 +28,9 @@ export default {
     };
   },
   computed: {
-    width() {
-      return
+    tmbWidth() {
+      console.log(Math.round((this.chartWidth / this.current.totalGames) * 1.25));
+      return Math.round((this.chartWidth / this.current.totalGames) * 1.25);
     },
     chartSize() {
       return {
@@ -52,7 +53,7 @@ export default {
         .scalePoint()
         .domain(Object.keys(this.current.games))
         .padding(0)
-        .range([0, this.chartWidth - 100]);
+        .range([0, this.chartWidth - this.tmbWidth]);
 
       const yScale = d3
         .scaleLinear()
@@ -61,7 +62,7 @@ export default {
             return this.current.games[d].totalViewers;
           })
         )
-        .range([this.chartHeight - 50, 0]);
+        .range([this.chartHeight - this.tmbWidth, 0]);
 
       return {
         top: String(yScale(this.current.games[id].totalViewers)) + 'px',
@@ -86,7 +87,5 @@ export default {
 .game {
   position: absolute;
   display: inline-block;
-  width: 100px;
-  height: 100px;
 }
 </style>
