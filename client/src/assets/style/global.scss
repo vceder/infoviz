@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:200,300,400,700);
 
 body {
   margin: 0;
@@ -30,35 +30,48 @@ body {
   height: 100%;
 }
 
-h1{
-  color: #3CDCA0;
-}
-
 #titleHolder {
   position: relative;
-  top: 40%;
+  top: 30%;
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 10%;
+}
+
+#logo {
+  background:url(../public/pt-logo.png) no-repeat center;
+  background-size: contain;
+  height:130px;
+  width: 50%;
+  margin: 0 auto 40px auto;
 }
 
 #intro {
   color: #3CDCA0;
-  font-size: 80px;
+  font-size: 200px;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 700;
+  text-align: center;
 
+}
+
+#introText {
+  color: #3CDCA0;
+  font-size: 40px;
+  font-weight: 300;
+  margin-bottom: 8%;
+  text-align: center;
 }
 
 #launch_button{
   color: #9169F8;
-  background-color: #3CDCA0;
-  border-radius: 12px;
+  border-radius: 28px;
+  border: dotted #9169F8 3px;
   text-decoration: none;
+  text-transform: uppercase;
   font-weight: bold;
-  font-size: 40px;
-  margin: 20px;
+  font-size: 30px;
   top: 300px;
-  padding-left: 10px;
-  padding-right: 10px;
-  position:relative;
+  padding: 20px 40px 20px 40px;
   top: 20%;
-  box-shadow: 2px 5px;
 }
