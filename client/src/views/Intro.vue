@@ -8,7 +8,7 @@
 </div>
       <div id="title">Plot Twitch</div>
       <div id="SubintroText">
-        Subtitle something nice to put here
+        Your data driven universe service
 </div>
 
 <div id="launch">

@@ -87,7 +87,7 @@ export default {
                     "backgroundColor": "#fff",
                     "height": "1px",
                     "padding-top": "1px",
-                    "backgroundColor": "#F7766F",
+                    "backgroundColor": "#2b2b2b",
                     "height": "3px",
                     "padding-top": "1px"
                 },
