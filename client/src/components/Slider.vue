@@ -1,6 +1,6 @@
 <!-- Vue-Slider from  https://github.com/NightCatSama/vue-slider-component -->
 <template lang="html">
-    <div>
+    <div class="slider-container">
         <vue-slider ref="slider" v-model="value" v-bind="options">
             <div class="tooltipSlider" style="tooltipStyles" slot="tooltip" slot-scope="{value}">
                 <!-- {{value}} -->
@@ -126,6 +126,14 @@ export default {
 </script>
 
 <style lang="css">
+    .slider-container {
+      z-index: 100;
+      position: fixed;
+      bottom: 2vh;
+      left: 2vw;
+      width: 96vw;
+      height: 6vh;
+    }
     .tooltipSlider{
         display: block;
         font-size: 14px;
