@@ -88,11 +88,16 @@ export default new Vuex.Store({
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
                         stream.game_id
                       ].streams.push(stream);
+                      top100[timestamp.format("YYYYMMDDHHmm")].games[
+                        stream.game_id
+                      ].totalViewers +=
+                        stream.viewer_count;
                     } else {
                       top100[timestamp.format("YYYYMMDDHHmm")].totalGames++;
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
                         stream.game_id
                       ] = {
+                        totalViewers: stream.viewer_count,
                         streams: [stream]
                       };
                     }

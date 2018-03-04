@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="loading">
   <div v-if="isLoading" id="loading">
     <div class="sk-folding-cube">
   <div class="sk-cube1 sk-cube"></div>
