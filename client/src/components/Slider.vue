@@ -99,8 +99,8 @@ export default {
                 piecewiseStyle: { // the "dots" when right of slider
                     "backgroundColor": "#fff",
                     "visability": "visable",
-                    "width": "12px",
-                    "height": "12px"
+                    "width": "5px",
+                    "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
                     "background": "#9169F8"
