@@ -1,10 +1,10 @@
 <template>
   <div class="overview-details">
     <div class="staticHeadline">Game Name</div>
-    <div class="changingValues">Name: {{getGame().name}}</div>
-    <div class="changingValues"><img class="game-img" v-bind:src="games.image" alt="<Image undefined>"></div>
+    <div class="changingValues"><!-- {{getGame().name}} --></div>
+    <div class="changingValues"><!-- <img class="game-img" v-bind:src="getGame().image" alt="<Image undefined>"> --></div>
     <div class="staticHeadline">Current viewers</div>
-    <div class="changingValues">{{games.viewer_count}}</div>
+    <div class="changingValues"><!-- {{getGame().viewer_count}} --></div>
   </div>
 </template>
 
