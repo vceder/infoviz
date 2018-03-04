@@ -6,10 +6,10 @@
                 {{formateToolTip(value)}}
             </div>
         </vue-slider>
-        <div class="now">
+        <div class="now" v-on:click="now">
             Now
         </div>
-        <div class="start">
+        <div class="start" v-on:click="start">
             24 hours ago
         </div>
     </div>
@@ -50,6 +50,12 @@ export default {
         dragStop(){
             isDragged = false;
             this.$store.dispatch('updateStarCount', this.value)
+        },
+        now(){
+            this.value = this.options.data[this.options.data.length -1]
+        },
+        start(){
+            this.value = this.options.data[0]
         }
 
     },
@@ -133,6 +139,7 @@ export default {
         text-align: left;
         margin-left: 5px;
         color: #9FFF70;
+        width: 15%;
 
     }
     .now{
