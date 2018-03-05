@@ -47,6 +47,9 @@ export default new Vuex.Store({
     },
     setUsers(state, users) {
       state.users = users;
+    },
+    addGame(state, gameObj) {
+      state.games[gameObj.id] = gameObj;
     }
   },
   actions: {
@@ -56,6 +59,26 @@ export default new Vuex.Store({
     },
     updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    getGameInfo({ state, commit }, id) {
+      return new Promise((resolve, reject) => {
+        if (!state.games[id]) {
+          const gamesRef = db.collection("games");
+          gamesRef
+            .doc(String(id))
+            .get()
+            .then(snapshot => {
+              const docData = snapshot.data();
+              commit("addGame", docData);
+              resolve(docData);
+            })
+            .catch(error => {
+              reject(error);
+            });
+        } else {
+          resolve();
+        }
+      });
     },
     getTop100({ dispatch, state, commit }) {
       if (state.top100.games) {
