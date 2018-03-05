@@ -240,7 +240,8 @@ export default {
           return this.gameColor(d.game_id);
         })
         .on('mouseover', function(d) {
-          tooltip.html('<h3 style="text-align:center;">' + d.display_name + '</h3>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;"/>');
+					console.log(d)
+          tooltip.html('<p id="zoom_tooltip">' + d.display_name + '</p>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;padding:10px;"/>' + '<p>'+d.title+'</p>');
           return tooltip.style('visibility', 'visible');
         })
         .on('mousemove', function() {
