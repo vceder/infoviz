@@ -1,22 +1,19 @@
 <template>
   <div class="overview-plot">
-    <div class="top-container"> 
+    <div class="top-container">
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
     </div>
     <div class="hover-details">
-      <div class="headline-wrapper">
-        <div class="starCount static-headline">Total Viewers</div>
-        <div class="img-placeholder"></div>
-        <span class="static-headline">Game Name</span>
-        <span class="static-headline">Current viewers</span>
-      </div>
+      <!-- <div class="headline-wrapper">
+      </div> -->
       <div class="dynamic-hover-details">
+        <div class="starCount static-headline">Total Viewers</div>
         <div class="changing-values">{{this.current.totalViewers}}</div>
         <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
       </div>
     </div>
-    
+
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
@@ -108,10 +105,14 @@ export default {
 <style scoped lang="scss">
 
 .hover-details{
-  height: 10%
+  height: auto;
+  width: 15%;
+  position: absolute;
+  right: 0px;
+  top: 30%;
 }
 .img-placeholder{
-  width: 25%;
+  width: 100%;
   opacity: 0;
 }
 .headline-wrapper{
@@ -119,28 +120,35 @@ export default {
   float: left;
   width: 100%;
   display: flex;
+  background-color: pink;
+
 }
 .dynamic-hover-details{
   box-sizing: border-box;
+  flex-direction: column;
   float: left;
   width: 100%;
   display: flex;
+
 }
 .static-headline{
-  width: 25%;
+  width: 100%;
   color: white;
   font-family: Lato;
-  font-weight: 400;
-  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8vw;
+
 }
 .changing-values{
-  width: 25%;
+  width: 100%;
   color: #E81B5F;
   font-family: Lato;
+  text-transform: uppercase;
   font-weight: 300;
   margin-bottom: 5%;
-  font-size: 20px;
-
+  font-size: 1.3vw;
 }
 
 .overview-plot {

@@ -1,12 +1,11 @@
 <template>
   <div class="overview-details">
     <div class="changing-values">
-      <img class="game-img" v-bind:src="getImage" alt="<N/A>">
-    </div>
-    <div class="changing-values">
+      <span class="static-headline">Game Name</span>
       {{getGame()}}
     </div>
     <div class="changing-values">
+      <span class="static-headline">Current viewers</span>
       {{getNumber()}}
     </div>
   </div>
@@ -59,22 +58,27 @@
     float: left;
     width: 100%;
     display: flex;
+    flex-direction: column;
   }
   .static-headline{
-    width: 33%;
+    width: 100%;
     display: block;
     color: white;
     font-family: Lato;
-    font-weight: 400;
-    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8vw;
   }
   .changing-values{
-    width: 33%;
+    width: 100%;
     display: block;
     color: #E81B5F;
     font-family: Lato;
     font-weight: 300;
-    font-size: 20px;
+    text-transform: uppercase;
+    font-size: 1.3vw;
+    margin-bottom: 4%;
 
   }
 </style>
