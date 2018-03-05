@@ -3,7 +3,9 @@
     <Loading/>
     <Particles/>
     <div v-if="!isLoading" class="router-view">
-      <router-view/>
+      <transition name="fade" mode="out-in">
+        <router-view/>
+      </transition>
     </div>
   </div>
 </template>
@@ -48,5 +50,14 @@ export default {
   top: 0;
   left: 0;
   position: absolute;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 600ms;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
