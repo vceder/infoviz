@@ -33,11 +33,13 @@
         return this.gameColor(id);
       },
       getNumber: function(){
+        if(this.current.games[this.gameID] != undefined){
         return this.current.games[this.gameID].totalViewers
+      }
       },
     },
     mounted() {
-      console.log(this.current.games['110758'])
+      // console.log(this.current.games['110758'])
     },
   };
 </script>
