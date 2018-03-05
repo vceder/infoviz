@@ -354,7 +354,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 .axis path,
 .axis line {
