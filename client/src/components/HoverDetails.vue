@@ -1,50 +1,72 @@
 <template>
   <div class="overview-details">
-    <div class="changing-values">
-      <span class="static-headline">Game Name</span>
-      {{getGame()}}
+    <div class="changingValues"><img :src="gameImg"></div>
+    <div class="changingValues">
+      {{gameName}}
     </div>
     <div class="changing-values">
-      <span class="static-headline">Current viewers</span>
       {{getNumber()}}
     </div>
   </div>
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import gameColor from '@/assets/js/colorsMixin.js'
+import { mapState } from 'vuex';
+import gameColor from '@/assets/js/colorsMixin.js';
 
-  export default {
-    mixins: [gameColor],
-    name: 'HoverDetails',
-    computed: {
-      ...mapState(['current']),
+export default {
+  mixins: [gameColor],
+  name: 'HoverDetails',
+  data() {
+    return {
+      gameImg: '',
+      gameName: '',
+      imgWidth: '150',
+      imgHeight: '200',
+    };
+  },
+  computed: {
+    ...mapState(['current', 'games']),
+  },
+  props: ['gameID'],
+  methods: {
+    getGame() {
+      if (this.games[this.gameID]) {
+        this.gameImg = this.games[this.gameID].box_art_url.replace(
+          '{width}x{height}',
+           this.imgWidth + 'x' + this.imgHeight
+        );
+        this.gameName = this.games[this.gameID].name;
+        return true;
+      } else {
+        this.$store
+          .dispatch('getGameInfo', this.gameID)
+          .then(res => {
+            this.gameImg = res.box_art_url.replace(
+              '{width}x{height}',
+              this.imgHeight + 'x' + this.imgWidth
+            );
+            this.gameName = res.name;
+            return true;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
-    props: [
-      "gameID"
-    ],
-    methods: {
-      getGame: function(){
-        return "hej"
-      },
-      gameColor: function(id){
-        return this.gameColor(id);
-      },
-      getNumber: function(){
-        if(this.current.games[this.gameID] != undefined){
-          return this.current.games[this.gameID].totalViewers
-        }
-      },
-      getImage: function(){
-        // Måste ha imge länk till för spelet från getGame
-        return 'bilden'
-      },
+    gameColor(id) {
+      return this.gameColor(id);
     },
-    mounted() {
-      // console.log(this.current.games['110758'])
+    getNumber() {
+      if (this.current.games[this.gameID] !== undefined) {
+        return this.current.games[this.gameID].totalViewers;
+      }
     },
-  };
+  },
+  mounted() {
+    this.getGame();
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

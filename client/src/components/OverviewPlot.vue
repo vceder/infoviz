@@ -5,17 +5,14 @@
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
     </div>
     <div class="hover-details">
-      <!-- <div class="headline-wrapper">
-      </div> -->
       <div class="dynamic-hover-details">
         <div class="starCount static-headline">Total Viewers</div>
         <div class="changing-values">{{this.current.totalViewers}}</div>
-        <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
+        <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
       </div>
     </div>
-
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="(event) => { mouseOver(event, id) }" @mouseleave="mouseLeave" >
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
     <Slider/>
@@ -25,7 +22,7 @@
 
 <script>
 // @ is an alias to /src
-import HoverDetails from "@/components/HoverDetails.vue";
+import HoverDetails from '@/components/HoverDetails.vue';
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
 import Thumbnailplot from '@/components/ThumbnailPlot.vue';
@@ -35,15 +32,21 @@ export default {
   name: 'overview',
   data() {
     return {
-      currentGameId: '',
-      gameHovered: true,
+      currentGameId: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
       chartHeight: document.documentElement.clientHeight * 0.6,
     };
   },
   computed: {
+    gameHovered() {
+      if (this.currentGameId) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     tmbWidth() {
-      return Math.round(this.chartWidth / 30);
+      return Math.round(this.chartWidth / this.current.totalGames);
     },
     chartSize() {
       return {
@@ -62,13 +65,11 @@ export default {
     console.log('Mounted');
   },
   methods: {
-    mouseOver: function(gameID){
-      // Skicka gameinfo till HoverDetails componenten
+    mouseOver: function(event, gameID) {
       this.currentGameId = gameID;
-      this.gameHovered = true;
     },
-    mouseLeave: function(){
-      // this.gameHovered = false;
+    mouseLeave: function(event) {
+      this.currentGameId = false;
     },
     goToId(id) {
       console.log(id);
@@ -165,8 +166,12 @@ export default {
   width: 100%;
   margin: 2% auto;
 }
-
+.game:hover{
+  border: 1px solid #9fff70;
+  cursor: pointer;
+}
 .game {
+  box-sizing: border-box;
   position: absolute;
   display: inline-block;
 }
