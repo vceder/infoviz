@@ -2,9 +2,15 @@
   <div class="overview-plot">
     <div class="top-container">
       <div>
-        <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.totalViewers}}</span></div>
-        <router-link to="/about" class="route_button">About</router-link>
-        <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+        <div class="starCount static-headline">Total Viewers: <span class="changing-values">{{this.current.totalViewers}}</span></div>
+        
+      </div>
+      <router-link to="/about" class="route_button">About</router-link>
+      <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+      <div class="headline-wrapper">
+        <div class="img-placeholder"></div>
+        <span class="static-headline">Game Name</span>
+        <span class="static-headline">Current viewers</span>
       </div>
       <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
     </div>
@@ -30,7 +36,7 @@ export default {
   data() {
     return {
       currentGameId: '',
-      gameHovered: false,
+      gameHovered: true,
       chartWidth: document.documentElement.clientWidth * 0.9,
       chartHeight: document.documentElement.clientHeight * 0.6,
     };
@@ -100,22 +106,36 @@ export default {
 
 .starCount{
   float: left;
-  margin-top: -15px;
 }
-.staticHeadline{
-      color: white;
-      font-family: Lato;
-      font-weight: 400;
-      font-size: 15px;
-  }
-.changingValues{
-      color: #E81B5F;
-      font-family: Lato;
-      font-weight: 300;
-      margin-bottom: 5%;
-      font-size: 20px;
+.img-placeholder{
+  width: 33%;
+  opacity: 0;
+}
+.headline-wrapper{
+  box-sizing: border-box;
+  float: middle;
+  width: 100%;
+  margin-top: -15px;
+  display: flex;
+  justify-content: space-around;
+  padding: 0px 10% 0px;
+}
+.static-headline{
+  width: 33%;
+  color: white;
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 15px;
+}
+.changing-values{
+  width: 33%;
+  color: #E81B5F;
+  font-family: Lato;
+  font-weight: 300;
+  margin-bottom: 5%;
+  font-size: 20px;
 
-  }
+}
 
 .overview-plot {
   height: 100%;

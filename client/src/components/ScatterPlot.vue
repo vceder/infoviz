@@ -368,6 +368,7 @@ export default {
 
 .starCount{
   float: left;
+  margin-top: 2%;
 }
 .staticHeadline{
   color: white;

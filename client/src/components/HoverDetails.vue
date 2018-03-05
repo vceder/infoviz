@@ -1,13 +1,13 @@
 <template>
   <div class="overview-details">
-    <span class="changingValues"><img src="public/pt-logo.png"><!-- <img class="game-img" v-bind:src="getGame().image" alt="<Image undefined>"> --></span>
-    <div class="categoryWrapper">
-      <span class="staticHeadline">Game Name</span>
-      <span class="changingValues">{{getGame()}} </span>
+    <div class="changing-values">
+      <img class="game-img" v-bind:src="getImage" alt="<N/A>">
     </div>
-    <div class="categoryWrapper">
-      <span class="staticHeadline">Current viewers</span>
-      <span class="changingValues">{{getNumber()}}</span>
+    <div class="changing-values">
+      {{getGame()}}
+    </div>
+    <div class="changing-values">
+      {{getNumber()}}
     </div>
   </div>
 </template>
@@ -34,8 +34,12 @@
       },
       getNumber: function(){
         if(this.current.games[this.gameID] != undefined){
-        return this.current.games[this.gameID].totalViewers
-      }
+          return this.current.games[this.gameID].totalViewers
+        }
+      },
+      getImage: function(){
+        // Måste ha imge länk till för spelet från getGame
+        return 'bilden'
       },
     },
     mounted() {
@@ -48,31 +52,30 @@
 <style scoped lang="scss">
 
   .game-img{
-    max-width: 30px;
+    max-height: 30px;
   }
   .overview-details{
     box-sizing: border-box;
     float: middle;
     width: 100%;
-    height: 100px;
-    margin-top: -15px;
     display: flex;
     justify-content: space-around;
     padding: 0px 10% 0px;
   }
-  .staticHeadline{
+  .static-headline{
+    width: 33%;
     display: block;
     color: white;
     font-family: Lato;
     font-weight: 400;
     font-size: 15px;
   }
-  .changingValues{
+  .changing-values{
+    width: 33%;
     display: block;
     color: #E81B5F;
     font-family: Lato;
     font-weight: 300;
-    margin-bottom: 5%;
     font-size: 20px;
 
   }
