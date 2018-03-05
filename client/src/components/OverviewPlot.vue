@@ -6,7 +6,9 @@
         <router-link to="/about" class="route_button">About</router-link>
         <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
       </div>
-      <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
+      <transition name="fade">
+        <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
+      </transition>
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
