@@ -18,6 +18,7 @@
 <script>
 import vueSlider from 'vue-slider-component';
 import { mapState } from 'vuex';
+import moment from "moment";
 
 var isDragged = false;
 
@@ -32,6 +33,17 @@ export default {
     methods: {
         getData(){
             return Object.keys(this.top100).reverse();
+        },
+        getCurrent(){
+            if(this.current){
+                // console.log("Current: ", this.current)
+                // console.log("Raw timestamp: " , this.current.timestamp)
+                // console.log("Parsed: ", moment(this.current.timestamp).format("YYYYMMDDHHmm"))
+                // console.log("Data key: ", this.options.data[this.options.data.length -1])
+                // console.log("DÅ")
+                return moment(this.current.timestamp).format("YYYYMMDDHHmm")
+            }
+            return this.options.data[this.options.data.length -1]
         },
         formateToolTip(value){
             if (!value) return "LOADING...";
@@ -97,7 +109,7 @@ export default {
                     "padding-top": "1px"
                 },
                 sliderStyle: { //The style of the dragable dot
-                    "backgroundColor": "#9FFF70"
+                    "backgroundColor": "#3CDCA0" //här
                 },
                 piecewiseStyle: { // the "dots" when right of slider
                     "backgroundColor": "#fff",
@@ -113,7 +125,7 @@ export default {
     },
     mounted: function () {
         this.options.data = this.getData()
-        this.value = this.options.data[this.options.data.length -1]
+        this.value = this.getCurrent(); //this.options.data[this.options.data.length -1]
     }
 }
 </script>
@@ -140,12 +152,12 @@ export default {
     .start{
         text-align: left;
         margin-left: 5px;
-        color: #9FFF70;
+        color: #3CDCA0;
         width: 15%;
     }
     .now{
         float: right;
         margin-right: 5px;
-        color: #9FFF70;
+        color: #3CDCA0;
     }
 </style>
