@@ -23,6 +23,8 @@ export default {
     return {
       gameImg: '',
       gameName: '',
+      imgWidth: '100',
+      imgHeight: '100',
     };
   },
   computed: {
@@ -32,14 +34,20 @@ export default {
   methods: {
     getGame() {
       if (this.games[this.gameID]) {
-        this.gameImg = this.games[this.gameID].box_img_url;
+        this.gameImg = this.games[this.gameID].box_art_url.replace(
+          '{width}x{height}',
+           this.imgHeight + 'x' + this.imgWidth
+        );
         this.gameName = this.games[this.gameID].name;
         return true;
       } else {
         this.$store
           .dispatch('getGameInfo', this.gameID)
           .then(res => {
-            this.gameImg = res.box_img_url;
+            this.gameImg = res.box_art_url.replace(
+              '{width}x{height}',
+              this.imgHeight + 'x' + this.imgWidth
+            );
             this.gameName = res.name;
             return true;
           })
