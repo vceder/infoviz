@@ -80,6 +80,7 @@ export default {
         .style('font-family', 'Helvetica')
         .style('font-size', '12px')
         .style('padding', '8px')
+        .style('word-wrap', 'break-word')
         .text('');
 
       //////////////////////////////////////////////////////
@@ -241,7 +242,7 @@ export default {
         })
         .on('mouseover', function(d) {
 					console.log(d)
-          tooltip.html('<p id="zoom_tooltip">' + d.display_name + '</p>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;padding:10px;"/>' + '<p>'+d.title+'</p>');
+          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
           return tooltip.style('visibility', 'visible');
         })
         .on('mousemove', function() {

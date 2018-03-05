@@ -60,12 +60,19 @@ h3 {
 
 #zoom_tooltip {
   color: #3CDCA0;
-  font-size: 2vw;
   letter-spacing: 7px;
   margin: 3% 4% 2% 2%;
   font-weight: 20;
   text-align: center;
   text-transform: uppercase;
+}
+#p_tooltip {
+  color: white;
+  // letter-spacing: 7px;
+  margin: 3% 4% 2% 2%;
+  font-weight: 20;
+  text-align: center;
+  // text-transform: uppercase;
 }
 
 .intro_page{
