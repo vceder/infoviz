@@ -7,8 +7,10 @@
 
 <script>
 import * as d3 from 'd3';
+import gameColor from '../assets/js/colorsMixin.js';
 
 export default {
+  mixins: [gameColor],
   name: 'ThumbnailPlot',
   props: ['streams', 'width'],
   data() {
@@ -72,7 +74,7 @@ export default {
         .attr('r', this.radius)
         .style('opacity', this.opacityCircles)
         .style('fill', d => {
-          return 'red';
+          return this.gameColor(d.game_id);
         });
     },
   },
@@ -83,10 +85,6 @@ export default {
   },
   mounted() {
     this.createPlot();
-    function color(n) {
-      var colors = ["#3CDCA0", "#F7766F", "#9FFF70", "#9C78F8", "#F9CD80", "#8FCEFD", "#4FDFA9", "#A8FF7E", "#F7837D", "#9169F8", "#F9C872", "#83C9FD"]
-      return colors[n % colors.length];
-    }
   },
 };
 </script>

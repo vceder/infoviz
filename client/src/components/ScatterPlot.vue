@@ -12,10 +12,11 @@
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
 import * as d3 from 'd3';
+import gameColor from '../assets/js/colorsMixin.js';
 
 export default {
+  mixins: [gameColor],
   name: 'ScatterPlot',
-
   mounted() {
     this.initScatter();
   },
@@ -87,18 +88,6 @@ export default {
 
       const opacityCircles = 0.8;
       const maxDistanceFromPoint = 10;
-      //Set the color for each region
-      const color = d3.scaleOrdinal([
-        '#3CDCA0',
-        '#F7766F',
-        '#9FFF70',
-        '#9169F8',
-        '#F9C872',
-        '#83C9FD',
-      ]);
-      // .domain(["Africa | North & East", "Africa | South & West", "America | North & Central", "America | South",
-      // 		 "Asia | East & Central", "Asia | South & West", "Europe | North & West", "Europe | South & East", "Oceania"]);
-      // .domain([0,504021]) //Måste ändras
 
       //Set the new x axis range
       const xScale = d3
@@ -106,7 +95,7 @@ export default {
         .range([0, width])
         .domain(
           d3.extent(streams, function(d) {
-						const view_count = (d.view_count) ? d.view_count : 0;
+            const view_count = d.view_count ? d.view_count : 0;
             return view_count;
           })
         )
@@ -135,7 +124,7 @@ export default {
         .range([height, 0])
         .domain(
           d3.extent(streams, function(d) {
-            const viewer_count = (d.viewer_count) ? d.viewer_count : 0;
+            const viewer_count = d.viewer_count ? d.viewer_count : 0;
             return viewer_count;
           })
         )
@@ -247,8 +236,8 @@ export default {
         })
         .attr('r', '8')
         .style('opacity', opacityCircles)
-        .style('fill', function(d) {
-          return color(d.game_id);
+        .style('fill', d => {
+          return this.gameColor(d.game_id);
         })
         .on('mouseover', function(d) {
           tooltip.html('<h3>' + d.display_name + '</h3>');
