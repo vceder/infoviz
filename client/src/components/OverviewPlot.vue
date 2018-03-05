@@ -1,13 +1,14 @@
 <template>
   <div class="overview-plot">
-    <HoverDetails/>
-    <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
-        <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
-      </div>
-      <h1>Overview</h1>
+    <div class="top-container">
+      <HoverDetails/>
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+    </div>
+    <div v-bind:style="chartSize" id="overview-chart">
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)">
+        <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
+      </div>
     <Slider/>
     </div>
   </div>
@@ -26,7 +27,7 @@ export default {
   data() {
     return {
       chartWidth: document.documentElement.clientWidth * 0.9,
-      chartHeight: document.documentElement.clientHeight * 0.8,
+      chartHeight: document.documentElement.clientHeight * 0.6,
     };
   },
   computed: {
@@ -50,6 +51,13 @@ export default {
     console.log('Mounted');
   },
   methods: {
+    goToId(id) {
+      console.log(id);
+      this.$router.push({
+        name: 'game',
+        params: { id },
+      });
+    },
     getPosition(id) {
       const xScale = d3
         .scalePoint()
@@ -84,6 +92,12 @@ export default {
 #overview-chart {
   position: relative;
   margin: 3% auto;
+}
+
+.top-container {
+  height: 15%;
+  width: 100%;
+  margin: 2% auto;
 }
 
 .game {

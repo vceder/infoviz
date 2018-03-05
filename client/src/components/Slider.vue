@@ -85,6 +85,9 @@ export default {
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
                     "backgroundColor": "#fff",
+                    "height": "1px",
+                    "padding-top": "1px",
+                    "backgroundColor": "#2b2b2b",
                     "height": "3px",
                     "padding-top": "1px"
                 },
@@ -99,8 +102,8 @@ export default {
                 piecewiseStyle: { // the "dots" when right of slider
                     "backgroundColor": "#fff",
                     "visability": "visable",
-                    "width": "12px",
-                    "height": "12px"
+                    "width": "5px",
+                    "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
                     "background": "#9169F8"
@@ -129,7 +132,6 @@ export default {
         font-size: 25px;
         padding: 8px 17px 8px 8px;
         min-width: 50px;
-
         text-align: center;
         color: #fff;
         border-radius: 13px;
@@ -140,7 +142,6 @@ export default {
         margin-left: 5px;
         color: #9FFF70;
         width: 15%;
-
     }
     .now{
         float: right;

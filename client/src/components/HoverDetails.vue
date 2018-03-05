@@ -20,6 +20,9 @@
       getGame: function(){
         return this.current.games['110758']
       },
+      gameColor: function(id){
+        return
+      },
     },
     mounted() {
       console.log(this.current.games['110758'])
@@ -40,13 +43,13 @@
   .staticHeadline{
       color: white;
       font-family: Lato;
-      font-weight: 300;
+      font-weight: 400;
       font-size: 15px;
   }
   .changingValues{
-      color:#E81B5F;
+      color: #E81B5F;
       font-family: Lato;
-      font-weight: 400;
+      font-weight: 300;
       margin-bottom: 5%;
       font-size: 20px;
 

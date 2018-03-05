@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Particles/>
     <Loading/>
+    <Particles/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
     </div>

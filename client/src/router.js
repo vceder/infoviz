@@ -37,8 +37,8 @@ export default new Router({
       component: OverviewPlot
     },
     {
-      path: "/streams",
-      name: "streams",
+      path: "/game/:id",
+      name: "game",
       component: ScatterPlot
     },
     {
