@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import OverviewPlot from "./components/OverviewPlot.vue";
-import StreamPlot from "./components/StreamPlot.vue";
+import ScatterPlot from "./components/ScatterPlot.vue";
 import Intro from "./views/Intro.vue";
 import Analytic from "./views/Analytic.vue";
 import About from "./views/About.vue";
@@ -45,7 +45,7 @@ export default new Router({
     {
       path: "/streams",
       name: "streams",
-      component: StreamPlot
+      component: ScatterPlot
     },
     {
       path: "*",

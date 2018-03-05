@@ -6,10 +6,10 @@
                 {{formateToolTip(value)}}
             </div>
         </vue-slider>
-        <div class="now">
+        <div class="now" v-on:click="now">
             Now
         </div>
-        <div class="start">
+        <div class="start" v-on:click="start">
             24 hours ago
         </div>
     </div>
@@ -50,6 +50,12 @@ export default {
         dragStop(){
             isDragged = false;
             this.$store.dispatch('updateStarCount', this.value)
+        },
+        now(){
+            this.value = this.options.data[this.options.data.length -1]
+        },
+        start(){
+            this.value = this.options.data[0]
         }
 
     },
@@ -78,22 +84,29 @@ export default {
                 piecewise: true,
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
-                    "backgroundColor": "#F7766F"
+                    "backgroundColor": "#fff",
+                    "height": "1px",
+                    "padding-top": "1px",
+                    "backgroundColor": "#2b2b2b",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "backgroundColor": "#F7766F"
+                    "background": "#241a3e",
+                    "height": "3px",
+                    "padding-top": "1px"
                 },
                 sliderStyle: { //The style of the dragable dot
                     "backgroundColor": "#9FFF70"
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "#F7766F",
+                    "backgroundColor": "#fff",
                     "visability": "visable",
-                    "width": "12px",
-                    "height": "12px"
+                    "width": "5px",
+                    "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "backgroundColor": "#F7766F"
+                    "background": "#9169F8"
                 }
             }
         }
@@ -119,7 +132,6 @@ export default {
         font-size: 25px;
         padding: 8px 17px 8px 8px;
         min-width: 50px;
-
         text-align: center;
         color: #fff;
         border-radius: 13px;
@@ -129,7 +141,7 @@ export default {
         text-align: left;
         margin-left: 5px;
         color: #9FFF70;
-
+        width: 15%;
     }
     .now{
         float: right;
