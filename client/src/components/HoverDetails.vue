@@ -56,11 +56,9 @@
   }
   .overview-details{
     box-sizing: border-box;
-    float: middle;
+    float: left;
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    padding: 0px 10% 0px;
   }
   .static-headline{
     width: 33%;
