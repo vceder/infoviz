@@ -3,7 +3,7 @@
 		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
     <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
     <div class="gameTitle">
-        <h1></h1>
+        <h1>{{gameName}}</h1>
     </div>
 				<div id="chart"></div>
 		<Slider/>
@@ -52,8 +52,20 @@ export default {
   props: ['gameID'],
   methods: {
     getGame() {
-        this.gameName = this.games[this.gameID].name;
-        console.log("GAME", this.gameName)
+        if (this.games[this.gameId]) {
+        this.gameName = this.games[this.gameId].name;
+        return true;
+      } else {
+        this.$store
+          .dispatch('getGameInfo', this.gameId)
+          .then(res => {
+            this.gameName = res.name;
+            return true;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
     initScatter() {
       
