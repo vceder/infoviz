@@ -1,7 +1,11 @@
 <template>
 	<div id="cont">
 		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
-    <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
+    <div class="starCount">
+      <div class="staticHeadline">Viewing this game</div>
+      <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
+    </div>
+    
 				<div id="chart"></div>
 		<Slider/>
 	</div>
@@ -355,7 +359,6 @@ export default {
 
 .starCount{
   float: left;
-  margin-top: 2%;
 }
 .staticHeadline{
   color: white;

@@ -4,6 +4,7 @@
     <div class="changingValues">
       {{gameName}}
     </div>
+    <div class="static-headline">Current Viewers</div>
     <div class="changing-values">
       {{getNumber()}}
     </div>
