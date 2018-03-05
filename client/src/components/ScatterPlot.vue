@@ -81,6 +81,7 @@ export default {
         .style('font-size', '12px')
         .style('padding', '8px')
         .style('word-wrap', 'break-word')
+        .style('z-index', 1000)
         .text('');
 
       //////////////////////////////////////////////////////
