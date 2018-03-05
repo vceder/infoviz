@@ -23,8 +23,8 @@ export default {
     return {
       gameImg: '',
       gameName: '',
-      imgWidth: '100',
-      imgHeight: '100',
+      imgWidth: '150',
+      imgHeight: '200',
     };
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
       if (this.games[this.gameID]) {
         this.gameImg = this.games[this.gameID].box_art_url.replace(
           '{width}x{height}',
-           this.imgHeight + 'x' + this.imgWidth
+           this.imgWidth + 'x' + this.imgHeight
         );
         this.gameName = this.games[this.gameID].name;
         return true;

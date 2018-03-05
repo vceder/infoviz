@@ -63,11 +63,9 @@ export default {
   },
   methods: {
     mouseOver: function(event, gameID) {
-      event.target.style.border = "1px solid #9fff70";
       this.currentGameId = gameID;
     },
     mouseLeave: function(event) {
-      event.target.style.border = "0px";
       this.currentGameId = false;
     },
     goToId(id) {
@@ -136,7 +134,10 @@ export default {
   width: 100%;
   margin: 2% auto;
 }
-
+.game:hover{
+  border: 1px solid #9fff70;
+  cursor: pointer;
+}
 .game {
   box-sizing: border-box;
   position: absolute;
