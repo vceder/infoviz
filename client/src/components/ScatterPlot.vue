@@ -58,8 +58,6 @@ export default {
       const wrapper = svg
         .append('g')
         .attr('class', 'chordWrapper')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
         .attr('transform', 'translate(' + margin.left+ ',' + margin.top + ')');
 
       const tooltip = d3
@@ -365,13 +363,6 @@ export default {
   fill: #6b6b6b;
 }
 
-.countries {
-  pointer-events: none;
-}
-.tick{
-  position: relative;
-  z-index: -999999;
-}
 .guide {
   pointer-events: none;
   font-size: 14px;
