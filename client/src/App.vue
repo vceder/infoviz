@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
+      <particles/>
       <router-view/>
     </div>
   </div>
