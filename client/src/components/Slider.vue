@@ -18,6 +18,7 @@
 <script>
 import vueSlider from 'vue-slider-component';
 import { mapState } from 'vuex';
+import moment from "moment";
 
 var isDragged = false;
 
@@ -32,6 +33,17 @@ export default {
     methods: {
         getData(){
             return Object.keys(this.top100).reverse();
+        },
+        getCurrent(){
+            if(this.current){
+                // console.log("Current: ", this.current)
+                // console.log("Raw timestamp: " , this.current.timestamp)
+                // console.log("Parsed: ", moment(this.current.timestamp).format("YYYYMMDDHHmm"))
+                // console.log("Data key: ", this.options.data[this.options.data.length -1])
+                // console.log("DÅ")
+                return moment(this.current.timestamp).format("YYYYMMDDHHmm")
+            }
+            return this.options.data[this.options.data.length -1]
         },
         formateToolTip(value){
             if (!value) return "LOADING...";
@@ -113,7 +125,7 @@ export default {
     },
     mounted: function () {
         this.options.data = this.getData()
-        this.value = this.options.data[this.options.data.length -1]
+        this.value = this.getCurrent(); //this.options.data[this.options.data.length -1]
     }
 }
 </script>
