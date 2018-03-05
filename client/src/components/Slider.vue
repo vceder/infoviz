@@ -109,7 +109,7 @@ export default {
                     "padding-top": "1px"
                 },
                 sliderStyle: { //The style of the dragable dot
-                    "backgroundColor": "#9FFF70"
+                    "backgroundColor": "#3CDCA0" //här
                 },
                 piecewiseStyle: { // the "dots" when right of slider
                     "backgroundColor": "#fff",
@@ -152,12 +152,12 @@ export default {
     .start{
         text-align: left;
         margin-left: 5px;
-        color: #9FFF70;
+        color: #3CDCA0;
         width: 15%;
     }
     .now{
         float: right;
         margin-right: 5px;
-        color: #9FFF70;
+        color: #3CDCA0;
     }
 </style>

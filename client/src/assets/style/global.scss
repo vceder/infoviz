@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:200,300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:200,300,400,700);
 
 body {
   margin: 0;
@@ -72,6 +72,23 @@ h3 {
   text-align: right;
   float: right;
   text-transform: uppercase;
+}
+
+#zoom_tooltip {
+  color: #3CDCA0;
+  letter-spacing: 7px;
+  margin: 3% 4% 2% 2%;
+  font-weight: 20;
+  text-align: center;
+  text-transform: uppercase;
+}
+#p_tooltip {
+  color: white;
+  // letter-spacing: 7px;
+  margin: 3% 4% 2% 2%;
+  font-weight: 20;
+  text-align: center;
+  // text-transform: uppercase;
 }
 
 .intro_page{

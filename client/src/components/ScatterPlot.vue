@@ -1,5 +1,6 @@
 <template>
 	<div id="cont">
+		<a href="javascript:history.go(-1)" class="route_button2"> < Go Back</a>
     <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
 				<div id="chart"></div>
 		<Slider/>
@@ -65,7 +66,7 @@ export default {
         .select('#chart')
         .append('div')
         .style('position', 'absolute')
-        .style('display', 'inline-block')
+        .style('display', 'block')
         .style('visibility', 'hidden')
         .style('color', 'white')
         .style('background-color', '#242625')
@@ -73,17 +74,18 @@ export default {
         .style('border-radius', '8px')
         .style('text-align', 'center')
         .style('font-family', 'Helvetica')
-        .style('font-size', '20px')
-        .style('width', '200px')
+        .style('font-size', '12px')
         .style('padding', '8px')
+        .style('word-wrap', 'break-word')
+        .style('z-index', 1000)
         .text('');
 
       //////////////////////////////////////////////////////
       ///////////// Initialize Axes & Scales ///////////////
       //////////////////////////////////////////////////////
 
-      const opacityCircles = 0.8;
-      const maxDistanceFromPoint = 50;
+      const opacityCircles = 0.7;
+      const maxDistanceFromPoint = 10;
 
       //Set the new x axis range
       const xScale = d3
@@ -169,7 +171,7 @@ export default {
         .style('stroke', 'white')
         .attr('transform', 'translate(18, 0) rotate(-90)')
         .text('Current Viewers');
-        
+
 
       ////////////////////////////////////////////////////////////
       ///// Capture mouse events and voronoi.find() the site /////
@@ -206,7 +208,7 @@ export default {
         return tooltip
             .style('top', d3.event.pageY - 10 + 'px')
             .style('left', d3.event.pageX + 10 + 'px');
-  
+
       });
 
       ////////////////////////////////////////////////////////////
@@ -240,7 +242,19 @@ export default {
         .style('fill', d => {
           return this.gameColor(d.game_id);
         })
- 
+        .on('mouseover', function(d) {
+					console.log(d)
+          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
+          return tooltip.style('visibility', 'visible');
+        })
+        .on('mousemove', function() {
+          return tooltip
+            .style('top', d3.event.pageY - 10 + 'px')
+            .style('left', d3.event.pageX + 10 + 'px');
+        })
+        .on('mouseout', function() {
+          return tooltip.style('visibility', 'hidden');
+        });
 
       ///////////////////////////////////////////////////////////////////////////
       /////////////////// Hover functions of the circles ////////////////////////
@@ -277,8 +291,8 @@ export default {
           el = element._groups[0];
           console.log(d)
           tooltip.html('<p>' + d.display_name + '</p>');
-          
-      
+
+
         //Make chosen circle more visible
         element.style('opacity', 1);
 
@@ -351,7 +365,6 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 
 .starCount{
   float: left;
