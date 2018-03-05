@@ -6,7 +6,7 @@
         <router-link to="/about" class="route_button">About</router-link>
         <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
       </div>
-      <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
+      <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
@@ -19,7 +19,7 @@
 
 <script>
 // @ is an alias to /src
-import HoverDetails from "@/components/HoverDetails.vue";
+import HoverDetails from '@/components/HoverDetails.vue';
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
 import Thumbnailplot from '@/components/ThumbnailPlot.vue';
@@ -29,13 +29,19 @@ export default {
   name: 'overview',
   data() {
     return {
-      currentGameId: '',
-      gameHovered: false,
+      currentGameId: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
       chartHeight: document.documentElement.clientHeight * 0.6,
     };
   },
   computed: {
+    gameHovered() {
+      if (this.currentGameId) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     tmbWidth() {
       return Math.round(this.chartWidth / 30);
     },
@@ -56,13 +62,12 @@ export default {
     console.log('Mounted');
   },
   methods: {
-    mouseOver: function(gameID){
+    mouseOver: function(gameID) {
       // Skicka gameinfo till HoverDetails componenten
       this.currentGameId = gameID;
-      this.gameHovered = true;
     },
-    mouseLeave: function(){
-      this.gameHovered = false;
+    mouseLeave: function() {
+      this.currentGameId = false;
     },
     goToId(id) {
       console.log(id);
@@ -97,25 +102,23 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.starCount{
+.starCount {
   float: left;
   margin-top: -15px;
 }
-.staticHeadline{
-      color: white;
-      font-family: Lato;
-      font-weight: 400;
-      font-size: 15px;
-  }
-.changingValues{
-      color: #E81B5F;
-      font-family: Lato;
-      font-weight: 300;
-      margin-bottom: 5%;
-      font-size: 20px;
-
-  }
+.staticHeadline {
+  color: white;
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 15px;
+}
+.changingValues {
+  color: #e81b5f;
+  font-family: Lato;
+  font-weight: 300;
+  margin-bottom: 5%;
+  font-size: 20px;
+}
 
 .overview-plot {
   height: 100%;
