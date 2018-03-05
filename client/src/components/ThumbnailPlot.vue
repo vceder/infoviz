@@ -78,7 +78,6 @@ export default {
       .attr('r', this.radius)
       .style('opacity', opacityCircles)
       .style('fill', d => {
-        // console.log(d.game_id)
         return color(d.game_id);
       });
   },
