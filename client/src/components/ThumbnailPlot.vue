@@ -84,44 +84,7 @@ export default {
     },
   },
   mounted() {
-<<<<<<< HEAD
-    //Scatterplot
-    const opacityCircles = 0.7;
-
-    function color(n) {
-      var colors = ["#3CDCA0", "#F7766F", "#9FFF70", "#9C78F8", "#F9CD80", "#8FCEFD", "#4FDFA9", "#A8FF7E", "#F7837D", "#A787F9", "#FAD38E", "#9BD3FD", "#62E3B3", "#B2FF8C", "#F8918B", "#9169F8", "#F9C872", "#83C9FD"]
-      return colors[n % colors.length];
-    }
-
-    //Place the country circles
-    const tmbPlot = d3
-      .select('#chart-' + this.gameId)
-      .selectAll('tmb-plot')
-      .data(this.streams, d => {
-        return d.user_id;
-      });
-
-    tmbPlot.exit().remove();
-
-    tmbPlot
-      .enter()
-      .append('circle')
-      .attr('class', 'tmb-plot')
-      .merge(tmbPlot)
-      .attr('cx', d => {
-        return this.xScale(d.view_count);
-      })
-      .attr('cy', d => {
-        return this.yScale(d.viewer_count);
-      })
-      .attr('r', this.radius)
-      .style('opacity', opacityCircles)
-      .style('fill', d => {
-        return color(d.game_id);
-      });
-=======
     this.createPlot();
->>>>>>> origin/master
   },
 };
 </script>
