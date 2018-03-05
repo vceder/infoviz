@@ -148,6 +148,7 @@ export default new Vuex.Store({
             commit("setUsers", users);
             commit("setTop100", top100);
             dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
+            commit("setStarCount", 200000);
             commit("toggleLoading", false);
           })
           .catch(error => {

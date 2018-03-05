@@ -43,7 +43,7 @@ export default {
       }
     },
     tmbWidth() {
-      return Math.round(this.chartWidth / 30);
+      return Math.round(this.chartWidth / this.current.totalGames);
     },
     chartSize() {
       return {

@@ -53,7 +53,7 @@ export default {
     createPlot() {
       const tmbPlot = d3
         .select('#chart-' + this.gameId)
-        .selectAll('tmb-plot')
+        .selectAll('circle')
         .data(this.streams, d => {
           return d.user_id;
         });
