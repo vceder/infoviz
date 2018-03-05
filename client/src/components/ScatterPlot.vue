@@ -1,6 +1,7 @@
 <template>
 	<div id="cont" class="text-center">
 		<div class="scatter">
+				<a href="javascript:history.go(-1)" class="route_button2"> < Go Back</a>
 				<div id="chart"></div>
 		</div>
 		<Slider/>
