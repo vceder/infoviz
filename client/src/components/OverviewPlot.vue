@@ -1,11 +1,15 @@
 <template>
   <div class="overview-plot">
     <div class="top-container">
-      <router-link to="/about" class="route_button">About</router-link>
-      <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+      <div>
+        <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.totalViewers}}</span></div>
+        <router-link to="/about" class="route_button">About</router-link>
+        <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
+      </div>
+      <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)">
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
     <Slider/>
@@ -15,6 +19,7 @@
 
 <script>
 // @ is an alias to /src
+import HoverDetails from "@/components/HoverDetails.vue";
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
 import Thumbnailplot from '@/components/ThumbnailPlot.vue';
@@ -24,6 +29,8 @@ export default {
   name: 'overview',
   data() {
     return {
+      currentGameId: '',
+      gameHovered: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
       chartHeight: document.documentElement.clientHeight * 0.6,
     };
@@ -43,11 +50,20 @@ export default {
   components: {
     Slider,
     Thumbnailplot,
+    HoverDetails,
   },
   mounted() {
     console.log('Mounted');
   },
   methods: {
+    mouseOver: function(gameID){
+      // Skicka gameinfo till HoverDetails componenten
+      this.currentGameId = gameID;
+      this.gameHovered = true;
+    },
+    mouseLeave: function(){
+      this.gameHovered = false;
+    },
     goToId(id) {
       console.log(id);
       this.$router.push({
@@ -81,6 +97,26 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.starCount{
+  float: left;
+  margin-top: -15px;
+}
+.staticHeadline{
+      color: white;
+      font-family: Lato;
+      font-weight: 400;
+      font-size: 15px;
+  }
+.changingValues{
+      color: #E81B5F;
+      font-family: Lato;
+      font-weight: 300;
+      margin-bottom: 5%;
+      font-size: 20px;
+
+  }
+
 .overview-plot {
   height: 100%;
   width: 100%;

@@ -15,6 +15,22 @@ body {
   overflow: visible;
 }
 
+ /* .staticHeadline och .changingValues behöver nice */
+ 
+.staticHeadline{
+  color: white;
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 15px;
+}
+.changingValues{
+  color: #E81B5F;
+  font-family: Lato;
+  font-weight: 300;
+  margin-bottom: 5%;
+  font-size: 20px;
+}
+
 .route_button {
   color: #83C9FD;
   position:relative;
