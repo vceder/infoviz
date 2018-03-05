@@ -86,7 +86,7 @@ export default {
       ///////////// Initialize Axes & Scales ///////////////
       //////////////////////////////////////////////////////
 
-      const opacityCircles = 0.8;
+      const opacityCircles = 0.7;
       const maxDistanceFromPoint = 10;
 
       //Set the new x axis range
@@ -240,7 +240,7 @@ export default {
           return this.gameColor(d.game_id);
         })
         .on('mouseover', function(d) {
-          tooltip.html('<h3>' + d.display_name + '</h3>');
+          tooltip.html('<h3 style="text-align:center;">' + d.display_name + '</h3>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;"/>');
           return tooltip.style('visibility', 'visible');
         })
         .on('mousemove', function() {
@@ -379,6 +379,14 @@ export default {
 .popover {
   position: absolute;
   pointer-events: none;
+}
+
+.streamer_image{
+	display: block;
+	max-width:230px;
+	max-height:95px;
+	width: auto;
+	height: auto;
 }
 
 @media (min-width: 500px) {
