@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <particles/>
+    <Particles/>
     <Loading/>
     <div v-if="!isLoading" class="router-view">
       <router-view/>
