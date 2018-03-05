@@ -19,22 +19,8 @@
   </div>
 </template>
 <script>
-// @ is an alias to /src
-import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue';
-import Thumbnailplot from '@/components/ThumbnailPlot.vue';
-import * as d3 from 'd3';
-
 export default {
   name: 'Game',
-  data() {
-  },
-  computed: {
-    ...mapState(['current']),
-  },
-  components: {
-    Slider,
-  },
   mounted() {
     console.log('Game Mounted');
   },

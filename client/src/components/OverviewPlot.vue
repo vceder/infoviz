@@ -4,7 +4,6 @@
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
-      <h1>Overview</h1>
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
 
