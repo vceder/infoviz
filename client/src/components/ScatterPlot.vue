@@ -70,7 +70,7 @@ export default {
         .select('#chart')
         .append('div')
         .style('position', 'absolute')
-        .style('display', 'inline-block')
+        .style('display', 'block')
         .style('visibility', 'hidden')
         .style('color', 'white')
         .style('background-color', '#242625')
@@ -79,7 +79,6 @@ export default {
         .style('text-align', 'center')
         .style('font-family', 'Helvetica')
         .style('font-size', '12px')
-        .style('width', '200px')
         .style('padding', '8px')
         .text('');
 
