@@ -1,6 +1,6 @@
 <template>
 	<div id="cont">
-		<a href="javascript:history.go(-1)" class="route_button2"> < Go Back</a>
+		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
     <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
 				<div id="chart"></div>
 		<Slider/>
@@ -45,7 +45,7 @@ export default {
       const streams = this.streams;
 
       //Scatterplot
-      const margin = { left: document.documentElement.clientWidth*0.04, top: document.documentElement.clientWidth*0.04, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
+      const margin = { left: document.documentElement.clientWidth*0.06, top: document.documentElement.clientWidth*0.04, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
         width = document.documentElement.clientWidth / 1.3,
         height = document.documentElement.clientHeight / 1.4;
 
@@ -65,6 +65,7 @@ export default {
       const tooltip = d3
         .select('#chart')
         .append('div')
+        .attr('id','tooltip')
         .style('position', 'absolute')
         .style('display', 'block')
         .style('visibility', 'hidden')
@@ -72,11 +73,11 @@ export default {
         .style('background-color', '#242625')
         .style('opacity', 0.8)
         .style('border-radius', '8px')
+        .style('font-family', 'Lato')
         .style('text-align', 'center')
-        .style('font-family', 'Helvetica')
-        .style('font-size', '12px')
-        .style('padding', '8px')
+        .style('padding', '2px')
         .style('word-wrap', 'break-word')
+        .style('max-width','400px')
         .style('z-index', 1000)
         .text('');
 
@@ -85,7 +86,7 @@ export default {
       //////////////////////////////////////////////////////
 
       const opacityCircles = 0.7;
-      const maxDistanceFromPoint = 10;
+      const maxDistanceFromPoint = 40;
 
       //Set the new x axis range
       const xScale = d3
@@ -206,7 +207,7 @@ export default {
           svg._tooltipped = site;
         }
         return tooltip
-            .style('top', d3.event.pageY - 10 + 'px')
+            .style('top', d3.event.pageY - 120 + 'px')
             .style('left', d3.event.pageX + 10 + 'px');
 
       });
@@ -242,19 +243,6 @@ export default {
         .style('fill', d => {
           return this.gameColor(d.game_id);
         })
-        .on('mouseover', function(d) {
-					console.log(d)
-          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:230px;max-height:200px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
-          return tooltip.style('visibility', 'visible');
-        })
-        .on('mousemove', function() {
-          return tooltip
-            .style('top', d3.event.pageY - 10 + 'px')
-            .style('left', d3.event.pageX + 10 + 'px');
-        })
-        .on('mouseout', function() {
-          return tooltip.style('visibility', 'hidden');
-        });
 
       ///////////////////////////////////////////////////////////////////////////
       /////////////////// Hover functions of the circles ////////////////////////
@@ -290,8 +278,7 @@ export default {
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
           console.log(d)
-          tooltip.html('<p>' + d.display_name + '</p>');
-
+          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
 
         //Make chosen circle more visible
         element.style('opacity', 1);
@@ -335,7 +322,7 @@ export default {
           .append('line')
           .attr('class', 'guide')
           .attr('x1', x)
-          .attr('x2', '')
+          .attr('x2', '1')
           .attr('y1', y)
           .attr('y2', y)
           .style('stroke', color)
@@ -347,7 +334,7 @@ export default {
         wrapper
           .append('text')
           .attr('class', 'guide')
-          .attr('x', '')
+          .attr('x', '1')
           .attr('y', y)
           .attr('dy', '0.35em')
           .style('fill', color)
