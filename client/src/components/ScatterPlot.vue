@@ -1,9 +1,7 @@
 <template>
-	<div id="cont" class="text-center">
+	<div id="cont">
     <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
-		<div class="scatter">
 				<div id="chart"></div>
-		</div>
 		<Slider/>
 	</div>
 </template>
@@ -46,12 +44,9 @@ export default {
       const streams = this.streams;
 
       //Scatterplot
-      const margin = { left: 200, top: 100, right: 20, bottom: 60 },
-        width =
-          document.documentElement.clientWidth / 1.1 -
-          margin.left -
-          margin.right,
-        height = document.documentElement.clientHeight / 1.4 - margin.bottom;
+      const margin = { left: document.documentElement.clientWidth*0.04, top: document.documentElement.clientWidth*0.04, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
+        width = document.documentElement.clientWidth / 1.3,
+        height = document.documentElement.clientHeight / 1.4;
 
       d3.select('svg').remove();
 
@@ -64,7 +59,7 @@ export default {
       const wrapper = svg
         .append('g')
         .attr('class', 'chordWrapper')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+        .attr('transform', 'translate(' + margin.left+ ',' + margin.top + ')');
 
       const tooltip = d3
         .select('#chart')
@@ -78,7 +73,7 @@ export default {
         .style('border-radius', '8px')
         .style('text-align', 'center')
         .style('font-family', 'Helvetica')
-        .style('font-size', '12px')
+        .style('font-size', '20px')
         .style('width', '200px')
         .style('padding', '8px')
         .text('');
@@ -88,7 +83,7 @@ export default {
       //////////////////////////////////////////////////////
 
       const opacityCircles = 0.8;
-      const maxDistanceFromPoint = 10;
+      const maxDistanceFromPoint = 50;
 
       //Set the new x axis range
       const xScale = d3
@@ -174,6 +169,7 @@ export default {
         .style('stroke', 'white')
         .attr('transform', 'translate(18, 0) rotate(-90)')
         .text('Current Viewers');
+        
 
       ////////////////////////////////////////////////////////////
       ///// Capture mouse events and voronoi.find() the site /////
@@ -207,6 +203,10 @@ export default {
           if (site) showTooltip(site.data);
           svg._tooltipped = site;
         }
+        return tooltip
+            .style('top', d3.event.pageY - 10 + 'px')
+            .style('left', d3.event.pageX + 10 + 'px');
+  
       });
 
       ////////////////////////////////////////////////////////////
@@ -240,18 +240,7 @@ export default {
         .style('fill', d => {
           return this.gameColor(d.game_id);
         })
-        .on('mouseover', function(d) {
-          tooltip.html('<h3>' + d.display_name + '</h3>');
-          return tooltip.style('visibility', 'visible');
-        })
-        .on('mousemove', function() {
-          return tooltip
-            .style('top', d3.event.pageY - 10 + 'px')
-            .style('left', d3.event.pageX + 10 + 'px');
-        })
-        .on('mouseout', function() {
-          return tooltip.style('visibility', 'hidden');
-        });
+ 
 
       ///////////////////////////////////////////////////////////////////////////
       /////////////////// Hover functions of the circles ////////////////////////
@@ -277,6 +266,8 @@ export default {
           .duration(100)
           .style('opacity', 0)
           .remove();
+
+          return tooltip.style('visibility', 'hidden');
       } //function removeTooltip
 
       //Show the tooltip on the hovered over slice
@@ -284,7 +275,10 @@ export default {
         //Save the chosen circle (so not the voronoi)
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
-
+          console.log(d)
+          tooltip.html('<p>' + d.display_name + '</p>');
+          
+      
         //Make chosen circle more visible
         element.style('opacity', 1);
 
@@ -327,7 +321,7 @@ export default {
           .append('line')
           .attr('class', 'guide')
           .attr('x1', x)
-          .attr('x2', -20)
+          .attr('x2', '')
           .attr('y1', y)
           .attr('y2', y)
           .style('stroke', color)
@@ -339,7 +333,7 @@ export default {
         wrapper
           .append('text')
           .attr('class', 'guide')
-          .attr('x', -25)
+          .attr('x', '')
           .attr('y', y)
           .attr('dy', '0.35em')
           .style('fill', color)
@@ -349,6 +343,8 @@ export default {
           .transition()
           .duration(100)
           .style('opacity', 0.5);
+
+          return tooltip.style('visibility', 'visible');
       } //function showTooltip
     },
   },
@@ -386,10 +382,6 @@ export default {
   fill: #6b6b6b;
 }
 
-.countries {
-  pointer-events: none;
-}
-
 .guide {
   pointer-events: none;
   font-size: 14px;
@@ -401,16 +393,4 @@ export default {
   pointer-events: none;
 }
 
-@media (min-width: 500px) {
-  .col-sm-3,
-  .col-sm-9 {
-    float: left;
-  }
-  .col-sm-9 {
-    width: 75%;
-  }
-  .col-sm-3 {
-    width: 25%;
-  }
-}
 </style>
