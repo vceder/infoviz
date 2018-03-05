@@ -1,5 +1,6 @@
 <template>
 	<div id="cont" class="text-center">
+    <div class="starCount staticHeadline">Total Viewers: <span class="changingValues">{{this.current.games[gameId].totalViewers}}</span></div>
 		<div class="scatter">
 				<div id="chart"></div>
 		</div>
@@ -355,6 +356,24 @@ export default {
 </script>
 <style scoped lang="scss">
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
+.starCount{
+  float: left;
+}
+.staticHeadline{
+  color: white;
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.changingValues{
+  color: #E81B5F;
+  font-family: Lato;
+  font-weight: 300;
+  margin-bottom: 5%;
+  font-size: 20px;
+}
 
 .axis path,
 .axis line {

@@ -6,7 +6,7 @@
         <router-link to="/about" class="route_button">About</router-link>
         <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
       </div>
-      <HoverDetails v-if="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
+      <HoverDetails :gameID="currentGameId" v-show="gameHovered"/> <!-- Kanske skippa steget att det är en egen component? -->
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
       <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
@@ -29,7 +29,8 @@ export default {
   name: 'overview',
   data() {
     return {
-      gameHovered: true,
+      currentGameId: '',
+      gameHovered: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
       chartHeight: document.documentElement.clientHeight * 0.6,
     };
@@ -57,11 +58,11 @@ export default {
   methods: {
     mouseOver: function(gameID){
       // Skicka gameinfo till HoverDetails componenten
-      console.log(gameID);
-      console.log("Show HoverDetails")
+      this.currentGameId = gameID;
+      this.gameHovered = true;
     },
     mouseLeave: function(){
-      console.log("Dölj HoverDetails")
+      this.gameHovered = false;
     },
     goToId(id) {
       console.log(id);
