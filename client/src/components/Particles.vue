@@ -8,7 +8,7 @@ import particlesSettings from '../assets/js/particlesSettings.js';
 require('particles.js');
 
 export default {
-  name: 'particles',
+  name: 'Particles',
   data() {
     return {
       settings: particlesSettings,
