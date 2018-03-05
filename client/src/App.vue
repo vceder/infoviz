@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Loading/>
+    <Particles/>
     <div v-if="!isLoading" class="router-view">
-      <particles/>
       <router-view/>
     </div>
   </div>
@@ -11,7 +11,7 @@
 <script>
 // @ is an alias to /src
 import Loading from '@/components/Loading.vue';
-import particles from '@/components/Particles.vue';
+import Particles from '@/components/Particles.vue';
 import { mapState } from 'vuex';
 
 export default {
@@ -21,7 +21,7 @@ export default {
   },
   components: {
     Loading,
-    particles,
+    Particles,
   },
   mounted() {
     this.$store.dispatch('getTop100');
