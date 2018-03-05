@@ -27,7 +27,6 @@
     ],
     methods: {
       getGame: function(){
-        // console.log(this.current.totalViewers[this.gameID])
         return "hej"
       },
       gameColor: function(id){
