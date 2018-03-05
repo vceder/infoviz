@@ -3,12 +3,12 @@
     <span class="changingValues"><img src="public/pt-logo.png"><!-- <img class="game-img" v-bind:src="getGame().image" alt="<Image undefined>"> --></span>
     <div class="categoryWrapper">
       <span class="staticHeadline">Game Name</span>
-      <span class="changingValues">THIS IS A NAME<!-- {{getGame().name}} --></span>
+      <span class="changingValues">{{getGame()}} </span>
     </div>
     <div class="categoryWrapper">
       <span class="staticHeadline">Current viewers</span>
-      <span class="changingValues">NUMBER<!-- {{getGame().viewer_count}} --></span>
-    </div>   
+      <span class="changingValues">{{getNumber()}}</span>
+    </div>
   </div>
 </template>
 
@@ -22,23 +22,31 @@
     computed: {
       ...mapState(['current']),
     },
+    props: [
+      "gameID"
+    ],
     methods: {
       getGame: function(){
-        return this.current.games['110758']
+        return "hej"
       },
       gameColor: function(id){
         return this.gameColor(id);
       },
+      getNumber: function(){
+        if(this.current.games[this.gameID] != undefined){
+        return this.current.games[this.gameID].totalViewers
+      }
+      },
     },
     mounted() {
-      console.log(this.current.games['110758'])
+      // console.log(this.current.games['110758'])
     },
   };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  
+
   .game-img{
     max-width: 30px;
   }
