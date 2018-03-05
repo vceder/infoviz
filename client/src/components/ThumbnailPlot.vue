@@ -50,7 +50,7 @@ export default {
     const opacityCircles = 0.7;
 
     function color(n) {
-      var colors = ["#3CDCA0", "#F7766F", "#9FFF70", "#9C78F8", "#F9CD80", "#8FCEFD", "#4FDFA9", "#A8FF7E", "#F7837D", "#9169F8", "#F9C872", "#83C9FD"]
+      var colors = ["#3CDCA0", "#F7766F", "#9FFF70", "#9C78F8", "#F9CD80", "#8FCEFD", "#4FDFA9", "#A8FF7E", "#F7837D", "#A787F9", "#FAD38E", "#9BD3FD", "#62E3B3", "#B2FF8C", "#F8918B", "#9169F8", "#F9C872", "#83C9FD"]
       return colors[n % colors.length];
     }
 
