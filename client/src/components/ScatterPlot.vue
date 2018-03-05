@@ -23,6 +23,12 @@ export default {
     gameId() {
       return this.$route.params.id;
     },
+    streams() {
+      const streams = this.current.games[this.gameId]
+        ? this.current.games[this.gameId].streams
+        : [];
+      return streams;
+    },
     ...mapState(['current']),
   },
   components: {
@@ -35,7 +41,7 @@ export default {
   },
   methods: {
     initScatter() {
-      const streams = this.current.games[this.gameId].streams;
+      const streams = this.streams;
 
       //Scatterplot
       const margin = { left: 200, top: 100, right: 20, bottom: 60 },
@@ -100,7 +106,8 @@ export default {
         .range([0, width])
         .domain(
           d3.extent(streams, function(d) {
-            return d.view_count;
+						const view_count = (d.view_count) ? d.view_count : 0;
+            return view_count;
           })
         )
         .nice();
@@ -128,7 +135,8 @@ export default {
         .range([height, 0])
         .domain(
           d3.extent(streams, function(d) {
-            return d.viewer_count;
+            const viewer_count = (d.viewer_count) ? d.viewer_count : 0;
+            return viewer_count;
           })
         )
         .nice();
@@ -194,7 +202,7 @@ export default {
               return yScale(d.viewer_count);
             })(streams);
         }
-        const p = d3.mouse(this),
+        var p = d3.mouse(this),
           site;
         p[0] -= margin.left;
         p[1] -= margin.top;
