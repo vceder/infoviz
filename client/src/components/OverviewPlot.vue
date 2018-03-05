@@ -9,7 +9,7 @@
       <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="mouseOver(id)" @mouseleave="mouseLeave()" >
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="(event) => { mouseOver(event, id) }" @mouseleave="mouseLeave" >
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
     <Slider/>
@@ -43,7 +43,7 @@ export default {
       }
     },
     tmbWidth() {
-      return Math.round(this.chartWidth / 30);
+      return Math.round(this.chartWidth / this.current.totalGames);
     },
     chartSize() {
       return {
@@ -62,11 +62,12 @@ export default {
     console.log('Mounted');
   },
   methods: {
-    mouseOver: function(gameID) {
-      // Skicka gameinfo till HoverDetails componenten
+    mouseOver: function(event, gameID) {
+      event.target.style.border = "1px solid #9fff70";
       this.currentGameId = gameID;
     },
-    mouseLeave: function() {
+    mouseLeave: function(event) {
+      event.target.style.border = "0px";
       this.currentGameId = false;
     },
     goToId(id) {
@@ -137,6 +138,7 @@ export default {
 }
 
 .game {
+  box-sizing: border-box;
   position: absolute;
   display: inline-block;
 }
