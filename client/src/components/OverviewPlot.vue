@@ -1,18 +1,11 @@
 <template>
   <div class="overview-plot">
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)">
+      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)">
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
       <router-link to="/about" class="route_button">About</router-link>
       <router-link to="/analytic" class="route_button">Analytic Trail</router-link>
-
-      <!-- Make the following an onclick on the subplot rather than a button.
-           Give it the parameter id instead of the string "id" -->
-
-      <router-link to="/game/id" class="route_button">Click dis plot pls</router-link>
-
-
     <Slider/>
     </div>
   </div>
@@ -53,6 +46,13 @@ export default {
     console.log('Mounted');
   },
   methods: {
+    goToId(id) {
+      console.log(id);
+      this.$router.push({
+        name: 'game',
+        params: { id },
+      });
+    },
     getPosition(id) {
       const xScale = d3
         .scalePoint()
