@@ -14,7 +14,16 @@ export default {
   data() {
     return {
       radius: 5,
+      opacityCircles: 0.7,
     };
+  },
+  watch: {
+    width() {
+      this.createPlot();
+    },
+    streams() {
+      this.createPlot();
+    },
   },
   methods: {
     xScale(num) {
@@ -39,6 +48,33 @@ export default {
         );
       return Math.round(yScale(num));
     },
+    createPlot() {
+      const tmbPlot = d3
+        .select('#chart-' + this.gameId)
+        .selectAll('tmb-plot')
+        .data(this.streams, d => {
+          return d.user_id;
+        });
+
+      tmbPlot.exit().remove();
+
+      tmbPlot
+        .enter()
+        .append('circle')
+        .attr('class', 'tmb-plot')
+        .merge(tmbPlot)
+        .attr('cx', d => {
+          return this.xScale(d.view_count);
+        })
+        .attr('cy', d => {
+          return this.yScale(d.viewer_count);
+        })
+        .attr('r', this.radius)
+        .style('opacity', this.opacityCircles)
+        .style('fill', d => {
+          return 'red';
+        });
+    },
   },
   computed: {
     gameId() {
@@ -46,35 +82,7 @@ export default {
     },
   },
   mounted() {
-    //Scatterplot
-    const opacityCircles = 0.7;
-
-    //Place the country circles
-    const tmbPlot = d3
-      .select('#chart-' + this.gameId)
-      .selectAll('tmb-plot')
-      .data(this.streams, d => {
-        return d.user_id;
-      });
-
-    tmbPlot.exit().remove();
-
-    tmbPlot
-      .enter()
-      .append('circle')
-      .attr('class', 'tmb-plot')
-      .merge(tmbPlot)
-      .attr('cx', d => {
-        return this.xScale(d.view_count);
-      })
-      .attr('cy', d => {
-        return this.yScale(d.viewer_count);
-      })
-      .attr('r', this.radius)
-      .style('opacity', opacityCircles)
-      .style('fill', d => {
-        return 'red';
-      });
+    this.createPlot();
   },
 };
 </script>
