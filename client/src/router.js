@@ -5,7 +5,6 @@ import ScatterPlot from "./components/ScatterPlot.vue";
 import Intro from "./views/Intro.vue";
 import Analytic from "./views/Analytic.vue";
 import About from "./views/About.vue";
-import Game from "./views/Game.vue";
 
 Vue.use(Router);
 
