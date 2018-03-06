@@ -1,6 +1,7 @@
 <template>
 	<div id="cont">
 		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
+
     <div class="starCount">
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
@@ -21,8 +22,14 @@ import gameColor from '../assets/js/colorsMixin.js';
 export default {
   mixins: [gameColor],
   name: 'ScatterPlot',
+  data() {
+    return {
+      gameName: '',
+    };
+  },
   mounted() {
     this.initScatter();
+    this.getGame();
   },
   computed: {
     gameId() {
@@ -34,7 +41,7 @@ export default {
         : [];
       return streams;
     },
-    ...mapState(['current']),
+    ...mapState(['current', 'games']),
   },
   components: {
     Slider,
@@ -44,8 +51,26 @@ export default {
       this.initScatter();
     },
   },
+  props: ['gameID'],
   methods: {
+    getGame() {
+        if (this.games[this.gameId]) {
+        this.gameName = this.games[this.gameId].name;
+        return true;
+      } else {
+        this.$store
+          .dispatch('getGameInfo', this.gameId)
+          .then(res => {
+            this.gameName = res.name;
+            return true;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    },
     initScatter() {
+      
       const streams = this.streams;
 
       //Scatterplot
@@ -281,7 +306,6 @@ export default {
         //Save the chosen circle (so not the voronoi)
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
-          console.log(d)
           tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
 
         //Make chosen circle more visible
