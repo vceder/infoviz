@@ -16,7 +16,7 @@ body {
 }
 
  /* .staticHeadline och .changingValues behöver nice */
- 
+
 .staticHeadline{
   color: white;
   font-family: Lato;
@@ -27,7 +27,6 @@ body {
   color: #E81B5F;
   font-family: Lato;
   font-weight: 300;
-  margin-bottom: 5%;
   font-size: 20px;
 }
 
@@ -37,19 +36,20 @@ body {
   text-decoration: none;
   font-size: 1vw;
   letter-spacing: 3px;
-  margin-left: 30px;
-  margin-top: -15px;
+  margin-right: 5%;
+  margin-top: 0.1%;
   font-weight: 700;
   text-align: right;
   float: right;
   text-transform: uppercase;
+  z-index: 99999;
 }
 
 .route_button2 {
   color: #83C9FD;
   position:relative;
   text-decoration: none;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   letter-spacing: 3px;
   font-weight: 700;
   text-align: right;
@@ -60,7 +60,7 @@ body {
 .menuItems {
   float: left;
   margin: 3.7% 2% 2% 4%;
-  width: 220px;
+  width: auto;
 }
 
 h3 {

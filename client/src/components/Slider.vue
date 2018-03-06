@@ -41,6 +41,7 @@ export default {
                 // console.log("Parsed: ", moment(this.current.timestamp).format("YYYYMMDDHHmm"))
                 // console.log("Data key: ", this.options.data[this.options.data.length -1])
                 // console.log("DÅ")
+                // this.options.piecewiseStyle.backgroundColor = "#fff"
                 return moment(this.current.timestamp).format("YYYYMMDDHHmm")
             }
             return this.options.data[this.options.data.length -1]
@@ -112,7 +113,7 @@ export default {
                     "backgroundColor": "#3CDCA0" //här
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    "backgroundColor": "#fff",
+                    // "backgroundColor": "#fff",
                     "visability": "visable",
                     "width": "5px",
                     "height": "5px"
