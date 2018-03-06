@@ -313,6 +313,9 @@ export default {
         //Save the chosen circle (so not the voronoi)
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
+					if (d.offline_image_url == ""){
+						d.offline_image_url = 'https://pbs.twimg.com/profile_images/509073338191183872/fYdty6yd_400x400.png';
+					}
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
             d.display_name +
