@@ -2,7 +2,7 @@
   <div class="about">
     <h3>Analytic Trail</h3>
     <div class="menuItems">
-      <a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+      <a href="javascript:history.go(-1)" class="route_button2"> <i class="fas fa-angle-left"/> Back</a>
     </div>
 </div>
   <div id="analytic">
