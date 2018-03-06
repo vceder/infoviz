@@ -3,11 +3,15 @@
 		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
 
     <div class="starCount">
+      <div class="gameName">{{gameName}}</div>
+    </div>
+
+    <div class="dynamic-hover-details">
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
     
-				<div id="chart"></div>
+    <div id="chart"></div>
 		<Slider/>
 	</div>
 </template>
@@ -74,7 +78,7 @@ export default {
       const streams = this.streams;
 
       //Scatterplot
-      const margin = { left: document.documentElement.clientWidth*0.06, top: document.documentElement.clientWidth*0.04, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
+      const margin = { left: document.documentElement.clientWidth*0.04, top: document.documentElement.clientWidth*0.02, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
         width = document.documentElement.clientWidth / 1.3,
         height = document.documentElement.clientHeight / 1.4;
 
@@ -380,22 +384,46 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-
+.gameName{
+  width: 100vw;
+  margin: 0;
+  justify-content: center;
+  text-transform: uppercase;
+  font-family: Lato;
+  font-weight: 400;
+  color:white;
+}
 .starCount{
   float: left;
 }
-.staticHeadline{
-  color: white;
-  font-family: Lato;
-  font-weight: 400;
-  font-size: 15px;
+.dynamic-hover-details{
+  position: absolute;
+  right: 0px;
+  top:30%;
+  flex-direction: column;
+  float: left;
+  text-transform: uppercase;
+  width: 15%;
+  display: flex;
+  // letter-spacing: 2px;
+  // font-size: 0.8vw;
+
 }
+.static-headline{
+    width: 100%;
+    display: block;
+    color: white;
+    font-family: Lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8vw;
+  }
 
 .changingValues{
   color: #E81B5F;
   font-family: Lato;
   font-weight: 300;
-  margin-bottom: 5%;
   font-size: 20px;
 }
 
