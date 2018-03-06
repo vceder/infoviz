@@ -1,7 +1,8 @@
 <template>
-	<div id="cont">
-		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
-
+	<div class="cont">
+    <div class="menuItems">
+		<a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+    </div>
     <div class="starCount">
       <div class="gameName">{{gameName}}</div>
     </div>
@@ -78,7 +79,7 @@ export default {
 
       //Scatterplot
       const margin = {
-          left: document.documentElement.clientWidth * 0.06,
+          left: document.documentElement.clientWidth * 0.03,
           top: document.documentElement.clientWidth * 0.04,
           right: document.documentElement.clientWidth * 0.05,
           bottom: document.documentElement.clientWidth * 0.04,
@@ -405,9 +406,12 @@ export default {
   font-family: Lato;
   font-weight: 400;
   color:white;
+  font-size: 1.6vw;
+  letter-spacing: 2px;
 }
 .starCount{
   float: left;
+  margin-top: -5%;
 }
 .dynamic-hover-details{
   position: absolute;
