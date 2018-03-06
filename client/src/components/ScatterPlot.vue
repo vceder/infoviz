@@ -314,7 +314,7 @@ export default {
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
 					if (d.offline_image_url == ""){
-						d.offline_image_url = 'https://pbs.twimg.com/profile_images/509073338191183872/fYdty6yd_400x400.png';
+						d.offline_image_url = 'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
 					}
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
