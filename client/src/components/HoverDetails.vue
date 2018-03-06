@@ -26,6 +26,11 @@ export default {
       imgHeight: '200',
     };
   },
+  watch: {
+    gameID() {
+      this.getGame();
+    }
+  },
   computed: {
     ...mapState(['current', 'games']),
   },
