@@ -80,7 +80,7 @@ export default new Vuex.Store({
         }
       });
     },
-    getTop100({ dispatch, state, commit }) {
+    getTop100({ state, commit }) {
       if (state.top100.games) {
         commit("toggleLoading", false);
       } else {
@@ -147,7 +147,7 @@ export default new Vuex.Store({
             }
             commit("setUsers", users);
             commit("setTop100", top100);
-            dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
+            commit("setCurrent", state.top100[time.format("YYYYMMDDHHmm")]);
             commit("setStarCount", 200000);
             commit("toggleLoading", false);
           })
