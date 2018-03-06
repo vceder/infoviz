@@ -382,7 +382,7 @@ export default {
 <style scoped lang="scss">
 
 .starCount{
-  float: right;
+  float: left;
 }
 .staticHeadline{
   color: white;

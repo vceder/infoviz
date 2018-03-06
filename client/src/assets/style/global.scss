@@ -29,6 +29,7 @@ body {
   font-family: Lato;
   font-weight: 300;
   font-size: 20px;
+  float: right;
 }
 
 .route_button {
@@ -53,8 +54,8 @@ body {
   font-size: 1.2vw;
   letter-spacing: 3px;
   font-weight: 700;
-  // text-align: left;
-  float: left;
+  text-align: left;
+  float: right;
   text-transform: uppercase;
 }
 
