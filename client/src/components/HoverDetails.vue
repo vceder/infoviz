@@ -26,6 +26,11 @@ export default {
       imgHeight: '200',
     };
   },
+  watch: {
+    gameID() {
+      this.getGame();
+    }
+  },
   computed: {
     ...mapState(['current', 'games']),
   },
@@ -45,7 +50,7 @@ export default {
           .then(res => {
             this.gameImg = res.box_art_url.replace(
               '{width}x{height}',
-              this.imgHeight + 'x' + this.imgWidth
+              this.imgWidth + 'x' + this.imgHeight
             );
             this.gameName = res.name;
             return true;

@@ -58,7 +58,7 @@ export default {
   props: ['gameID'],
   methods: {
     getGame() {
-        if (this.games[this.gameId]) {
+      if (this.games[this.gameId]) {
         this.gameName = this.games[this.gameId].name;
         return true;
       } else {
@@ -74,11 +74,15 @@ export default {
       }
     },
     initScatter() {
-      
       const streams = this.streams;
 
       //Scatterplot
-      const margin = { left: document.documentElement.clientWidth*0.04, top: document.documentElement.clientWidth*0.02, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
+      const margin = {
+          left: document.documentElement.clientWidth * 0.06,
+          top: document.documentElement.clientWidth * 0.04,
+          right: document.documentElement.clientWidth * 0.05,
+          bottom: document.documentElement.clientWidth * 0.04,
+        },
         width = document.documentElement.clientWidth / 1.3,
         height = document.documentElement.clientHeight / 1.4;
 
@@ -93,12 +97,12 @@ export default {
       const wrapper = svg
         .append('g')
         .attr('class', 'chordWrapper')
-        .attr('transform', 'translate(' + margin.left+ ',' + margin.top + ')');
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       const tooltip = d3
         .select('#chart')
         .append('div')
-        .attr('id','tooltip')
+        .attr('id', 'tooltip')
         .style('position', 'absolute')
         .style('display', 'block')
         .style('visibility', 'hidden')
@@ -110,7 +114,7 @@ export default {
         .style('text-align', 'center')
         .style('padding', '2px')
         .style('word-wrap', 'break-word')
-        .style('max-width','400px')
+        .style('max-width', '400px')
         .style('z-index', 1000)
         .text('');
 
@@ -206,7 +210,6 @@ export default {
         .attr('transform', 'translate(18, 0) rotate(-90)')
         .text('Current Viewers');
 
-
       ////////////////////////////////////////////////////////////
       ///// Capture mouse events and voronoi.find() the site /////
       ////////////////////////////////////////////////////////////
@@ -240,9 +243,8 @@ export default {
           svg._tooltipped = site;
         }
         return tooltip
-            .style('top', d3.event.pageY - 120 + 'px')
-            .style('left', d3.event.pageX + 10 + 'px');
-
+          .style('top', d3.event.pageY - 120 + 'px')
+          .style('left', d3.event.pageX + 10 + 'px');
       });
 
       ////////////////////////////////////////////////////////////
@@ -275,7 +277,7 @@ export default {
         .style('opacity', opacityCircles)
         .style('fill', d => {
           return this.gameColor(d.game_id);
-        })
+        });
 
       ///////////////////////////////////////////////////////////////////////////
       /////////////////// Hover functions of the circles ////////////////////////
@@ -302,7 +304,7 @@ export default {
           .style('opacity', 0)
           .remove();
 
-          return tooltip.style('visibility', 'hidden');
+        return tooltip.style('visibility', 'hidden').style('display', 'none');
       } //function removeTooltip
 
       //Show the tooltip on the hovered over slice
@@ -310,7 +312,17 @@ export default {
         //Save the chosen circle (so not the voronoi)
         const element = d3.select('.streamer.' + d.display_name),
           el = element._groups[0];
-          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
+        tooltip.html(
+          '<h2 id="zoom_tooltip">' +
+            d.display_name +
+            '</h2>' +
+            '<img src=' +
+            d.offline_image_url +
+            ' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' +
+            '<p id="p_tooltip">' +
+            d.title +
+            '</p>'
+        );
 
         //Make chosen circle more visible
         element.style('opacity', 1);
@@ -377,13 +389,14 @@ export default {
           .duration(100)
           .style('opacity', 0.5);
 
-          return tooltip.style('visibility', 'visible');
+        return tooltip.style('visibility', 'visible').style('display', 'block');
       } //function showTooltip
     },
   },
 };
 </script>
 <style scoped lang="scss">
+
 .gameName{
   width: 100vw;
   margin: 0;
@@ -407,7 +420,6 @@ export default {
   display: flex;
   // letter-spacing: 2px;
   // font-size: 0.8vw;
-
 }
 .static-headline{
     width: 100%;
@@ -420,8 +432,8 @@ export default {
     font-size: 0.8vw;
   }
 
-.changingValues{
-  color: #E81B5F;
+.changingValues {
+  color: #e81b5f;
   font-family: Lato;
   font-weight: 300;
   font-size: 20px;
@@ -448,5 +460,4 @@ export default {
   position: absolute;
   pointer-events: none;
 }
-
 </style>
