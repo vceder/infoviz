@@ -24,6 +24,7 @@ body {
   font-size: 15px;
 }
 .changingValues{
+  position:relative;
   color: #E81B5F;
   font-family: Lato;
   font-weight: 300;
@@ -52,8 +53,8 @@ body {
   font-size: 1.2vw;
   letter-spacing: 3px;
   font-weight: 700;
-  text-align: right;
-  float: right;
+  // text-align: left;
+  float: left;
   text-transform: uppercase;
 }
 

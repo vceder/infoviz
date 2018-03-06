@@ -6,7 +6,7 @@
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
-    
+
 				<div id="chart"></div>
 		<Slider/>
 	</div>
@@ -70,7 +70,7 @@ export default {
       }
     },
     initScatter() {
-      
+
       const streams = this.streams;
 
       //Scatterplot
@@ -382,7 +382,7 @@ export default {
 <style scoped lang="scss">
 
 .starCount{
-  float: left;
+  float: right;
 }
 .staticHeadline{
   color: white;
