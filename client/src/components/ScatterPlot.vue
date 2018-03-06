@@ -1,7 +1,7 @@
 <template>
 	<div class="cont">
     <div class="menuItems">
-		<a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+		<a href="javascript:history.go(-1)" class="route_button2"> <i class="fas fa-angle-left"/> Back</a>
     </div>
     <div class="starCount">
       <div class="gameName">{{gameName}}</div>
@@ -11,7 +11,7 @@
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
-    
+
     <div id="chart"></div>
 		<Slider/>
 	</div>

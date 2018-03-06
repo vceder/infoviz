@@ -1,14 +1,14 @@
-<template><html>
+<template><div id="html">
   <div class="about">
     <h3>About the team</h3>
     <div class="menuItems">
-    <a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+    <a href="javascript:history.go(-1)" class="route_button2"> <i class="fas fa-angle-left"/> Back</a>
   </div>
   </div>
     <div id="teamBio">The Plot Twitch team, consists of 8 interaction design master’s students from the Royal Institute of Technology in Stockholm, Sweden. The Plot Twitch product is the final project in the course DH2321 Information Visualization, supervised by Dr Mario Romero Vega, and brought to action during the spring of 2018.</div>
 <div class="teamContainer">
   <div class="teamImageLeft"><img class="image" src="../assets/img/alexandra.png"></div>
-  <div class="teamBioLeft"><h2>Alexandra</h2><h4>FRONT END DEVELOPER / OFFICE PROVIDER<br/><br/>Alexandra is one of our front-end developers and UX designers. Her positive and driven attitude combined with a non-existent fear for trying new things until they work makes her an ideal part of any development team. Her curiosity and master skills in searching the web for the right solutions has brought the team home. In the Plot Twitch project, her main responsibility has been to set up scatter plots, master the voronoi functionality and caring for the stars/viewers counter.</h4></div>
+  <div class="teamBioLeft"><h2>Alexandra</h2><h4>FRONT END DEVELOPER / ANONYMOUS GIT COMMITTER<br/><br/>Alexandra is one of our front-end developers and UX designers. Her positive and driven attitude combined with a non-existent fear for trying new things until they work makes her an ideal part of any development team. Her curiosity and master skills in searching the web for the right solutions has brought the team home. In the Plot Twitch project, her main responsibility has been to set up scatter plots, master the voronoi functionality and caring for the stars/viewers counter.</h4></div>
 </div>
 <div class="teamContainer">
   <div class="teamImageRight"><img class="image" src="../assets/img/arvid.png"></div>
@@ -32,12 +32,11 @@
 </div>
 <div class="teamContainer">
   <div class="teamImageLeft"><img class="image" src="../assets/img/viktor.png"></div>
-  <div class="teamBioLeft"><h2>Viktor</h2><h4>FULL STACK DEVELOPER / GITHUB MASTER<br/><br/>Viktor, or Ceder, as we passionately call him, has been paramount to the success of this project due to his skills as a full stack developer and love for Github. Very early on in the project he took it upon himself to make sure that whatever we pushed, pulled, requested, branched ended up exactly where it should and was steadily available for everyone else (even in the early morning hours!). Our global controller (the slider) was his masterpiece but his input was crucial for a lot of what is visible and invisible in Plot Twitch.
-</h4></div>
+  <div class="teamBioLeft"><h2>Viktor</h2><h4>FULL STACK DEVELOPER / GITHUB MASTER<br/><br/>Viktor, or Ceder, as we passionately call him, has been paramount to the success of this project due to his skills as a full stack developer and love for Github. Very early on in the project he took it upon himself to make sure that whatever we pushed, pulled, requested, branched ended up exactly where it should and was steadily available for everyone else (even in the early morning hours!). Our global controller (the slider) was his masterpiece but his input was crucial for a lot of what is visible and invisible in Plot Twitch.</h4></div>
 </div>
 <div class="teamContainer">
   <div class="teamImageRight"><img class="image" src="../assets/img/petter.png"></div>
   <div class="teamBioRight"><h2>Petter</h2><h4>FULL STACK DEVELOPER / HATER OF MERGING<br/><br/>A developer with a soft spot for details and affinity for structure, it was thanks to him that our team got a second wind as we neared the final stretch of this project. He basically forced us to allocate as much time as possible to this project. Moving from the back-end team to the front-end team he, on countless occasions, pushed his machine to the limit to make sure Plot Twitch navigation and routing makes as much sense to you as it made to us.</h4></div>
 </div>
-</html>
+</div>
 </template>
