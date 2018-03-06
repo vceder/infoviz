@@ -1,13 +1,18 @@
 <template>
-	<div id="cont">
-		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
-
+	<div class="cont">
+    <div class="menuItems">
+		<a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+    </div>
     <div class="starCount">
+      <div class="gameName">{{gameName}}</div>
+    </div>
+
+    <div class="dynamic-hover-details">
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
     
-				<div id="chart"></div>
+    <div id="chart"></div>
 		<Slider/>
 	</div>
 </template>
@@ -74,7 +79,7 @@ export default {
 
       //Scatterplot
       const margin = {
-          left: document.documentElement.clientWidth * 0.06,
+          left: document.documentElement.clientWidth * 0.03,
           top: document.documentElement.clientWidth * 0.04,
           right: document.documentElement.clientWidth * 0.05,
           bottom: document.documentElement.clientWidth * 0.04,
@@ -392,21 +397,49 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.starCount {
-  float: left;
-}
-.staticHeadline {
-  color: white;
+
+.gameName{
+  width: 100vw;
+  margin: 0;
+  justify-content: center;
+  text-transform: uppercase;
   font-family: Lato;
   font-weight: 400;
-  font-size: 15px;
+  color:white;
+  font-size: 1.6vw;
+  letter-spacing: 2px;
 }
+.starCount{
+  float: left;
+  margin-top: -5%;
+}
+.dynamic-hover-details{
+  position: absolute;
+  right: 0px;
+  top:30%;
+  flex-direction: column;
+  float: left;
+  text-transform: uppercase;
+  width: 15%;
+  display: flex;
+  // letter-spacing: 2px;
+  // font-size: 0.8vw;
+}
+.static-headline{
+    width: 100%;
+    display: block;
+    color: white;
+    font-family: Lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8vw;
+  }
 
 .changingValues {
   color: #e81b5f;
   font-family: Lato;
   font-weight: 300;
-  margin-bottom: 5%;
   font-size: 20px;
 }
 
