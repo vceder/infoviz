@@ -164,7 +164,7 @@ export default {
 }
 .game:hover {
   border: 1px solid #9fff70;
-  border-radius: 2px;
+  border-radius: 7px;
   cursor: pointer;
 }
 .game {
