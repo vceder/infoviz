@@ -36,7 +36,7 @@
 </div>
 <div class="teamContainer">
   <div class="teamImageRight"><img class="image" src="../assets/img/petter.png"></div>
-  <div class="teamBioRight"><h2>Petter</h2><h4>FULL STACK DEVELOPER / HATER OF MERGING<br/><br/>A developer with a soft spot for details and affinity for structure, it was thanks to him that our team got a second wind as we neared the final stretch of this project. He basically forced us to allocate as much time as possible to this project. Moving from the back-end team to the front-end team he, on countless occasions, pushed his machine to the limit to make sure Plot Twitch navigation and routing makes as much sense to you as it made to us.</h4></div>
+  <div class="teamBioRight"><h2>Petter</h2><h4>FULL STACK DEVELOPER / VUE SURFER <br/><br/>A developer with a soft spot for details and affinity for structure, it was thanks to him that our team got a second wind as we neared the final stretch of this project. He basically forced us to allocate as much time as possible to this project. Moving from the back-end team to the front-end team he, on countless occasions, pushed his machine to the limit to make sure Plot Twitch navigation and routing makes as much sense to you as it made to us.</h4></div>
 </div>
 </div>
 </template>

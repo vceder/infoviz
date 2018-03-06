@@ -1,4 +1,4 @@
-<template><html>
+<template><div>
   <div class="about">
     <h3>Analytic Trail</h3>
     <div class="menuItems">
@@ -17,5 +17,5 @@ The top 100 streams are in a scatterplot-like view where the currently played ga
 When you hover on a cluster you get information to your right about the game and the total amount of viewers. When you click on a cluster, you are zoomed in and focused on that particular game. Here you see another scatterplot, with its axes visible and a clear visual aid on hover
 </div>
   </div>
-  </html>
+  </div>
 </template>

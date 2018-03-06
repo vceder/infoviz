@@ -277,7 +277,7 @@ export default {
         .append('circle')
         .merge(circleGroup)
         .attr('class', function(d, i) {
-          return 'streamer ' + d.display_name;
+          return 'streamer a' + d.display_name;
         })
         .attr('cx', function(d) {
           return xScale(d.view_count);
@@ -298,7 +298,7 @@ export default {
       //Hide the tooltip when the mouse moves away
       function removeTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.selectAll('.streamer.' + d.display_name);
+        const element = d3.selectAll('.streamer.a' + d.display_name);
 
         //Fade out the bubble again
         element.style('opacity', opacityCircles);
@@ -322,8 +322,11 @@ export default {
       //Show the tooltip on the hovered over slice
       function showTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.select('.streamer.' + d.display_name),
+        const element = d3.select('.streamer.a' + d.display_name),
           el = element._groups[0];
+					if (d.offline_image_url == ""){
+						d.offline_image_url = 'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
+					}
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
             d.display_name +
