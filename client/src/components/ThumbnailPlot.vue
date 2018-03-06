@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div :style="{
+    width: width + 'px',
+    height: width + 'px'
+  }">
     <svg :id="'chart-' + gameId" :width="width" :height="width"></svg>
   </div>
 </template>

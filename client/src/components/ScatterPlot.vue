@@ -1,13 +1,18 @@
 <template>
-	<div id="cont">
-		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
-
+	<div class="cont">
+    <div class="menuItems">
+		<a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+    </div>
     <div class="starCount">
+      <div class="gameName">{{gameName}}</div>
+    </div>
+
+    <div class="dynamic-hover-details">
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
     
-				<div id="chart"></div>
+    <div id="chart"></div>
 		<Slider/>
 	</div>
 </template>
@@ -74,7 +79,7 @@ export default {
 
       //Scatterplot
       const margin = {
-          left: document.documentElement.clientWidth * 0.06,
+          left: document.documentElement.clientWidth * 0.03,
           top: document.documentElement.clientWidth * 0.04,
           right: document.documentElement.clientWidth * 0.05,
           bottom: document.documentElement.clientWidth * 0.04,
@@ -228,7 +233,7 @@ export default {
         p[0] -= margin.left;
         p[1] -= margin.top;
         // don't react if the mouse is close to one of the axis
-        if (p[0] < 5 || p[1] < 5) {
+        if (p[0] < 1 || p[1] < 1) {
           site = null;
         } else {
           site = svg._voronoi.find(p[0], p[1], maxDistanceFromPoint);
@@ -238,9 +243,19 @@ export default {
           if (site) showTooltip(site.data);
           svg._tooltipped = site;
         }
-        return tooltip
-          .style('top', d3.event.pageY - 120 + 'px')
-          .style('left', d3.event.pageX + 10 + 'px');
+        if (d3.event.pageY < document.documentElement.clientHeight / 2) {
+          tooltip.style('top', d3.event.pageY - 120 + 'px');
+        } else {
+          tooltip.style('top', d3.event.pageY - 220 + 'px');
+        }
+
+        if (d3.event.pageX < document.documentElement.clientWidth / 2) {
+          tooltip.style('left', d3.event.pageX + 10 + 'px');
+        } else {
+          tooltip.style('left', d3.event.pageX - 400 + 'px');
+        }
+
+        return tooltip;
       });
 
       ////////////////////////////////////////////////////////////
@@ -392,21 +407,48 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.starCount {
-  float: left;
-}
-.staticHeadline {
-  color: white;
+.gameName {
+  width: 100vw;
+  margin: 0;
+  justify-content: center;
+  text-transform: uppercase;
   font-family: Lato;
   font-weight: 400;
-  font-size: 15px;
+  color: white;
+  font-size: 1.6vw;
+  letter-spacing: 2px;
+}
+.starCount {
+  float: left;
+  margin-top: -5%;
+}
+.dynamic-hover-details {
+  position: absolute;
+  right: 0px;
+  top: 30%;
+  flex-direction: column;
+  float: left;
+  text-transform: uppercase;
+  width: 15%;
+  display: flex;
+  // letter-spacing: 2px;
+  // font-size: 0.8vw;
+}
+.static-headline {
+  width: 100%;
+  display: block;
+  color: white;
+  font-family: Lato;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8vw;
 }
 
 .changingValues {
   color: #e81b5f;
   font-family: Lato;
   font-weight: 300;
-  margin-bottom: 5%;
   font-size: 20px;
 }
 
