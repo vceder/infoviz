@@ -2,7 +2,7 @@
   <div class="about">
     <h3>About the team</h3>
     <div class="menuItems">
-    <a href="javascript:history.go(-1)" class="route_button2"> < Go Back</a>
+    <a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
   </div>
   </div>
     <div id="teamBio">The Plot Twitch team, consists of 8 interaction design master’s students from the Royal Institute of Technology in Stockholm, Sweden. The Plot Twitch product is the final project in the course DH2321 Information Visualization, supervised by Dr Mario Romero Vega, and brought to action during the spring of 2018.</div>
