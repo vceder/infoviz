@@ -1,13 +1,12 @@
 <template>
   <div class="overview-details">
-    <span class="changingValues"><img :src="gameImg"><!-- <img class="game-img" v-bind:src="getGame().image" alt="<Image undefined>"> --></span>
-    <div class="categoryWrapper">
-      <span class="staticHeadline">Game Name</span>
-      <span class="changingValues">{{gameName}} </span>
+    <div class="changingValues"><img :src="gameImg"></div>
+    <div class="changingValues">
+      {{gameName}}
     </div>
-    <div class="categoryWrapper">
-      <span class="staticHeadline">Current viewers</span>
-      <span class="changingValues">{{getNumber()}}</span>
+    <div class="static-headline">Current Viewers</div>
+    <div class="changing-values">
+      {{getNumber()}}
     </div>
   </div>
 </template>
@@ -73,32 +72,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.game-img {
-  max-width: 30px;
-}
-.overview-details {
-  box-sizing: border-box;
-  float: middle;
-  width: 100%;
-  height: 100px;
-  margin-top: -15px;
-  display: flex;
-  justify-content: space-around;
-  padding: 0px 10% 0px;
-}
-.staticHeadline {
-  display: block;
-  color: white;
-  font-family: Lato;
-  font-weight: 400;
-  font-size: 15px;
-}
-.changingValues {
-  display: block;
-  color: #e81b5f;
-  font-family: Lato;
-  font-weight: 300;
-  margin-bottom: 5%;
-  font-size: 20px;
-}
+
+  .game-img{
+    max-height: 30px;
+  }
+  .overview-details{
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .static-headline{
+    width: 100%;
+    display: block;
+    color: white;
+    font-family: Lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8vw;
+  }
+  .changing-values{
+    width: 100%;
+    display: block;
+    color: #E81B5F;
+    font-family: Lato;
+    font-weight: 300;
+    text-transform: uppercase;
+    font-size: 1.3vw;
+    margin-bottom: 4%;
+
+  }
 </style>
