@@ -97,15 +97,18 @@ export default {
                 piecewise: true,
                 piecewiseLabel: false,
                 bgStyle: { // Base style of the slider
-                    "backgroundColor": "#fff",
-                    "height": "1px",
+                    //"backgroundColor": "#fff",
+                    //"height": "1px",
+                    "height":"0px",
                     "padding-top": "1px",
-                    "backgroundColor": "#2b2b2b",
-                    "height": "3px",
+                    // "backgroundColor": "#2b2b2b",
+                    "backgroundColor":"black",
+                    //"height": "3px",
                     "padding-top": "1px"
                 },
                 processStyle:{ // Style of what's to the left of our selector
-                    "background": "#241a3e",
+                    // "background": "#241a3e",
+                    "background": "black",
                     "height": "3px",
                     "padding-top": "1px"
                 },
@@ -113,13 +116,14 @@ export default {
                     "backgroundColor": "#3CDCA0" //här
                 },
                 piecewiseStyle: { // the "dots" when right of slider
-                    // "backgroundColor": "#fff",
+                    "backgroundColor":"rgba(145, 105, 248, 0.3)",
                     "visability": "visable",
                     "width": "5px",
                     "height": "5px"
                 },
                 piecewiseActiveStyle: { //"dots" left of slider
-                    "background": "#9169F8"
+                    // "background": "#9169F8",
+                    "backgroundColor":"rgba(145, 105, 248, 1)"
                 }
             }
         }
@@ -136,8 +140,8 @@ export default {
       z-index: 100;
       position: fixed;
       bottom: 2vh;
-      left: 2vw;
-      width: 96vw;
+      left: 10vw;
+      width: 76vw;
       height: 6vh;
     }
     .tooltipSlider{
