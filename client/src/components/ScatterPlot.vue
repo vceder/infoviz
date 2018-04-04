@@ -1,7 +1,7 @@
 <template>
-	<div class="cont">
-    <div class="menuItems">
-		<a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+<div>
+  <div class="menuItems">
+		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
     </div>
     <div class="starCount">
       <div class="gameName">{{gameName}}</div>
@@ -11,10 +11,11 @@
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
-    
+  <div class="cont">
     <div id="chart"></div>
 		<Slider/>
 	</div>
+</div>
 </template>
 
 
@@ -233,7 +234,7 @@ export default {
         p[0] -= margin.left;
         p[1] -= margin.top;
         // don't react if the mouse is close to one of the axis
-        if (p[0] < 5 || p[1] < 5) {
+        if (p[0] < 1 || p[1] < 1) {
           site = null;
         } else {
           site = svg._voronoi.find(p[0], p[1], maxDistanceFromPoint);
@@ -243,9 +244,19 @@ export default {
           if (site) showTooltip(site.data);
           svg._tooltipped = site;
         }
-        return tooltip
-          .style('top', d3.event.pageY - 120 + 'px')
-          .style('left', d3.event.pageX + 10 + 'px');
+        if (d3.event.pageY < document.documentElement.clientHeight / 2) {
+          tooltip.style('top', d3.event.pageY - 120 + 'px');
+        } else {
+          tooltip.style('top', d3.event.pageY - 220 + 'px');
+        }
+
+        if (d3.event.pageX < document.documentElement.clientWidth / 2) {
+          tooltip.style('left', d3.event.pageX + 10 + 'px');
+        } else {
+          tooltip.style('left', d3.event.pageX - 400 + 'px');
+        }
+
+        return tooltip;
       });
 
       ////////////////////////////////////////////////////////////
@@ -266,7 +277,7 @@ export default {
         .append('circle')
         .merge(circleGroup)
         .attr('class', function(d, i) {
-          return 'streamer ' + d.display_name;
+          return 'streamer a' + d.display_name;
         })
         .attr('cx', function(d) {
           return xScale(d.view_count);
@@ -287,7 +298,7 @@ export default {
       //Hide the tooltip when the mouse moves away
       function removeTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.selectAll('.streamer.' + d.display_name);
+        const element = d3.selectAll('.streamer.a' + d.display_name);
 
         //Fade out the bubble again
         element.style('opacity', opacityCircles);
@@ -311,8 +322,11 @@ export default {
       //Show the tooltip on the hovered over slice
       function showTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.select('.streamer.' + d.display_name),
+        const element = d3.select('.streamer.a' + d.display_name),
           el = element._groups[0];
+					if (d.offline_image_url == ""){
+						d.offline_image_url = 'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
+					}
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
             d.display_name +
@@ -397,26 +411,25 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-
-.gameName{
+.gameName {
   width: 100vw;
   margin: 0;
   justify-content: center;
   text-transform: uppercase;
   font-family: Lato;
   font-weight: 400;
-  color:white;
+  color: white;
   font-size: 1.6vw;
   letter-spacing: 2px;
 }
-.starCount{
+.starCount {
   float: left;
   margin-top: -5%;
 }
-.dynamic-hover-details{
+.dynamic-hover-details {
   position: absolute;
   right: 0px;
-  top:30%;
+  top: 30%;
   flex-direction: column;
   float: left;
   text-transform: uppercase;
@@ -425,16 +438,16 @@ export default {
   // letter-spacing: 2px;
   // font-size: 0.8vw;
 }
-.static-headline{
-    width: 100%;
-    display: block;
-    color: white;
-    font-family: Lato;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 0.8vw;
-  }
+.static-headline {
+  width: 100%;
+  display: block;
+  color: white;
+  font-family: Lato;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8vw;
+}
 
 .changingValues {
   color: #e81b5f;
