@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       gameName: '',
+      selectedStreamer: '',
     };
   },
   mounted() {
@@ -38,6 +39,18 @@ export default {
     this.getGame();
   },
   computed: {
+    isSelected() {
+      if (this.selectedStreamer) {
+        this.$store
+          .dispatch('getUserHistory', this.selectedStreamer)
+          .then(array => {
+            console.log(array);
+          });
+        return true;
+      } else {
+        return false;
+      }
+    },
     gameId() {
       return this.$route.params.id;
     },
@@ -76,6 +89,7 @@ export default {
       }
     },
     initScatter() {
+      const self = this;
       const streams = this.streams;
 
       //Scatterplot
@@ -125,7 +139,7 @@ export default {
       //////////////////////////////////////////////////////
 
       const opacityCircles = 0.7;
-      const maxDistanceFromPoint = 40;
+      const maxDistanceFromPoint = 10;
 
       //Set the new x axis range
       const xScale = d3
@@ -285,6 +299,9 @@ export default {
         .attr('cy', function(d) {
           return yScale(d.viewer_count);
         })
+        .on('click', d => {
+          this.selectedStreamer = d.id;
+        })
         .attr('r', '8')
         .style('opacity', opacityCircles)
         .style('fill', d => {
@@ -324,9 +341,13 @@ export default {
         //Save the chosen circle (so not the voronoi)
         const element = d3.select('.streamer.a' + d.display_name),
           el = element._groups[0];
-					if (d.offline_image_url == ""){
-						d.offline_image_url = 'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
-					}
+        if (d.offline_image_url == '') {
+          d.offline_image_url =
+            'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
+        }
+        tooltip.on('click', () => {
+          self.selectedStreamer = d.id;
+        });
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
             d.display_name +

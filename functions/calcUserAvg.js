@@ -23,7 +23,7 @@ module.exports = functions.firestore
     console.log('prevData', prevData);
     console.log('newData', newData);
     if (
-      moment(newData.last_live_timestamp).isAfter(prevData.last_live_timestamp)
+      moment(newData.timestamp).isAfter(prevData.timestamp)
     ) {
       console.log('new timestamp');
       const avgCollection = db
