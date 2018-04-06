@@ -1,5 +1,6 @@
 <template>
 <div>
+  <StreamerDetails :steamerID="selectedStreamer" v-if="isSelected" />
   <div class="menuItems">
 		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
     </div>
@@ -22,6 +23,7 @@
 <script>
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
+import StreamerDetails from '@/components/StreamerDetails.vue';
 import * as d3 from 'd3';
 import gameColor from '../assets/js/colorsMixin.js';
 
@@ -64,6 +66,7 @@ export default {
   },
   components: {
     Slider,
+    StreamerDetails,
   },
   watch: {
     current() {
@@ -89,7 +92,6 @@ export default {
       }
     },
     initScatter() {
-
       const self = this;
       const streams = this.streams;
 
@@ -429,6 +431,9 @@ export default {
         return tooltip.style('visibility', 'visible').style('display', 'block');
       } //function showTooltip
     },
+    streamerClicked() {
+      
+    },
   },
 };
 </script>
@@ -448,7 +453,6 @@ export default {
   float: left;
   margin-top: -5%;
 }
-
 .dynamic-hover-details {
   position: absolute;
   right: 0px;
