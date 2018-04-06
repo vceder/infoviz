@@ -73,17 +73,21 @@ export default new Vuex.Store({
           userHistoryRef
             .get()
             .then(snapshot => {
-              const array = snapshot.data();
+              let array = [];
+              snapshot.forEach(record => {
+                array.push(record.data());
+              });
               const newUserObj = Object.assign(state.users[id], {
                 history: array
               });
               commit("setUser", { userObj: newUserObj, id: id });
+              resolve(array);
             })
             .catch(err => {
               reject(err);
             });
         } else {
-          resolve();
+          resolve(state.users[id].history);
         }
       });
     },
