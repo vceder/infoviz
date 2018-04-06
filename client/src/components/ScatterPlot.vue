@@ -1,6 +1,6 @@
 <template>
 <div>
-  <StreamerDetails/>
+  <StreamerDetails :steamerID="selectedStreamer" v-if="isSelected" />
   <div class="menuItems">
 		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
     </div>
