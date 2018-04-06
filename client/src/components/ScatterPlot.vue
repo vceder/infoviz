@@ -410,6 +410,9 @@ export default {
         return tooltip.style('visibility', 'visible').style('display', 'block');
       } //function showTooltip
     },
+    streamerClicked() {
+      
+    },
   },
 };
 </script>
