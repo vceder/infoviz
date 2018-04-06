@@ -4,9 +4,8 @@
     <h1>
       Här är Streamerdetials
     </h1>
-    <div id="chart-container">
-      <svg width="960" height="500"></svg>
-    </div>
+
+    <svg class="chart-canvas" width="960" height="500"></svg>
   </div>
 </div>
 </template>
@@ -26,13 +25,27 @@ export default {
     };
   },
   mounted() {
+    console.log("mounted")
+    this.loadChart()
+  },
+  computed: {
+    ...mapState(['current', 'games']),
+  },
+  components: {
+  },
+  props: ['steamerID'],
+  methods: {
+    loadChart() {
+
+      console.log(d3.select("svg"));
+
     var svg = d3.select("svg"),
-        margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom;
+      margin = {top: 20, right: 20, bottom: 30, left: 40},
+      width = +svg.attr("width") - margin.left - margin.right,
+      height = +svg.attr("height") - margin.top - margin.bottom;
 
     var parseTime = d3.timeParse("%Y%m%d");
-        bisectDate = d3.bisector(function(d) { return d.date; }).left;
+    var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
@@ -45,672 +58,6 @@ export default {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var data = [
-      {
-        "date": 20111001,
-        "viewers": 63.4
-      },
-      {
-        "date": 20111002,
-        "viewers": 58
-      },
-      {
-        "date": 20111003,
-        "viewers": 53.3
-      },
-      {
-        "date": 20111004,
-        "viewers": 55.7
-      },
-      {
-        "date": 20111005,
-        "viewers": 64.2
-      },
-      {
-        "date": 20111006,
-        "viewers": 58.8 },
-      {
-        "date": 20111007,
-        "viewers": 57.9
-      },
-      {
-        "date": 20111008,
-        "viewers": 61.8
-      },
-      {
-        "date": 20111009,
-        "viewers": 69.3
-      },
-      {
-        "date": 20111010,
-        "viewers": 71.2
-      },
-      {
-        "date": 20111011,
-        "viewers": 68.7
-      },
-      {
-        "date": 20111012,
-        "viewers": 61.8
-      },
-      {
-        "date": 20111013,
-        "viewers": 63
-      },
-      {
-        "date": 20111014,
-        "viewers": 66.9
-      },
-      {
-        "date": 20111015,
-        "viewers": 61.7
-      },
-      {
-        "date": 20111016,
-        "viewers": 61.8
-      },
-      {
-        "date": 20111017,
-        "viewers": 62.8
-      },
-      {
-        "date": 20111018,
-        "viewers": 60.8
-      },
-      {
-        "date": 20111019,
-        "viewers": 62.1
-      },
-      {
-        "date": 20111020,
-        "viewers": 65.1
-      },
-      {
-        "date": 20111021,
-        "viewers": 55.6
-      },
-      {
-        "date": 20111022,
-        "viewers": 54.4
-      },
-      {
-        "date": 20111023,
-        "viewers": 54.4
-      },
-      {
-        "date": 20111024,
-        "viewers": 54.8
-      },
-      {
-        "date": 20111025,
-        "viewers": 57.9
-      },
-      {
-        "date": 20111026,
-        "viewers": 54.6
-      },
-      {
-        "date": 20111027,
-        "viewers": 54.4
-      },
-      {
-        "date": 20111028,
-        "viewers": 42.5
-      },
-      {
-        "date": 20111029,
-        "viewers": 40.9
-      },
-      {
-        "date": 20111030,
-        "viewers": 38.6
-      },
-      {
-        "date": 20111031,
-        "viewers": 44.2
-      },
-      {
-        "date": 20111101,
-        "viewers": 49.6
-      },
-      {
-        "date": 20111102,
-        "viewers": 47.2
-      },
-      {
-        "date": 20111103,
-        "viewers": 50.1
-      },
-      {
-        "date": 20111104,
-        "viewers": 50.1
-      },
-      {
-        "date": 20111105,
-        "viewers": 43.5
-      },
-      {
-        "date": 20111106,
-        "viewers": 43.8
-      },
-      {
-        "date": 20111107,
-        "viewers": 48.9
-      },
-      {
-        "date": 20111108,
-        "viewers": 55.5
-      },
-      {
-        "date": 20111109,
-        "viewers": 53.7
-      },
-      {
-        "date": 20111110,
-        "viewers": 57.7
-      },
-      {
-        "date": 20111111,
-        "viewers": 48.5
-      },
-      {
-        "date": 20111112,
-        "viewers": 46.8 },
-      {
-        "date": 20111113,
-        "viewers": 51.1
-      },
-      {
-        "date": 20111114,
-        "viewers": 56.8
-      },
-      {
-        "date": 20111115,
-        "viewers": 59.7
-      },
-      {
-        "date": 20111116,
-        "viewers": 56.5
-      },
-      {
-        "date": 20111117,
-        "viewers": 49.6
-      },
-      {
-        "date": 20111118,
-        "viewers": 41.5
-      },
-      {
-        "date": 20111119,
-        "viewers": 44.3 },
-      {
-        "date": 20111120,
-        "viewers": 54
-      },
-      {
-        "date": 20111121,
-        "viewers": 54.1
-      },
-      {
-        "date": 20111122,
-        "viewers": 49.4
-      },
-      {
-        "date": 20111123,
-        "viewers": 50
-      },
-      {
-        "date": 20111124,
-        "viewers": 44
-      },
-      {
-        "date": 20111125,
-        "viewers": 50.3
-      },
-      {
-        "date": 20111126,
-        "viewers": 52.1
-      },
-      {
-        "date": 20111127,
-        "viewers": 49.6
-      },
-      {
-        "date": 20111128,
-        "viewers": 57.2 },
-      {
-        "date": 20111129,
-        "viewers": 59.1
-      },
-      {
-        "date": 20111130,
-        "viewers": 50.6
-      },
-      {
-        "date": 20111201,
-        "viewers": 44.3
-      },
-      {
-        "date": 20111202,
-        "viewers": 43.9
-      },
-      {
-        "date": 20111203,
-        "viewers": 42.1
-      },
-      {
-        "date": 20111204,
-        "viewers": 43.9
-      },
-      {
-        "date": 20111205,
-        "viewers": 50.2
-      },
-      {
-        "date": 20111206,
-        "viewers": 54.2
-      },
-      {
-        "date": 20111207,
-        "viewers": 54.6
-      },
-      {
-        "date": 20111208,
-        "viewers": 43.4
-      },
-      {
-        "date": 20111209,
-        "viewers": 42.2
-      },
-      {
-        "date": 20111210,
-        "viewers": 45
-      },
-      {
-        "date": 20111211,
-        "viewers": 33.8
-      },
-      {
-        "date": 20111212,
-        "viewers": 36.8
-      },
-      {
-        "date": 20111213,
-        "viewers": 38.6
-      },
-      {
-        "date": 20111214,
-        "viewers": 41.9
-      },
-      {
-        "date": 20111215,
-        "viewers": 49.6
-      },
-      {
-        "date": 20111216,
-        "viewers": 50.2
-      },
-      {
-        "date": 20111217,
-        "viewers": 40.6
-      },
-      {
-        "date": 20111218,
-        "viewers": 29.1
-      },
-      {
-        "date": 20111219,
-        "viewers": 33.7
-      },
-      {
-        "date": 20111220,
-        "viewers": 45.8
-      },
-      {
-        "date": 20111221,
-        "viewers": 47.4
-      },
-      {
-        "date": 20111222,
-        "viewers": 54.4
-      },
-      {
-        "date": 20111223,
-        "viewers": 47.8
-      },
-      {
-        "date": 20111224,
-        "viewers": 34.9
-      },
-      {
-        "date": 20111225,
-        "viewers": 35.9
-      },
-      {
-        "date": 20111226,
-        "viewers": 43.6
-      },
-      {
-        "date": 20111227,
-        "viewers": 42.9
-      },
-      {
-        "date": 20111228,
-        "viewers": 46.2
-      },
-      {
-        "date": 20111229,
-        "viewers": 30.8
-      },
-      {
-        "date": 20111230,
-        "viewers": 40.8
-      },
-      {
-        "date": 20111231,
-        "viewers": 49.8
-      },
-      {
-        "date": 20120101,
-        "viewers": 46.3
-      },
-      {
-        "date": 20120102,
-        "viewers": 43.2
-      },
-      {
-        "date": 20120103,
-        "viewers": 30.3
-      },
-      {
-        "date": 20120104,
-        "viewers": 19.2
-      },
-      {
-        "date": 20120105,
-        "viewers": 32.1
-      },
-      {
-        "date": 20120106,
-        "viewers": 41.2 },
-      {
-        "date": 20120107,
-        "viewers": 47 },
-      {
-        "date": 20120108,
-        "viewers": 46
-      },
-      {
-        "date": 20120109,
-        "viewers": 34.7
-      },
-      {
-        "date": 20120110,
-        "viewers": 39.4
-      },
-      {
-        "date": 20120111,
-        "viewers": 40.4
-      },
-      {
-        "date": 20120112,
-        "viewers": 45.4
-      },
-      {
-        "date": 20120113,
-        "viewers": 40.7
-      },
-      {
-        "date": 20120114,
-        "viewers": 30.4
-      },
-      {
-        "date": 20120115,
-        "viewers": 23.9
-      },
-      {
-        "date": 20120116,
-        "viewers": 22.6
-      },
-      {
-        "date": 20120117,
-        "viewers": 39.8
-      },
-      {
-        "date": 20120118,
-        "viewers": 43.2
-      },
-      {
-        "date": 20120119,
-        "viewers": 26.3
-      },
-      {
-        "date": 20120120,
-        "viewers": 32.8
-      },
-      {
-        "date": 20120121,
-        "viewers": 27.4
-      },
-      {
-        "date": 20120122,
-        "viewers": 25
-      },
-      {
-        "date": 20120123,
-        "viewers": 39.4
-      },
-      {
-        "date": 20120124,
-        "viewers": 48.7
-      },
-      {
-        "date": 20120125,
-        "viewers": 43
-      },
-      {
-        "date": 20120126,
-        "viewers": 37.1
-      },
-      {
-        "date": 20120127,
-        "viewers": 48.2
-      },
-      {
-        "date": 20120128,
-        "viewers": 43.7
-      },
-      {
-        "date": 20120129,
-        "viewers": 40.1
-      },
-      {
-        "date": 20120130,
-        "viewers": 38
-      },
-      {
-        "date": 20120131,
-        "viewers": 43.5 
-      },
-      {
-        "date": 20120201,
-        "viewers": 50.4 
-      },
-      {
-        "date": 20120202,
-        "viewers": 45.8
-      },
-      {
-        "date": 20120203,
-        "viewers": 37.5
-      },
-      {
-        "date": 20120204,
-        "viewers": 40.8 },
-      {
-        "date": 20120205,
-        "viewers": 36.5
-      },
-      {
-        "date": 20120206,
-        "viewers": 39.1
-      },
-      {
-        "date": 20120207,
-        "viewers": 43.2
-      },
-      {
-        "date": 20120208,
-        "viewers": 36.5
-      },
-      {
-        "date": 20120209,
-        "viewers": 36.5
-      },
-      {
-        "date": 20120210,
-        "viewers": 38.3
-      },
-      {
-        "date": 20120211,
-        "viewers": 36.9
-      },
-      {
-        "date": 20120212,
-        "viewers": 29.7
-      },
-      {
-        "date": 20120213,
-        "viewers": 33.1
-      },
-      {
-        "date": 20120214,
-        "viewers": 39.6
-      },
-      {
-        "date": 20120215,
-        "viewers": 42.3
-      },
-      {
-        "date": 20120216,
-        "viewers": 39.7
-      },
-      {
-        "date": 20120217,
-        "viewers": 46
-      },
-      {
-        "date": 20120218,
-        "viewers": 41.2
-      },
-      {
-        "date": 20120219,
-        "viewers": 39.8
-      },
-      {
-        "date": 20120220,
-        "viewers": 38.1
-      },
-      {
-        "date": 20120221,
-        "viewers": 37.1
-      },
-      {
-        "date": 20120222,
-        "viewers": 45.5
-      },
-      {
-        "date": 20120223,
-        "viewers": 50.6
-      },
-      {
-        "date": 20120224,
-        "viewers": 42.7
-      },
-      {
-        "date": 20120225,
-        "viewers": 42.6
-      },
-      {
-        "date": 20120226,
-        "viewers": 36.9
-      },
-      {
-        "date": 20120227,
-        "viewers": 40.9
-      },
-      {
-        "date": 20120228,
-        "viewers": 45.9 },
-      {
-        "date": 20120229,
-        "viewers": 40.7
-      },
-      {
-        "date": 20120301,
-        "viewers": 41.3
-      },
-      {
-        "date": 20120302,
-        "viewers": 36.8
-      },
-      {
-        "date": 20120303,
-        "viewers": 47.6
-      },
-      {
-        "date": 20120304,
-        "viewers": 44.2 },
-      {
-        "date": 20120305,
-        "viewers": 38.5
-      },
-      {
-        "date": 20120306,
-        "viewers": 32.9
-      },
-      {
-        "date": 20120307,
-        "viewers": 43.3
-      },
-      {
-        "date": 20120308,
-        "viewers": 51.2
-      },
-      {
-        "date": 20120309,
-        "viewers": 47.8
-      },
-      {
-        "date": 20120310,
-        "viewers": 37.2
-      },
-      {
-        "date": 20120311,
-        "viewers": 42.9 },
-      {
-        "date": 20120312,
-        "viewers": 48.8
-      },
-      {
-        "date": 20120313,
-        "viewers": 52.6
-      },
-      {
-        "date": 20120314,
-        "viewers": 60.5
-      },
-      {
-        "date": 20120315,
-        "viewers": 47.2
-      },
-      {
-        "date": 20120316,
-        "viewers": 44.7
-      },
-      {
-        "date": 20120317,
-        "viewers": 48.2
-      },
       {
         "date": 20120318,
         "viewers": 48.2
@@ -1535,6 +882,7 @@ export default {
     svg.append("rect")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
         .attr("class", "overlay")
+        .attr("style", "color: white;")
         .attr("width", width)
         .attr("height", height)
         .on("mouseover", function() { focus.style("display", null); })
@@ -1552,18 +900,13 @@ export default {
       focus.select(".x-hover-line").attr("y2", height - y(d.viewers));
       focus.select(".y-hover-line").attr("x2", width + width);
     }
-  },
-  computed: {
-    ...mapState(['current', 'games']),
-  },
-  components: {
-  },
-  props: ['steamerID'],
-  methods: {
+    console.log("loadChart klar");
+    },
   },
 };
 </script>
 <style scoped lang="scss">
+
 .streamer-details-wrapper{
   width: 100vw;
   height: 100vh;
@@ -1573,13 +916,18 @@ export default {
   z-index: 10;
 }
 .streamer-details{
-  opacity: 0.8;
   display: inline-block;
   margin: auto;
   border-radius: 20px;
   background-color: white;
   height: 80%;
   width: 60%;
+}
+h1{
+  color: black;
+}
+.chart-canvas{
+  color: white;
 }
 
 .axis {
@@ -1588,8 +936,9 @@ export default {
 
 .axis path,
 .axis line {
+  z-index: 11;
   fill: none;
-  stroke: #D4D8DA;
+  stroke: white;
   stroke-width: 2px;
   shape-rendering: crispEdges;
 }
@@ -1601,6 +950,7 @@ export default {
 }
 
 .overlay {
+  color: white;
   fill: none;
   pointer-events: all;
 }
