@@ -22,20 +22,33 @@ export default {
   data() {
     return {
       gameName: '',
+      streamerID: this.props.streamerID,
+      viewerData: this.props.data,
     };
   },
   mounted() {
-    console.log('mounted');
-    this.loadChart();
+    this.loadChart(this.viewerData)
   },
   computed: {
     ...mapState(['current', 'games']),
   },
   components: {},
-  props: ['steamerID'],
+  props: ['streamerID'],
+  watch: {
+    streamerID() {
+      console.log("WOOOOOW")
+      this.$store
+        .dispatch('getUserHistory', this.selectedStreamer)
+        .then(array => {
+          console.log(array)
+          this.loadChart(array);
+        });
+      
+    },
+  },
   methods: {
-    loadChart() {
-      console.log(d3.select('svg'));
+    loadChart(data) {
+      console.log("loadChart");
 
       var svg = d3.select('svg'),
         margin = { top: 20, right: 20, bottom: 30, left: 40 },

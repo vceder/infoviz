@@ -1,6 +1,6 @@
 <template>
 <div>
-  <StreamerDetails :steamerID="selectedStreamer" v-if="isSelected" />
+  <StreamerDetails :data="streamerInfo" :streamerID="selectedStreamer" v-if="isSelected" />
   <div class="menuItems">
 		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
     </div>
@@ -34,6 +34,7 @@ export default {
     return {
       gameName: '',
       selectedStreamer: '',
+      streamerInfo: '',
     };
   },
   mounted() {
@@ -47,6 +48,7 @@ export default {
           .dispatch('getUserHistory', this.selectedStreamer)
           .then(array => {
             console.log(array);
+            this.streamerInfo = array;
           });
         return true;
       } else {
