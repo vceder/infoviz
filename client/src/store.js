@@ -50,6 +50,9 @@ export default new Vuex.Store({
     },
     addGame(state, gameObj) {
       state.games[gameObj.id] = gameObj;
+    },
+    setUser(state, obj) {
+      state.users[obj.id] = obj.userObj;
     }
   },
   actions: {
@@ -59,6 +62,30 @@ export default new Vuex.Store({
     },
     updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    getUserHistory({ commit, state }, id) {
+      return new Promise((resolve, reject) => {
+        if (!state.users[id].history) {
+          const userHistoryRef = db
+            .collection("users")
+            .doc(id)
+            .collection("daily_average");
+          userHistoryRef
+            .get()
+            .then(snapshot => {
+              const array = snapshot.data();
+              const newUserObj = Object.assign(state.users[id], {
+                history: array
+              });
+              commit("setUser", { userObj: newUserObj, id: id });
+            })
+            .catch(err => {
+              reject(err);
+            });
+        } else {
+          resolve();
+        }
+      });
     },
     getGameInfo({ state, commit }, id) {
       return new Promise((resolve, reject) => {
