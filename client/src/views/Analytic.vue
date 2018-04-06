@@ -1,8 +1,8 @@
-<template><html>
+<template><div>
   <div class="about">
     <h3>Analytic Trail</h3>
     <div class="menuItems">
-      <a href="javascript:history.go(-1)" class="route_button2"> < Back</a>
+      <a href="javascript:history.go(-1)" class="route_button2"> <i class="fas fa-angle-left"/> Back</a>
     </div>
 </div>
   <div id="analytic">
@@ -14,8 +14,8 @@ As you are presented with Plot Twitch, you are greeted with a introductory page 
 <br/><br/>
 The top 100 streams are in a scatterplot-like view where the currently played games are clustered and placed in space based on their current viewer amounts. Using the slider in the bottom of the page we allow you to scroll 24 hours back in time to observe current popularity trends among the games being streamed and viewed. What we aimed for here is a true data driven visualization. Notice the stars in the background represent the current viewership of the top 100 streams. Not surprising, to ensure a smooth interaction, we had to aggregate 1000 viewers on one star. To visualize over 14 000 starts would make it cluttered and slow! However, the number of total current viewership is visible at the top left corner.
 <br/><br/>
-When you hover on a cluster you get information to your right about the game and the total amount of viewers. When you click on a cluster, you are zoomed in and focused on that particular game. Here you see another scatterplot, with its axes visible and a clear visual aid on hover
+When you hover on a cluster you get information to your right about the game and the total amount of viewers. When you click on a cluster, you are zoomed in and focused on that particular game. Here you see another scatterplot, with its axes visible and a clear visual aid on hover.
 </div>
   </div>
-  </html>
+  </div>
 </template>

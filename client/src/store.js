@@ -50,6 +50,9 @@ export default new Vuex.Store({
     },
     addGame(state, gameObj) {
       state.games[gameObj.id] = gameObj;
+    },
+    setUser(state, obj) {
+      state.users[obj.id] = obj.userObj;
     }
   },
   actions: {
@@ -59,6 +62,34 @@ export default new Vuex.Store({
     },
     updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
+    },
+    getUserHistory({ commit, state }, id) {
+      return new Promise((resolve, reject) => {
+        if (!state.users[id].history) {
+          const userHistoryRef = db
+            .collection("users")
+            .doc(id)
+            .collection("daily_average");
+          userHistoryRef
+            .get()
+            .then(snapshot => {
+              let array = [];
+              snapshot.forEach(record => {
+                array.push(record.data());
+              });
+              const newUserObj = Object.assign(state.users[id], {
+                history: array
+              });
+              commit("setUser", { userObj: newUserObj, id: id });
+              resolve(array);
+            })
+            .catch(err => {
+              reject(err);
+            });
+        } else {
+          resolve(state.users[id].history);
+        }
+      });
     },
     getGameInfo({ state, commit }, id) {
       return new Promise((resolve, reject) => {
@@ -80,7 +111,7 @@ export default new Vuex.Store({
         }
       });
     },
-    getTop100({ dispatch, state, commit }) {
+    getTop100({ state, commit }) {
       if (state.top100.games) {
         commit("toggleLoading", false);
       } else {
@@ -147,7 +178,7 @@ export default new Vuex.Store({
             }
             commit("setUsers", users);
             commit("setTop100", top100);
-            dispatch("updateCurrent", time.format("YYYYMMDDHHmm"));
+            commit("setCurrent", state.top100[time.format("YYYYMMDDHHmm")]);
             commit("setStarCount", 200000);
             commit("toggleLoading", false);
           })

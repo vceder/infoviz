@@ -9,8 +9,8 @@
         <div class="starCount static-headline">Total Viewers</div>
         <div class="changing-values">{{this.current.totalViewers}}</div>
         <transition name="fade">
-        <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
-      </transition>
+          <HoverDetails :gameID="currentGameId" v-if="gameHovered"/>
+        </transition>
       </div>
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
@@ -36,7 +36,7 @@ export default {
     return {
       currentGameId: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
-      chartHeight: document.documentElement.clientHeight * 0.6,
+      chartHeight: document.documentElement.clientHeight * 0.7,
     };
   },
   computed: {
@@ -106,35 +106,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
-.hover-details{
+.hover-details {
   height: auto;
   width: 15%;
   position: absolute;
   right: 0px;
   top: 30%;
 }
-.img-placeholder{
+.img-placeholder {
   width: 100%;
   opacity: 0;
 }
-.headline-wrapper{
+.headline-wrapper {
   box-sizing: border-box;
   float: left;
   width: 100%;
   display: flex;
   background-color: pink;
-
 }
-.dynamic-hover-details{
+.dynamic-hover-details {
   box-sizing: border-box;
   flex-direction: column;
   float: left;
   width: 100%;
   display: flex;
-
 }
-.static-headline{
+.static-headline {
   width: 100%;
   color: white;
   font-family: Lato;
@@ -142,11 +139,10 @@ export default {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-size: 0.8vw;
-
 }
-.changing-values{
+.changing-values {
   width: 100%;
-  color: #E81B5F;
+  color: #e81b5f;
   font-family: Lato;
   text-transform: uppercase;
   font-weight: 300;
@@ -154,22 +150,21 @@ export default {
   font-size: 1.3vw;
 }
 
-.overview-plot {
-  height: 100%;
-  width: 100%;
-}
-
 #overview-chart {
   position: relative;
-  margin: 3% auto;
+  margin: 8% auto auto;
 }
 
 .top-container {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   margin: 2% auto;
 }
-.game:hover{
+.game:hover {
   border: 1px solid #9fff70;
+  border-radius: 7px;
   cursor: pointer;
 }
 .game {

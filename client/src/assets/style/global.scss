@@ -15,6 +15,10 @@ body {
   overflow: visible;
 }
 
+#analytic {
+  margin-bottom: 5%;
+}
+
  /* .staticHeadline och .changingValues behöver nice */
 
 .staticHeadline{
@@ -24,10 +28,12 @@ body {
   font-size: 15px;
 }
 .changingValues{
+  position:relative;
   color: #E81B5F;
   font-family: Lato;
   font-weight: 300;
   font-size: 20px;
+  float: right;
 }
 
 .route_button {
@@ -52,14 +58,14 @@ body {
   font-size: 1.2vw;
   letter-spacing: 3px;
   font-weight: 700;
-  text-align: right;
+  text-align: left;
   float: right;
   text-transform: uppercase;
 }
 
 .menuItems {
   float: left;
-  margin: 3.7% 2% 2% 4%;
+  margin: 2.9% 2% 2% 4%;
   width: auto;
 }
 
@@ -168,8 +174,8 @@ h3 {
 
 
 .image {
-  width: 300px;
-  height: 300px;
+  width: 20vw;
+  height: 20vw;
 }
 
 h2 {
@@ -213,6 +219,9 @@ h4 {
   text-align: left;
   position: relative;
   margin-bottom: 2%;
+  margin-left: 5%;
+  margin-top: 3%;
+
 }
 
 .teamImageRight {
@@ -230,4 +239,6 @@ h4 {
   text-align: right;
   position: relative;
   margin-bottom: 2%;
+  margin-right: 5%;
+  margin-top: 3%;
 }

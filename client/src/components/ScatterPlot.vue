@@ -1,15 +1,21 @@
 <template>
-	<div id="cont">
-		<a href="javascript:history.go(-1)" class="route_button2">Go Back</a>
-
+<div>
+  <div class="menuItems">
+		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
+    </div>
     <div class="starCount">
+      <div class="gameName">{{gameName}}</div>
+    </div>
+
+    <div class="dynamic-hover-details">
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
-    
-				<div id="chart"></div>
+  <div class="cont">
+    <div id="chart"></div>
 		<Slider/>
 	</div>
+</div>
 </template>
 
 
@@ -25,6 +31,7 @@ export default {
   data() {
     return {
       gameName: '',
+      selectedStreamer: '',
     };
   },
   mounted() {
@@ -32,6 +39,18 @@ export default {
     this.getGame();
   },
   computed: {
+    isSelected() {
+      if (this.selectedStreamer) {
+        this.$store
+          .dispatch('getUserHistory', this.selectedStreamer)
+          .then(array => {
+            console.log(array);
+          });
+        return true;
+      } else {
+        return false;
+      }
+    },
     gameId() {
       return this.$route.params.id;
     },
@@ -54,7 +73,7 @@ export default {
   props: ['gameID'],
   methods: {
     getGame() {
-        if (this.games[this.gameId]) {
+      if (this.games[this.gameId]) {
         this.gameName = this.games[this.gameId].name;
         return true;
       } else {
@@ -70,11 +89,17 @@ export default {
       }
     },
     initScatter() {
-      
+
+      const self = this;
       const streams = this.streams;
 
       //Scatterplot
-      const margin = { left: document.documentElement.clientWidth*0.06, top: document.documentElement.clientWidth*0.04, right: document.documentElement.clientWidth*0.05, bottom: document.documentElement.clientWidth*0.04 },
+      const margin = {
+          left: document.documentElement.clientWidth * 0.03,
+          top: document.documentElement.clientWidth * 0.04,
+          right: document.documentElement.clientWidth * 0.05,
+          bottom: document.documentElement.clientWidth * 0.04,
+        },
         width = document.documentElement.clientWidth / 1.3,
         height = document.documentElement.clientHeight / 1.4;
 
@@ -89,12 +114,12 @@ export default {
       const wrapper = svg
         .append('g')
         .attr('class', 'chordWrapper')
-        .attr('transform', 'translate(' + margin.left+ ',' + margin.top + ')');
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
       const tooltip = d3
         .select('#chart')
         .append('div')
-        .attr('id','tooltip')
+        .attr('id', 'tooltip')
         .style('position', 'absolute')
         .style('display', 'block')
         .style('visibility', 'hidden')
@@ -106,7 +131,7 @@ export default {
         .style('text-align', 'center')
         .style('padding', '2px')
         .style('word-wrap', 'break-word')
-        .style('max-width','400px')
+        .style('max-width', '400px')
         .style('z-index', 1000)
         .text('');
 
@@ -115,7 +140,7 @@ export default {
       //////////////////////////////////////////////////////
 
       const opacityCircles = 0.7;
-      const maxDistanceFromPoint = 40;
+      const maxDistanceFromPoint = 10;
 
       //Set the new x axis range
       const xScale = d3
@@ -202,7 +227,6 @@ export default {
         .attr('transform', 'translate(18, 0) rotate(-90)')
         .text('Current Viewers');
 
-
       ////////////////////////////////////////////////////////////
       ///// Capture mouse events and voronoi.find() the site /////
       ////////////////////////////////////////////////////////////
@@ -225,7 +249,7 @@ export default {
         p[0] -= margin.left;
         p[1] -= margin.top;
         // don't react if the mouse is close to one of the axis
-        if (p[0] < 5 || p[1] < 5) {
+        if (p[0] < 1 || p[1] < 1) {
           site = null;
         } else {
           site = svg._voronoi.find(p[0], p[1], maxDistanceFromPoint);
@@ -235,10 +259,19 @@ export default {
           if (site) showTooltip(site.data);
           svg._tooltipped = site;
         }
-        return tooltip
-            .style('top', d3.event.pageY - 120 + 'px')
-            .style('left', d3.event.pageX + 10 + 'px');
+        if (d3.event.pageY < document.documentElement.clientHeight / 2) {
+          tooltip.style('top', d3.event.pageY - 120 + 'px');
+        } else {
+          tooltip.style('top', d3.event.pageY - 220 + 'px');
+        }
 
+        if (d3.event.pageX < document.documentElement.clientWidth / 2) {
+          tooltip.style('left', d3.event.pageX + 10 + 'px');
+        } else {
+          tooltip.style('left', d3.event.pageX - 400 + 'px');
+        }
+
+        return tooltip;
       });
 
       ////////////////////////////////////////////////////////////
@@ -259,7 +292,7 @@ export default {
         .append('circle')
         .merge(circleGroup)
         .attr('class', function(d, i) {
-          return 'streamer ' + d.display_name;
+          return 'streamer a' + d.display_name;
         })
         .attr('cx', function(d) {
           return xScale(d.view_count);
@@ -267,11 +300,14 @@ export default {
         .attr('cy', function(d) {
           return yScale(d.viewer_count);
         })
+        .on('click', d => {
+          this.selectedStreamer = d.id;
+        })
         .attr('r', '8')
         .style('opacity', opacityCircles)
         .style('fill', d => {
           return this.gameColor(d.game_id);
-        })
+        });
 
       ///////////////////////////////////////////////////////////////////////////
       /////////////////// Hover functions of the circles ////////////////////////
@@ -280,7 +316,7 @@ export default {
       //Hide the tooltip when the mouse moves away
       function removeTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.selectAll('.streamer.' + d.display_name);
+        const element = d3.selectAll('.streamer.a' + d.display_name);
 
         //Fade out the bubble again
         element.style('opacity', opacityCircles);
@@ -298,15 +334,32 @@ export default {
           .style('opacity', 0)
           .remove();
 
-          return tooltip.style('visibility', 'hidden');
+        return tooltip.style('visibility', 'hidden').style('display', 'none');
       } //function removeTooltip
 
       //Show the tooltip on the hovered over slice
       function showTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.select('.streamer.' + d.display_name),
+        const element = d3.select('.streamer.a' + d.display_name),
           el = element._groups[0];
-          tooltip.html('<h2 id="zoom_tooltip">' + d.display_name + '</h2>' + '<img src='+d.offline_image_url+' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' + '<p id="p_tooltip">'+d.title+'</p>');
+        if (d.offline_image_url == '') {
+          d.offline_image_url =
+            'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
+        }
+        tooltip.on('click', () => {
+          self.selectedStreamer = d.id;
+        });
+        tooltip.html(
+          '<h2 id="zoom_tooltip">' +
+            d.display_name +
+            '</h2>' +
+            '<img src=' +
+            d.offline_image_url +
+            ' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' +
+            '<p id="p_tooltip">' +
+            d.title +
+            '</p>'
+        );
 
         //Make chosen circle more visible
         element.style('opacity', 1);
@@ -373,29 +426,56 @@ export default {
           .duration(100)
           .style('opacity', 0.5);
 
-          return tooltip.style('visibility', 'visible');
+        return tooltip.style('visibility', 'visible').style('display', 'block');
       } //function showTooltip
     },
   },
 };
 </script>
 <style scoped lang="scss">
-
-.starCount{
-  float: left;
-}
-.staticHeadline{
-  color: white;
+.gameName {
+  width: 100vw;
+  margin: 0;
+  justify-content: center;
+  text-transform: uppercase;
   font-family: Lato;
   font-weight: 400;
-  font-size: 15px;
+  color: white;
+  font-size: 1.6vw;
+  letter-spacing: 2px;
+}
+.starCount {
+  float: left;
+  margin-top: -5%;
 }
 
-.changingValues{
-  color: #E81B5F;
+.dynamic-hover-details {
+  position: absolute;
+  right: 0px;
+  top: 30%;
+  flex-direction: column;
+  float: left;
+  text-transform: uppercase;
+  width: 15%;
+  display: flex;
+  // letter-spacing: 2px;
+  // font-size: 0.8vw;
+}
+.static-headline {
+  width: 100%;
+  display: block;
+  color: white;
+  font-family: Lato;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8vw;
+}
+
+.changingValues {
+  color: #e81b5f;
   font-family: Lato;
   font-weight: 300;
-  margin-bottom: 5%;
   font-size: 20px;
 }
 
@@ -420,5 +500,4 @@ export default {
   position: absolute;
   pointer-events: none;
 }
-
 </style>
