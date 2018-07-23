@@ -39,18 +39,6 @@ export default {
     this.getGame();
   },
   computed: {
-    isSelected() {
-      if (this.selectedStreamer) {
-        this.$store
-          .dispatch('getUserHistory', this.selectedStreamer)
-          .then(array => {
-            console.log(array);
-          });
-        return true;
-      } else {
-        return false;
-      }
-    },
     gameId() {
       return this.$route.params.id;
     },
