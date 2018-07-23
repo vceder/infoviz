@@ -5,7 +5,7 @@ const admin = require('firebase-admin');
 
 // Init Firebase Admin
 try {
-  admin.initializeApp(functions.config().firebase);
+  admin.initializeApp();
 } catch (e) {
   console.log('App already initialized...');
 }
@@ -36,8 +36,8 @@ let twitchToken;
 
 module.exports = functions.firestore
   .document('games/{gameId}')
-  .onCreate((event) => {
-    const newData = event.data.data();
+  .onCreate(change => {
+    const newData = change.data();
     if (twitchToken) {
       return twitch({
         method: 'get',
@@ -46,16 +46,16 @@ module.exports = functions.firestore
           Authorization: 'Bearer ' + access_token,
         },
       })
-        .then((response) => {
-          return event.data.ref.set(response.data.data[0], { merge: true });
+        .then(response => {
+          return change.ref.set(response.data.data[0], { merge: true });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return false;
         });
     } else {
       return getTwitchToken
-        .then((response) => {
+        .then(response => {
           access_token = response.data.access_token;
           return twitch({
             method: 'get',
@@ -65,10 +65,10 @@ module.exports = functions.firestore
             },
           });
         })
-        .then((response) => {
-          return event.data.ref.set(response.data.data[0], { merge: true });
+        .then(response => {
+          return change.ref.set(response.data.data[0], { merge: true });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return false;
         });

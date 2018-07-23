@@ -5,7 +5,7 @@ const moment = require('moment');
 
 // Init Firebase Admin
 try {
-  admin.initializeApp(functions.config().firebase);
+  admin.initializeApp();
 } catch (e) {
   console.log('App already initialized...');
 }
@@ -16,15 +16,13 @@ const FieldValue = admin.firestore.FieldValue;
 
 module.exports = functions.firestore
   .document('users/{userId}')
-  .onUpdate((event) => {
+  .onUpdate(change => {
     const timestamp = moment(FieldValue.serverTimestamp()).startOf('day');
-    const newData = event.data.data();
-    const prevData = event.data.previous.data();
+    const newData = change.after.data();
+    const prevData = change.before.data();
     console.log('prevData', prevData);
     console.log('newData', newData);
-    if (
-      moment(newData.timestamp).isAfter(prevData.timestamp)
-    ) {
+    if (moment(newData.timestamp).isAfter(prevData.timestamp)) {
       console.log('new timestamp');
       const avgCollection = db
         .collection('users')
@@ -34,7 +32,7 @@ module.exports = functions.firestore
       return avgCollection
         .doc(timestamp.format('YYYYMMDD'))
         .get()
-        .then((doc) => {
+        .then(doc => {
           if (!doc.exists) {
             return avgCollection.doc(timestamp.format('YYYYMMDD')).set({
               entries: 1,
@@ -55,7 +53,7 @@ module.exports = functions.firestore
             });
           }
         })
-        .catch((error) => {
+        .catch(error => {
           return false;
         });
     } else {

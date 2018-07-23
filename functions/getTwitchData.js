@@ -7,7 +7,7 @@ const moment = require('moment');
 
 // Init Firebase Admin
 try {
-  admin.initializeApp(functions.config().firebase);
+  admin.initializeApp();
 } catch (e) {
   console.log('App already initialized...');
 }
@@ -52,7 +52,7 @@ module.exports = functions.https.onRequest((req, res) => {
   let streamsData = {};
 
   getTwitchToken
-    .then((response) => {
+    .then(response => {
       access_token = response.data.access_token;
       return twitch({
         method: 'get',
@@ -66,7 +66,7 @@ module.exports = functions.https.onRequest((req, res) => {
         },
       });
     })
-    .then((response) => {
+    .then(response => {
       let usersParams = new URLSearchParams();
       const totalViewers = response.data.data.reduce((acc, stream) => {
         return acc + stream.viewer_count;
@@ -82,7 +82,7 @@ module.exports = functions.https.onRequest((req, res) => {
         total_viewers: totalViewers,
       };
 
-      response.data.data.forEach((stream) => {
+      response.data.data.forEach(stream => {
         usersParams.append('id', stream.user_id);
 
         usersData[stream.user_id] = Object.assign(
@@ -114,9 +114,9 @@ module.exports = functions.https.onRequest((req, res) => {
         },
       });
     })
-    .then((users) => {
+    .then(users => {
       // Loop over users
-      users.data.data.forEach((user) => {
+      users.data.data.forEach(user => {
         const userObj = Object.assign(usersData[user.id], user);
         streamsData.top100.push(userObj);
 
@@ -125,7 +125,7 @@ module.exports = functions.https.onRequest((req, res) => {
       });
 
       // Set games data
-      Object.keys(gamesData).forEach((key) => {
+      Object.keys(gamesData).forEach(key => {
         batch.set(gamesRef.doc(key), gamesData[key], { merge: true });
       });
 
@@ -134,10 +134,10 @@ module.exports = functions.https.onRequest((req, res) => {
 
       return batch.commit();
     })
-    .then((data) => {
+    .then(data => {
       return res.send('Success!');
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
       return res.status(500).send(error);
     });
