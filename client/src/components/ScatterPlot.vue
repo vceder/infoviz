@@ -22,7 +22,6 @@
 <script>
 import { mapState } from 'vuex';
 import Slider from '@/components/Slider.vue';
-import StreamerDetails from '@/components/StreamerDetails.vue';
 import * as d3 from 'd3';
 import gameColor from '../assets/js/colorsMixin.js';
 
