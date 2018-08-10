@@ -51,7 +51,7 @@ module.exports = functions.https.onRequest((req, res) => {
   let usersData = {};
   let streamsData = {};
 
-  getTwitchToken
+  return getTwitchToken
     .then(response => {
       access_token = response.data.access_token;
       return twitch({
@@ -134,7 +134,7 @@ module.exports = functions.https.onRequest((req, res) => {
 
       return batch.commit();
     })
-    .then(data => {
+    .then(() => {
       return res.send('Success!');
     })
     .catch(error => {
