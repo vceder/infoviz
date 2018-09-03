@@ -3,3 +3,4 @@
 
 exports.getTwitchData = require('./getTwitchData');
 exports.getGameMeta = require('./getGameMeta');
+exports.cleanUp = require('./cleanUp');
