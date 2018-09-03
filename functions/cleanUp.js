@@ -13,6 +13,11 @@ try {
 // Init the Firebase DB
 const db = admin.firestore();
 
+const getOld = snapshot =>
+  snapshot.filter(doc =>
+    moment(doc.data().timestamp).isBefore(moment().subtract(48, 'hours'))
+  );
+
 module.exports = functions.https.onRequest((req, res) => {
   const usersRef = db.collection('users');
   const gamesRef = db.collection('games');
@@ -21,19 +26,43 @@ module.exports = functions.https.onRequest((req, res) => {
   const gamesBatch = db.batch();
   const streamsBatch = db.batch();
 
-  usersRef
-    .limit(500)
-    .get()
-    .then(querySnapshot => {
-      const oldData = querySnapshot.filter(doc => {
-        return moment(doc.data().timestamp).isBefore(
-          moment().subtract(48, 'hours')
-        );
-      });
-      oldData.forEach(doc => {
+  return Promise.all([
+    usersRef.limit(500).get(),
+    gamesRef.limit(500).get(),
+    streamsRef.limit(500).get()
+  ])
+    .then(res => {
+      const [usersSnapshot, gamesSnapshot, streamsSnapshot] = res;
+
+      // Delete old users
+      const oldUsersData = getOld(usersSnapshot);
+      oldUsersData.forEach(doc => {
         usersBatch.delete(doc.id);
       });
 
-      return;
+      // Delete old games
+      const oldGamesData = getOld(gamesSnapshot);
+      oldGamesData.forEach(doc => {
+        gamesBatch.delete(doc.id);
+      });
+
+      // Delete old stream-objects
+      const oldStreamsData = getOld(streamsSnapshot);
+      oldStreamsData.forEach(doc => {
+        streamsBatch.delete(doc.id);
+      });
+
+      return Promise.all([
+        usersBatch.commit(),
+        gamesBatch.commit(),
+        streamsBatch.commit()
+      ]);
+    })
+    .then(() => {
+      return res.send('Success');
+    })
+    .catch(error => {
+      console.log(error);
+      return res.status(500).send(error);
     });
 });

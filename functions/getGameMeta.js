@@ -16,10 +16,10 @@ const FieldValue = admin.firestore.FieldValue;
 
 // Init Axios Twitch
 const twitch = axios.create({
-  baseURL: 'https://api.twitch.tv/helix',
+  baseURL: 'https://api.twitch.tv/helix'
 });
 const twitchAuth = axios.create({
-  baseURL: 'https://api.twitch.tv/kraken',
+  baseURL: 'https://api.twitch.tv/kraken'
 });
 
 const getTwitchToken = twitchAuth({
@@ -28,8 +28,8 @@ const getTwitchToken = twitchAuth({
   params: {
     client_id: functions.config().twitch.client_id,
     client_secret: functions.config().twitch.client_secret,
-    grant_type: 'client_credentials',
-  },
+    grant_type: 'client_credentials'
+  }
 });
 
 let twitchToken;
@@ -43,8 +43,8 @@ module.exports = functions.firestore
         method: 'get',
         url: '/games?id=' + newData.id,
         headers: {
-          Authorization: 'Bearer ' + access_token,
-        },
+          Authorization: 'Bearer ' + access_token
+        }
       })
         .then(response => {
           return change.ref.set(response.data.data[0], { merge: true });
@@ -61,8 +61,8 @@ module.exports = functions.firestore
             method: 'get',
             url: '/games?id=' + newData.id,
             headers: {
-              Authorization: 'Bearer ' + access_token,
-            },
+              Authorization: 'Bearer ' + access_token
+            }
           });
         })
         .then(response => {
