@@ -23,8 +23,7 @@ export default new Vuex.Store({
     starCount: 0,
     current: {},
     top100: {},
-    games: {},
-    users: {}
+    games: {}
   },
   mutations: {
     setTop100(state, top100) {
@@ -45,14 +44,8 @@ export default new Vuex.Store({
     setStarCount(state, number) {
       state.starCount = number;
     },
-    setUsers(state, users) {
-      state.users = users;
-    },
     addGame(state, gameObj) {
       state.games[gameObj.id] = gameObj;
-    },
-    setUser(state, obj) {
-      state.users[obj.id] = obj.userObj;
     }
   },
   actions: {
@@ -62,34 +55,6 @@ export default new Vuex.Store({
     },
     updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
-    },
-    getUserHistory({ commit, state }, id) {
-      return new Promise((resolve, reject) => {
-        if (!state.users[id].history) {
-          const userHistoryRef = db
-            .collection("users")
-            .doc(id)
-            .collection("daily_average");
-          userHistoryRef
-            .get()
-            .then(snapshot => {
-              let array = [];
-              snapshot.forEach(record => {
-                array.push(record.data());
-              });
-              const newUserObj = Object.assign(state.users[id], {
-                history: array
-              });
-              commit("setUser", { userObj: newUserObj, id: id });
-              resolve(array);
-            })
-            .catch(err => {
-              reject(err);
-            });
-        } else {
-          resolve(state.users[id].history);
-        }
-      });
     },
     getGameInfo({ state, commit }, id) {
       return new Promise((resolve, reject) => {
@@ -116,7 +81,6 @@ export default new Vuex.Store({
         commit("toggleLoading", false);
       } else {
         let top100 = {};
-        let users = {};
         const streamsRef = db.collection("streams");
         streamsRef
           .orderBy("timestamp", "desc")
@@ -140,7 +104,6 @@ export default new Vuex.Store({
                   timestamp: timestamp.toDate()
                 };
                 docData.top100.forEach(stream => {
-                  users[stream.user_id] = stream;
                   if (stream.game_id !== "") {
                     if (
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
@@ -176,7 +139,6 @@ export default new Vuex.Store({
             } else {
               time.minutes(0);
             }
-            commit("setUsers", users);
             commit("setTop100", top100);
             commit("setCurrent", state.top100[time.format("YYYYMMDDHHmm")]);
             commit("setStarCount", 200000);
