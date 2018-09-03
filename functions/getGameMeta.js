@@ -10,10 +10,6 @@ try {
   console.log('App already initialized...');
 }
 
-// Init the Firebase DB
-const db = admin.firestore();
-const FieldValue = admin.firestore.FieldValue;
-
 // Init Axios Twitch
 const twitch = axios.create({
   baseURL: 'https://api.twitch.tv/helix'
