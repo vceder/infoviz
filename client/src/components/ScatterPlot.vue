@@ -1,7 +1,7 @@
 <template>
-<div>
-  <div class="menuItems">
-		<a href="javascript:history.go(-1)" class="route_button2">Back</a>
+  <div>
+    <div class="menuItems">
+      <a href="javascript:history.go(-1)" class="route_button2">Back</a>
     </div>
     <div class="starCount">
       <div class="gameName">{{gameName}}</div>
@@ -11,11 +11,11 @@
       <div class="staticHeadline">Viewing this game</div>
       <div class="changingValues">{{this.current.games[gameId].totalViewers}}</div>
     </div>
-  <div class="cont">
-    <div id="chart"></div>
-		<Slider/>
-	</div>
-</div>
+    <div class="cont">
+      <div id="chart"></div>
+      <Slider/>
+    </div>
+  </div>
 </template>
 
 
@@ -39,18 +39,6 @@ export default {
     this.getGame();
   },
   computed: {
-    isSelected() {
-      if (this.selectedStreamer) {
-        this.$store
-          .dispatch('getUserHistory', this.selectedStreamer)
-          .then(array => {
-            console.log(array);
-          });
-        return true;
-      } else {
-        return false;
-      }
-    },
     gameId() {
       return this.$route.params.id;
     },

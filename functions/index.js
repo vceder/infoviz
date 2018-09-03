@@ -3,5 +3,4 @@
 
 exports.getTwitchData = require('./getTwitchData');
 exports.getGameMeta = require('./getGameMeta');
-exports.calcUserAvg = require('./calcUserAvg');
-exports.calcGameAvg = require('./calcGameAvg');
+exports.cleanUp = require('./cleanUp');

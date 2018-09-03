@@ -7,7 +7,7 @@ const moment = require('moment');
 
 // Init Firebase Admin
 try {
-  admin.initializeApp(functions.config().firebase);
+  admin.initializeApp();
 } catch (e) {
   console.log('App already initialized...');
 }
@@ -18,10 +18,10 @@ const FieldValue = admin.firestore.FieldValue;
 
 // Init Axios Twitch
 const twitch = axios.create({
-  baseURL: 'https://api.twitch.tv/helix',
+  baseURL: 'https://api.twitch.tv/helix'
 });
 const twitchAuth = axios.create({
-  baseURL: 'https://api.twitch.tv/kraken',
+  baseURL: 'https://api.twitch.tv/kraken'
 });
 
 const getTwitchToken = twitchAuth({
@@ -30,8 +30,8 @@ const getTwitchToken = twitchAuth({
   params: {
     client_id: functions.config().twitch.client_id,
     client_secret: functions.config().twitch.client_secret,
-    grant_type: 'client_credentials',
-  },
+    grant_type: 'client_credentials'
+  }
 });
 
 module.exports = functions.https.onRequest((req, res) => {
@@ -51,22 +51,22 @@ module.exports = functions.https.onRequest((req, res) => {
   let usersData = {};
   let streamsData = {};
 
-  getTwitchToken
-    .then((response) => {
+  return getTwitchToken
+    .then(response => {
       access_token = response.data.access_token;
       return twitch({
         method: 'get',
         url: '/streams',
         params: {
           first: 100,
-          type: 'live',
+          type: 'live'
         },
         headers: {
-          Authorization: 'Bearer ' + access_token,
-        },
+          Authorization: 'Bearer ' + access_token
+        }
       });
     })
-    .then((response) => {
+    .then(response => {
       let usersParams = new URLSearchParams();
       const totalViewers = response.data.data.reduce((acc, stream) => {
         return acc + stream.viewer_count;
@@ -79,15 +79,15 @@ module.exports = functions.https.onRequest((req, res) => {
         timestamp: timestamp.toDate(),
         top100: [],
         average_viewers: averageViewers,
-        total_viewers: totalViewers,
+        total_viewers: totalViewers
       };
 
-      response.data.data.forEach((stream) => {
+      response.data.data.forEach(stream => {
         usersParams.append('id', stream.user_id);
 
         usersData[stream.user_id] = Object.assign(
           {
-            timestamp: timestamp.toDate(),
+            timestamp: timestamp.toDate()
           },
           stream
         );
@@ -99,10 +99,10 @@ module.exports = functions.https.onRequest((req, res) => {
               gamesData[stream.game_id].viewer_count + stream.viewer_count;
           } else {
             gamesData[stream.game_id] = {
-              viewer_count: stream.viewer_count,
+              viewer_count: stream.viewer_count
             };
           }
-          gamesData[stream.game_id].last_timestamp = timestamp.toDate();
+          gamesData[stream.game_id].timestamp = timestamp.toDate();
           gamesData[stream.game_id].id = stream.game_id;
         }
       });
@@ -110,13 +110,13 @@ module.exports = functions.https.onRequest((req, res) => {
         method: 'get',
         url: '/users?' + usersParams.toString(),
         headers: {
-          Authorization: 'Bearer ' + access_token,
-        },
+          Authorization: 'Bearer ' + access_token
+        }
       });
     })
-    .then((users) => {
+    .then(users => {
       // Loop over users
-      users.data.data.forEach((user) => {
+      users.data.data.forEach(user => {
         const userObj = Object.assign(usersData[user.id], user);
         streamsData.top100.push(userObj);
 
@@ -125,7 +125,7 @@ module.exports = functions.https.onRequest((req, res) => {
       });
 
       // Set games data
-      Object.keys(gamesData).forEach((key) => {
+      Object.keys(gamesData).forEach(key => {
         batch.set(gamesRef.doc(key), gamesData[key], { merge: true });
       });
 
@@ -134,10 +134,10 @@ module.exports = functions.https.onRequest((req, res) => {
 
       return batch.commit();
     })
-    .then((data) => {
+    .then(() => {
       return res.send('Success!');
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
       return res.status(500).send(error);
     });

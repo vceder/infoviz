@@ -163,3 +163,5 @@ GitHub.sublime-settings
 /build/*
 
 **/.runtimeconfig.json
+
+.firebase

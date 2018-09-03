@@ -5,21 +5,17 @@ const admin = require('firebase-admin');
 
 // Init Firebase Admin
 try {
-  admin.initializeApp(functions.config().firebase);
+  admin.initializeApp();
 } catch (e) {
   console.log('App already initialized...');
 }
 
-// Init the Firebase DB
-const db = admin.firestore();
-const FieldValue = admin.firestore.FieldValue;
-
 // Init Axios Twitch
 const twitch = axios.create({
-  baseURL: 'https://api.twitch.tv/helix',
+  baseURL: 'https://api.twitch.tv/helix'
 });
 const twitchAuth = axios.create({
-  baseURL: 'https://api.twitch.tv/kraken',
+  baseURL: 'https://api.twitch.tv/kraken'
 });
 
 const getTwitchToken = twitchAuth({
@@ -28,47 +24,47 @@ const getTwitchToken = twitchAuth({
   params: {
     client_id: functions.config().twitch.client_id,
     client_secret: functions.config().twitch.client_secret,
-    grant_type: 'client_credentials',
-  },
+    grant_type: 'client_credentials'
+  }
 });
 
 let twitchToken;
 
 module.exports = functions.firestore
   .document('games/{gameId}')
-  .onCreate((event) => {
-    const newData = event.data.data();
+  .onCreate(change => {
+    const newData = change.data();
     if (twitchToken) {
       return twitch({
         method: 'get',
         url: '/games?id=' + newData.id,
         headers: {
-          Authorization: 'Bearer ' + access_token,
-        },
+          Authorization: 'Bearer ' + access_token
+        }
       })
-        .then((response) => {
-          return event.data.ref.set(response.data.data[0], { merge: true });
+        .then(response => {
+          return change.ref.set(response.data.data[0], { merge: true });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return false;
         });
     } else {
       return getTwitchToken
-        .then((response) => {
+        .then(response => {
           access_token = response.data.access_token;
           return twitch({
             method: 'get',
             url: '/games?id=' + newData.id,
             headers: {
-              Authorization: 'Bearer ' + access_token,
-            },
+              Authorization: 'Bearer ' + access_token
+            }
           });
         })
-        .then((response) => {
-          return event.data.ref.set(response.data.data[0], { merge: true });
+        .then(response => {
+          return change.ref.set(response.data.data[0], { merge: true });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return false;
         });
