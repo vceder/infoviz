@@ -51,7 +51,6 @@ export default new Vuex.Store({
   actions: {
     updateCurrent({ commit, state }, timestamp) {
       commit("setCurrent", state.top100[timestamp]);
-      // commit("setStarCount", state.top100[timestamp].totalViewers);
     },
     updateStarCount({ commit, state }, timestamp) {
       commit("setStarCount", state.top100[timestamp].totalViewers);
@@ -115,8 +114,7 @@ export default new Vuex.Store({
                       ].streams.push(stream);
                       top100[timestamp.format("YYYYMMDDHHmm")].games[
                         stream.game_id
-                      ].totalViewers +=
-                        stream.viewer_count;
+                      ].totalViewers += stream.viewer_count;
                     } else {
                       top100[timestamp.format("YYYYMMDDHHmm")].totalGames++;
                       top100[timestamp.format("YYYYMMDDHHmm")].games[

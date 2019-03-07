@@ -35,7 +35,7 @@ module.exports = functions.https.onRequest((req, res) => {
     streamsRef
       .where('timestamp', '<', date)
       .limit(500)
-      .get()
+      .get(),
   ])
     .then(res => {
       const [usersSnapshot, gamesSnapshot, streamsSnapshot] = res;
@@ -58,7 +58,7 @@ module.exports = functions.https.onRequest((req, res) => {
       return Promise.all([
         usersBatch.commit(),
         gamesBatch.commit(),
-        streamsBatch.commit()
+        streamsBatch.commit(),
       ]);
     })
     .then(() => {
