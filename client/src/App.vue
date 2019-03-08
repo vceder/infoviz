@@ -12,32 +12,32 @@
 
 <script>
 // @ is an alias to /src
-import Loading from '@/components/Loading.vue';
-import Particles from '@/components/Particles.vue';
-import { mapState } from 'vuex';
+import Loading from "@/components/Loading.vue";
+import Particles from "@/components/Particles.vue";
+import { mapState } from "vuex";
 
 export default {
-  name: 'app',
+  name: "app",
   computed: {
-    ...mapState(['isLoading']),
+    ...mapState(["isLoading"])
   },
   components: {
     Loading,
-    Particles,
+    Particles
   },
   mounted() {
-    this.$store.dispatch('getTop100');
-  },
+    this.$store.dispatch("getTop100");
+  }
 };
 </script>
 
 
 <style lang="scss">
-@import './assets/style/global.scss';
+@import "./assets/style/global.scss";
 #app {
   height: 100vh;
   width: 100vw;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

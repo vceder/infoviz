@@ -18,10 +18,10 @@ const FieldValue = admin.firestore.FieldValue;
 
 // Init Axios Twitch
 const twitch = axios.create({
-  baseURL: 'https://api.twitch.tv/helix'
+  baseURL: 'https://api.twitch.tv/helix',
 });
 const twitchAuth = axios.create({
-  baseURL: 'https://api.twitch.tv/kraken'
+  baseURL: 'https://api.twitch.tv/kraken',
 });
 
 const getTwitchToken = twitchAuth({
@@ -30,8 +30,8 @@ const getTwitchToken = twitchAuth({
   params: {
     client_id: functions.config().twitch.client_id,
     client_secret: functions.config().twitch.client_secret,
-    grant_type: 'client_credentials'
-  }
+    grant_type: 'client_credentials',
+  },
 });
 
 module.exports = functions.https.onRequest((req, res) => {
@@ -59,11 +59,11 @@ module.exports = functions.https.onRequest((req, res) => {
         url: '/streams',
         params: {
           first: 100,
-          type: 'live'
+          type: 'live',
         },
         headers: {
-          Authorization: 'Bearer ' + access_token
-        }
+          Authorization: 'Bearer ' + access_token,
+        },
       });
     })
     .then(response => {
@@ -79,7 +79,7 @@ module.exports = functions.https.onRequest((req, res) => {
         timestamp: timestamp.toDate(),
         top100: [],
         average_viewers: averageViewers,
-        total_viewers: totalViewers
+        total_viewers: totalViewers,
       };
 
       response.data.data.forEach(stream => {
@@ -87,7 +87,7 @@ module.exports = functions.https.onRequest((req, res) => {
 
         usersData[stream.user_id] = Object.assign(
           {
-            timestamp: timestamp.toDate()
+            timestamp: timestamp.toDate(),
           },
           stream
         );
@@ -99,7 +99,7 @@ module.exports = functions.https.onRequest((req, res) => {
               gamesData[stream.game_id].viewer_count + stream.viewer_count;
           } else {
             gamesData[stream.game_id] = {
-              viewer_count: stream.viewer_count
+              viewer_count: stream.viewer_count,
             };
           }
           gamesData[stream.game_id].timestamp = timestamp.toDate();
@@ -110,8 +110,8 @@ module.exports = functions.https.onRequest((req, res) => {
         method: 'get',
         url: '/users?' + usersParams.toString(),
         headers: {
-          Authorization: 'Bearer ' + access_token
-        }
+          Authorization: 'Bearer ' + access_token,
+        },
       });
     })
     .then(users => {

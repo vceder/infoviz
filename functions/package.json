@@ -2,7 +2,7 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "engines": {
-    "node": "8.11.4"
+    "node": "8"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
@@ -15,10 +15,10 @@
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "firebase-admin": "^6.0.0",
-    "firebase-functions": "^2.0.5",
-    "moment": "^2.20.1",
+    "express": "^4.16.4",
+    "firebase-admin": "^6.5.1",
+    "firebase-functions": "^2.2.0",
+    "moment": "^2.24.0",
     "url-search-params": "^0.10.0"
   },
   "devDependencies": {
