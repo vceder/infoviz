@@ -94,7 +94,7 @@ export default new Vuex.Store({
             } else {
               querySnapshot.forEach(doc => {
                 const docData = doc.data();
-                const timestamp = moment(docData.timestamp);
+                const timestamp = moment(docData.timestamp.toDate());
                 top100[timestamp.format("YYYYMMDDHHmm")] = {
                   averageViewers: docData.average_viewers,
                   totalViewers: docData.total_viewers,

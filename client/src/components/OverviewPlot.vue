@@ -14,29 +14,37 @@
       </div>
     </div>
     <div v-bind:style="chartSize" id="overview-chart">
-      <div v-for="(game, id) in current.games" :key="id" class="game" :style="getPosition(id)" @click="goToId(id)" @mouseenter="(event) => { mouseOver(event, id) }" @mouseleave="mouseLeave" >
+      <div
+        v-for="(game, id) in current.games"
+        :key="id"
+        class="game"
+        :style="getPosition(id)"
+        @click="goToId(id)"
+        @mouseenter="(event) => { mouseOver(event, id) }"
+        @mouseleave="mouseLeave"
+      >
         <Thumbnailplot :streams="current.games[id].streams" :width="tmbWidth"/>
       </div>
-    <Slider/>
+      <Slider/>
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HoverDetails from '@/components/HoverDetails.vue';
-import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue';
-import Thumbnailplot from '@/components/ThumbnailPlot.vue';
-import * as d3 from 'd3';
+import HoverDetails from "@/components/HoverDetails.vue";
+import { mapState } from "vuex";
+import Slider from "@/components/Slider.vue";
+import Thumbnailplot from "@/components/ThumbnailPlot.vue";
+import * as d3 from "d3";
 
 export default {
-  name: 'overview',
+  name: "overview",
   data() {
     return {
       currentGameId: false,
       chartWidth: document.documentElement.clientWidth * 0.9,
-      chartHeight: document.documentElement.clientHeight * 0.7,
+      chartHeight: document.documentElement.clientHeight * 0.7
     };
   },
   computed: {
@@ -52,19 +60,21 @@ export default {
     },
     chartSize() {
       return {
-        width: String(this.chartWidth) + 'px',
-        height: String(this.chartHeight) + 'px',
+        width: String(this.chartWidth) + "px",
+        height: String(this.chartHeight) + "px"
       };
     },
-    ...mapState(['current']),
+    ...mapState({
+      current: state => state.current
+    })
   },
   components: {
     Slider,
     Thumbnailplot,
-    HoverDetails,
+    HoverDetails
   },
   mounted() {
-    console.log('Mounted');
+    console.log("Mounted");
   },
   methods: {
     mouseOver: function(event, gameID) {
@@ -76,8 +86,8 @@ export default {
     goToId(id) {
       console.log(id);
       this.$router.push({
-        name: 'game',
-        params: { id },
+        name: "game",
+        params: { id }
       });
     },
     getPosition(id) {
@@ -97,11 +107,11 @@ export default {
         .range([this.chartHeight - this.tmbWidth, 0]);
 
       return {
-        top: String(yScale(this.current.games[id].totalViewers)) + 'px',
-        left: String(xScale(id)) + 'px',
+        top: String(yScale(this.current.games[id].totalViewers)) + "px",
+        left: String(xScale(id)) + "px"
       };
-    },
-  },
+    }
+  }
 };
 </script>
 
