@@ -2,7 +2,7 @@
   "name": "functions",
   "description": "Cloud Functions for Firebase",
   "engines": {
-    "node": "8.11.4"
+    "node": "8"
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint .",
