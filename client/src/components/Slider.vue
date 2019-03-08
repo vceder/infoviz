@@ -27,8 +27,10 @@ export default {
     vueSlider
   },
   computed: {
-    ...mapState(["top100"]),
-    ...mapState(["current"])
+    ...mapState({
+      current: state => state.current,
+      top100: state => state.top100
+    })
   },
   methods: {
     getData() {
@@ -36,12 +38,6 @@ export default {
     },
     getCurrent() {
       if (this.current) {
-        // console.log("Current: ", this.current)
-        // console.log("Raw timestamp: " , this.current.timestamp)
-        // console.log("Parsed: ", moment(this.current.timestamp).format("YYYYMMDDHHmm"))
-        // console.log("Data key: ", this.options.data[this.options.data.length -1])
-        // console.log("DÅ")
-        // this.options.piecewiseStyle.backgroundColor = "#fff"
         return moment(this.current.timestamp).format("YYYYMMDDHHmm");
       }
       return this.options.data[this.options.data.length - 1];
