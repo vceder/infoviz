@@ -9,17 +9,17 @@
 
 
 <script>
-import * as d3 from 'd3';
-import gameColor from '../assets/js/colorsMixin.js';
+import * as d3 from "d3";
+import gameColor from "../assets/js/colorsMixin.js";
 
 export default {
   mixins: [gameColor],
-  name: 'ThumbnailPlot',
-  props: ['streams', 'width'],
+  name: "ThumbnailPlot",
+  props: ["streams", "width"],
   data() {
     return {
       radius: 5,
-      opacityCircles: 0.7,
+      opacityCircles: 0.7
     };
   },
   watch: {
@@ -28,7 +28,7 @@ export default {
     },
     streams() {
       this.createPlot();
-    },
+    }
   },
   methods: {
     xScale(num) {
@@ -55,8 +55,8 @@ export default {
     },
     createPlot() {
       const tmbPlot = d3
-        .select('#chart-' + this.gameId)
-        .selectAll('circle')
+        .select("#chart-" + this.gameId)
+        .selectAll("circle")
         .data(this.streams, d => {
           return d.user_id;
         });
@@ -65,32 +65,31 @@ export default {
 
       tmbPlot
         .enter()
-        .append('circle')
-        .attr('class', 'tmb-plot')
+        .append("circle")
+        .attr("class", "tmb-plot")
         .merge(tmbPlot)
-        .attr('cx', d => {
+        .attr("cx", d => {
           return this.xScale(d.view_count);
         })
-        .attr('cy', d => {
+        .attr("cy", d => {
           return this.yScale(d.viewer_count);
         })
-        .attr('r', this.radius)
-        .style('opacity', this.opacityCircles)
-        .style('fill', d => {
+        .attr("r", this.radius)
+        .style("opacity", this.opacityCircles)
+        .style("fill", d => {
           return this.gameColor(d.game_id);
         });
-    },
+    }
   },
   computed: {
     gameId() {
       return this.streams[0].game_id;
-    },
+    }
   },
   mounted() {
     this.createPlot();
-  },
+  }
 };
 </script>
 <style scoped lang="scss">
-
 </style>

@@ -20,18 +20,18 @@
 
 
 <script>
-import { mapState } from 'vuex';
-import Slider from '@/components/Slider.vue';
-import * as d3 from 'd3';
-import gameColor from '../assets/js/colorsMixin.js';
+import { mapState } from "vuex";
+import Slider from "@/components/Slider.vue";
+import * as d3 from "d3";
+import gameColor from "../assets/js/colorsMixin.js";
 
 export default {
   mixins: [gameColor],
-  name: 'ScatterPlot',
+  name: "ScatterPlot",
   data() {
     return {
-      gameName: '',
-      selectedStreamer: '',
+      gameName: "",
+      selectedStreamer: ""
     };
   },
   mounted() {
@@ -48,17 +48,17 @@ export default {
         : [];
       return streams;
     },
-    ...mapState(['current', 'games']),
+    ...mapState(["current", "games"])
   },
   components: {
-    Slider,
+    Slider
   },
   watch: {
     current() {
       this.initScatter();
-    },
+    }
   },
-  props: ['gameID'],
+  props: ["gameID"],
   methods: {
     getGame() {
       if (this.games[this.gameId]) {
@@ -66,7 +66,7 @@ export default {
         return true;
       } else {
         this.$store
-          .dispatch('getGameInfo', this.gameId)
+          .dispatch("getGameInfo", this.gameId)
           .then(res => {
             this.gameName = res.name;
             return true;
@@ -85,42 +85,42 @@ export default {
           left: document.documentElement.clientWidth * 0.03,
           top: document.documentElement.clientWidth * 0.04,
           right: document.documentElement.clientWidth * 0.05,
-          bottom: document.documentElement.clientWidth * 0.04,
+          bottom: document.documentElement.clientWidth * 0.04
         },
         width = document.documentElement.clientWidth / 1.3,
         height = document.documentElement.clientHeight / 1.4;
 
-      d3.select('svg').remove();
+      d3.select("svg").remove();
 
       const svg = d3
-        .select('#chart')
-        .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom);
+        .select("#chart")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
 
       const wrapper = svg
-        .append('g')
-        .attr('class', 'chordWrapper')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+        .append("g")
+        .attr("class", "chordWrapper")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       const tooltip = d3
-        .select('#chart')
-        .append('div')
-        .attr('id', 'tooltip')
-        .style('position', 'absolute')
-        .style('display', 'block')
-        .style('visibility', 'hidden')
-        .style('color', 'white')
-        .style('background-color', '#242625')
-        .style('opacity', 0.8)
-        .style('border-radius', '8px')
-        .style('font-family', 'Lato')
-        .style('text-align', 'center')
-        .style('padding', '2px')
-        .style('word-wrap', 'break-word')
-        .style('max-width', '400px')
-        .style('z-index', 1000)
-        .text('');
+        .select("#chart")
+        .append("div")
+        .attr("id", "tooltip")
+        .style("position", "absolute")
+        .style("display", "block")
+        .style("visibility", "hidden")
+        .style("color", "white")
+        .style("background-color", "#242625")
+        .style("opacity", 0.8)
+        .style("border-radius", "8px")
+        .style("font-family", "Lato")
+        .style("text-align", "center")
+        .style("padding", "2px")
+        .style("word-wrap", "break-word")
+        .style("max-width", "400px")
+        .style("z-index", 1000)
+        .text("");
 
       //////////////////////////////////////////////////////
       ///////////// Initialize Axes & Scales ///////////////
@@ -146,16 +146,16 @@ export default {
         .ticks(4)
         .tickFormat(function(d) {
           return xScale.tickFormat(4, function(d) {
-            return d3.format('.2s')(d);
+            return d3.format(".2s")(d);
           })(d);
         })
         .scale(xScale);
       //Append the x-axis
       wrapper
-        .append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(' + 0 + ',' + height + ')')
-        .style('stroke', 'white')
+        .append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(" + 0 + "," + height + ")")
+        .style("stroke", "white")
         .call(xAxis);
 
       //Set the new y axis range
@@ -175,10 +175,10 @@ export default {
         .scale(yScale);
       //Append the y-axis
       wrapper
-        .append('g')
-        .attr('class', 'y axis')
-        .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
-        .style('stroke', 'white')
+        .append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(" + 0 + "," + 0 + ")")
+        .style("stroke", "white")
         .call(yAxis);
 
       //////////////////////////////////////////////////////
@@ -187,32 +187,32 @@ export default {
 
       //Set up X axis label
       wrapper
-        .append('g')
-        .append('text')
-        .attr('class', 'x title')
-        .attr('text-anchor', 'end')
-        .style('font-size', '12px')
-        .style('font-family', 'Lato')
-        .style('font-weight', '400')
-        .style('stroke', 'white')
+        .append("g")
+        .append("text")
+        .attr("class", "x title")
+        .attr("text-anchor", "end")
+        .style("font-size", "12px")
+        .style("font-family", "Lato")
+        .style("font-weight", "400")
+        .style("stroke", "white")
         .attr(
-          'transform',
-          'translate(' + (width + 15) + ',' + (height - 10) + ')'
+          "transform",
+          "translate(" + (width + 15) + "," + (height - 10) + ")"
         )
-        .text('Life time views');
+        .text("Life time views");
 
       //Set up y axis label
       wrapper
-        .append('g')
-        .append('text')
-        .attr('class', 'y title')
-        .attr('text-anchor', 'end')
-        .style('font-size', '12px')
-        .style('font-family', 'Lato')
-        .style('font-weight', '400')
-        .style('stroke', 'white')
-        .attr('transform', 'translate(18, 0) rotate(-90)')
-        .text('Current Viewers');
+        .append("g")
+        .append("text")
+        .attr("class", "y title")
+        .attr("text-anchor", "end")
+        .style("font-size", "12px")
+        .style("font-family", "Lato")
+        .style("font-weight", "400")
+        .style("stroke", "white")
+        .attr("transform", "translate(18, 0) rotate(-90)")
+        .text("Current Viewers");
 
       ////////////////////////////////////////////////////////////
       ///// Capture mouse events and voronoi.find() the site /////
@@ -220,7 +220,7 @@ export default {
 
       // Use the same variables of the data in the .x and .y as used in the cx and cy of the circle call
       svg._tooltipped = svg._voronoi = null;
-      svg.on('mousemove', function() {
+      svg.on("mousemove", function() {
         if (!svg._voronoi) {
           svg._voronoi = d3
             .voronoi()
@@ -247,15 +247,15 @@ export default {
           svg._tooltipped = site;
         }
         if (d3.event.pageY < document.documentElement.clientHeight / 2) {
-          tooltip.style('top', d3.event.pageY - 120 + 'px');
+          tooltip.style("top", d3.event.pageY - 120 + "px");
         } else {
-          tooltip.style('top', d3.event.pageY - 220 + 'px');
+          tooltip.style("top", d3.event.pageY - 220 + "px");
         }
 
         if (d3.event.pageX < document.documentElement.clientWidth / 2) {
-          tooltip.style('left', d3.event.pageX + 10 + 'px');
+          tooltip.style("left", d3.event.pageX + 10 + "px");
         } else {
-          tooltip.style('left', d3.event.pageX - 400 + 'px');
+          tooltip.style("left", d3.event.pageX - 400 + "px");
         }
 
         return tooltip;
@@ -267,32 +267,32 @@ export default {
 
       //Initiate a group element for the circles
       const circleGroup = wrapper
-        .append('g')
-        .attr('class', 'circleWrapper')
-        .selectAll('streamer')
+        .append("g")
+        .attr("class", "circleWrapper")
+        .selectAll("streamer")
         .data(streams);
 
       circleGroup.exit().remove();
       //Place the country circles
       circleGroup
         .enter()
-        .append('circle')
+        .append("circle")
         .merge(circleGroup)
-        .attr('class', function(d, i) {
-          return 'streamer a' + d.display_name;
+        .attr("class", function(d, i) {
+          return "streamer a" + d.display_name;
         })
-        .attr('cx', function(d) {
+        .attr("cx", function(d) {
           return xScale(d.view_count);
         })
-        .attr('cy', function(d) {
+        .attr("cy", function(d) {
           return yScale(d.viewer_count);
         })
-        .on('click', d => {
+        .on("click", d => {
           this.selectedStreamer = d.id;
         })
-        .attr('r', '8')
-        .style('opacity', opacityCircles)
-        .style('fill', d => {
+        .attr("r", "8")
+        .style("opacity", opacityCircles)
+        .style("fill", d => {
           return this.gameColor(d.game_id);
         });
 
@@ -303,120 +303,119 @@ export default {
       //Hide the tooltip when the mouse moves away
       function removeTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.selectAll('.streamer.a' + d.display_name);
+        const element = d3.selectAll(".streamer.a" + d.display_name);
 
         //Fade out the bubble again
-        element.style('opacity', opacityCircles);
+        element.style("opacity", opacityCircles);
 
         //Hide tooltip
-        d3.select('.popover').each(function() {
-          d3.select(this).style('visibility', 'hidden');
+        d3.select(".popover").each(function() {
+          d3.select(this).style("visibility", "hidden");
         });
 
         //Fade out guide lines, then remove them
-        d3
-          .selectAll('.guide')
+        d3.selectAll(".guide")
           .transition()
           .duration(100)
-          .style('opacity', 0)
+          .style("opacity", 0)
           .remove();
 
-        return tooltip.style('visibility', 'hidden').style('display', 'none');
+        return tooltip.style("visibility", "hidden").style("display", "none");
       } //function removeTooltip
 
       //Show the tooltip on the hovered over slice
       function showTooltip(d, i) {
         //Save the chosen circle (so not the voronoi)
-        const element = d3.select('.streamer.a' + d.display_name),
+        const element = d3.select(".streamer.a" + d.display_name),
           el = element._groups[0];
-        if (d.offline_image_url == '') {
+        if (d.offline_image_url == "") {
           d.offline_image_url =
-            'https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg';
+            "https://static-cdn.jtvnw.net/ttv-boxart/404_boxart-80x112.jpg";
         }
-        tooltip.on('click', () => {
+        tooltip.on("click", () => {
           self.selectedStreamer = d.id;
         });
         tooltip.html(
           '<h2 id="zoom_tooltip">' +
             d.display_name +
-            '</h2>' +
-            '<img src=' +
+            "</h2>" +
+            "<img src=" +
             d.offline_image_url +
             ' style="display:inline-block;max-width:200;max-height:170px;width:auto;height:auto;padding:10px;"/>' +
             '<p id="p_tooltip">' +
             d.title +
-            '</p>'
+            "</p>"
         );
 
         //Make chosen circle more visible
-        element.style('opacity', 1);
+        element.style("opacity", 1);
 
         //Place and show tooltip
-        const x = +element.attr('cx'),
-          y = +element.attr('cy'),
-          color = element.style('fill');
+        const x = +element.attr("cx"),
+          y = +element.attr("cy"),
+          color = element.style("fill");
 
         //Append lines to bubbles that will be used to show the precise data points
 
         //vertical line
         wrapper
-          .append('line')
-          .attr('class', 'guide')
-          .attr('x1', x)
-          .attr('x2', x)
-          .attr('y1', y)
-          .attr('y2', height + 20)
-          .style('stroke', color)
-          .style('opacity', 0)
+          .append("line")
+          .attr("class", "guide")
+          .attr("x1", x)
+          .attr("x2", x)
+          .attr("y1", y)
+          .attr("y2", height + 20)
+          .style("stroke", color)
+          .style("opacity", 0)
           .transition()
           .duration(100)
-          .style('opacity', 0.5);
+          .style("opacity", 0.5);
         //Value on the axis
         wrapper
-          .append('text')
-          .attr('class', 'guide')
-          .attr('x', x)
-          .attr('y', height + 38)
-          .style('fill', color)
-          .style('opacity', 0)
-          .style('text-anchor', 'middle')
-          .text(d3.format('.2s')(d.view_count))
+          .append("text")
+          .attr("class", "guide")
+          .attr("x", x)
+          .attr("y", height + 38)
+          .style("fill", color)
+          .style("opacity", 0)
+          .style("text-anchor", "middle")
+          .text(d3.format(".2s")(d.view_count))
           .transition()
           .duration(100)
-          .style('opacity', 0.5);
+          .style("opacity", 0.5);
 
         //horizontal line
         wrapper
-          .append('line')
-          .attr('class', 'guide')
-          .attr('x1', x)
-          .attr('x2', '1')
-          .attr('y1', y)
-          .attr('y2', y)
-          .style('stroke', color)
-          .style('opacity', 0)
+          .append("line")
+          .attr("class", "guide")
+          .attr("x1", x)
+          .attr("x2", "1")
+          .attr("y1", y)
+          .attr("y2", y)
+          .style("stroke", color)
+          .style("opacity", 0)
           .transition()
           .duration(100)
-          .style('opacity', 0.5);
+          .style("opacity", 0.5);
         //Value on the axis
         wrapper
-          .append('text')
-          .attr('class', 'guide')
-          .attr('x', '1')
-          .attr('y', y)
-          .attr('dy', '0.35em')
-          .style('fill', color)
-          .style('opacity', 0)
-          .style('text-anchor', 'end')
+          .append("text")
+          .attr("class", "guide")
+          .attr("x", "1")
+          .attr("y", y)
+          .attr("dy", "0.35em")
+          .style("fill", color)
+          .style("opacity", 0)
+          .style("text-anchor", "end")
           .text(d.viewer_count)
           .transition()
           .duration(100)
-          .style('opacity', 0.5);
+          .style("opacity", 0.5);
 
-        return tooltip.style('visibility', 'visible').style('display', 'block');
+        return tooltip.style("visibility", "visible").style("display", "block");
       } //function showTooltip
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

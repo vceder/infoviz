@@ -1,36 +1,36 @@
 <template>
-<div id="particles-js"></div>
+  <div id="particles-js"></div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import particlesSettings from '../assets/js/particlesSettings.js';
-require('particles.js');
+import { mapState } from "vuex";
+import particlesSettings from "../assets/js/particlesSettings.js";
+require("particles.js");
 
 export default {
-  name: 'Particles',
+  name: "Particles",
   data() {
     return {
-      settings: particlesSettings,
+      settings: particlesSettings
     };
   },
   computed: {
-    ...mapState(['starCount']),
+    ...mapState(["starCount"])
   },
   watch: {
     starCount() {
       if (this.starCount !== 0) {
         this.initParticles();
       }
-    },
+    }
   },
   methods: {
     initParticles() {
-      console.log('Star count: ', Math.round(this.starCount / 1000));
+      console.log("Star count: ", Math.round(this.starCount / 1000));
       this.settings.particles.number.value = Math.round(this.starCount / 1000);
-      particlesJS('particles-js', this.settings);
-    },
-  },
+      particlesJS("particles-js", this.settings);
+    }
+  }
 };
 </script>
 
