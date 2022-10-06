@@ -22,7 +22,7 @@
     "firebase-functions": "^2.2.0",
     "moment": "^2.24.0",
     "url-search-params": "^0.10.0",
-    "snyk": "^1.161.1"
+    "snyk": "^1.996.0"
   },
   "devDependencies": {
     "eslint": "^4.12.0",
